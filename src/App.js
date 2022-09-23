@@ -15,6 +15,7 @@ function App() {
 
 
   return (
+
     <>
     <NavBar />
       <ul>
@@ -43,6 +44,7 @@ function App() {
       </Routes>
     <Footers /> 
     </>
+
   );
 }
 
