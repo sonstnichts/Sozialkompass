@@ -1,16 +1,14 @@
-import React from 'react'
-import Question from './Questions' 
-
+import React from "react";
+import Question from "./Questions-new";
 
 class Mainbody extends React.Component {
-    render() {
-        return (
-          <div >
-            <Question/> 
-          </div>
-        );
-      }
-    }
+  render() {
+    return (
+      <div>
+        <Question />
+      </div>
+    );
+  }
+}
 
-
- export default Mainbody  
+export default Mainbody;
