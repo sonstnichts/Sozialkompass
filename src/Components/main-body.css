@@ -7,3 +7,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.cards{
+    width: 500px;
+    height: 500px;
+}

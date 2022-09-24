@@ -9,8 +9,11 @@ import MainbodyUKR from './Components/mainbodyUKR';
 import Footers from './Components/fußzeile'; 
 import Impressum from './Components/impressum';
 import Wohngeld from './Components/Wohngeld'; 
+import WohngeldUKR from './Components/WohngeldUKR'; 
 import Home from './Components/home';
-import LanguageSelector from "./Components/languageSwitcher"; 
+import HomeUKR from './Components/homeUKR';
+import NavBarUKR from './Components/navbarUKR';
+
 
 
 function App() {
@@ -19,38 +22,17 @@ function App() {
   return (
 
     <>
-    <NavBar />
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/main-body">Mainbody</Link>
-        </li>
-        <li>
-          <Link to="/mainbodyUKR">MainbodyUKR</Link>
-        </li>
-        <li>
-          <Link to="/results">Results</Link>
-        </li>
-        <li>
-          <Link to="/impressum">Impressum</Link>
-        </li>
-        <li>
-          <Link to="/wohngeld">Wohngeld</Link>
-        </li>
-        <li>
-          <Link to="/LanguageSelector">Sprache</Link>
-        </li>
-      </ul>
+      
       <Routes>
-        <Route path ="/" element = {<Home />} />
-        <Route path ="/main-body" element = {<Mainbody />} /> 
-        <Route path ="/mainbodyUKR" element = {<MainbodyUKR />} /> 
-        <Route path ="/results" element = {<Results/>} />
-        <Route path ="/impressum" element = {<Impressum />} />
-        <Route path ="/wohngeld" element = {<Wohngeld />} />
-        <Route path ="/LanguageSelector" element = {<LanguageSelector />} />
+        <Route path ="/" element = {<><NavBar /><Home /></>} />
+        <Route path ="/main-body" element = {<><NavBar /><Mainbody /></>} /> 
+        <Route path ="/mainbodyUKR" element = {<><NavBar /><MainbodyUKR /></>} /> 
+        <Route path ="/results" element = {<><NavBar /><Results/></>} />
+        <Route path ="/impressum" element = {<><NavBar /><Impressum /></>} />
+        <Route path ="/wohngeld" element = {<><NavBar /><Wohngeld /></>} />
+        <Route path ="/wohngeldUKR" element = {<><NavBar /><WohngeldUKR /></>} />
+        <Route path ="/ukr" element = {<><NavBarUKR/><WohngeldUKR/></>} /> 
+        <Route path ="/homeukr" element = {<><NavBarUKR/><HomeUKR/></>} /> 
       </Routes>
     <Footers /> 
     </>

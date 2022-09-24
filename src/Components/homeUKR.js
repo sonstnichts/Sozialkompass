@@ -7,7 +7,7 @@ import "./home.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function HomeUKR() {
   const navigate = useNavigate();
   return (
     <div className="container-fluid h-75 d-flex align-items-center justify-content-center">
@@ -26,9 +26,9 @@ function Home() {
             </Col>
             <Col xs={8} lassName="logoContainer">
               <Container>
-                <h1 className="logoFont sozialFont">Sozial</h1>
+                <h1 className="logoFont sozialFont">соціальний</h1>
                 <hr className="border border-dark border-2 opacity-100" />
-                <h1 className="align-top logoFont kompassFont">Kompass</h1>
+                <h1 className="align-top logoFont kompassFont">компас</h1>
               </Container>
             </Col>
           </Row>
@@ -41,9 +41,9 @@ function Home() {
               <button
                 class="btn btn-secondary btn-lg"
                 type="button"
-                onClick={() => navigate("/main-body")}
+                onClick={() => navigate("/mainbodyUKR")}
               >
-                Jetzt starten
+                розпочати зараз
               </button>{" "}
             </div>
           </Col>
@@ -55,4 +55,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeUKR;

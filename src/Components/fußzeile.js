@@ -1,54 +1,50 @@
- 
-import React from 'react';
-import { MDBFooter,
-         MDBContainer,
-         MDBCol,
-         MDBRow 
-        } from 'mdb-react-ui-kit';
+import React from "react";
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBIcon,
+} from "mdb-react-ui-kit";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Footers() {
+  const navigate = useNavigate();
   return (
-    <MDBFooter bgColor='light' className='text-center'>
-      <MDBContainer className='p-3'>
-        <MDBRow>
-          <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-            <h5 className="text-uppercase">Links</h5>
+   
 
-            <ul className="list-unstyled mb-4">
-              <li>
-                <a href="#!" className="text-dark">
-                  Link 1
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-dark">
-                  Link 4
-                </a>
-              </li>
-            </ul>
-          </MDBCol>
-        </MDBRow>
+    <MDBFooter
+      className="text-center text-white fixed-bottom"
+
+      bgColor="light"
+    >
+      <MDBContainer className="pt-4">
+        <section className="mb-4">
+          <Button variant="outline-secondary">Stadt Münster</Button>{" "}
+          <Button variant="outline-secondary">Über</Button>{" "}
+          <Button variant="outline-secondary">Datenschutz</Button>{" "}
+          <Button variant="outline-secondary" 
+          onClick={
+              () => navigate("/impressum")}>Impressum</Button>
+
+          
+        </section>
       </MDBContainer>
 
-      <div className='text-center p-3' style={{ backgroundColor: 'light' }}>
-        &copy; {new Date().getFullYear()} Copyright:{' '}
-        <a className='text-dark' href='https://www.prof-becker.de'>
-          sozialkompass.de 
+      <div
+        className="text-center text-dark p-3"
+        bgColor="light"
+      >
+        &copy; {new Date().getFullYear()} Copyright:{" "}
+        <a className="text-dark" href="https://www.prof-becker.de">
+          sozialkompass.de
         </a>
       </div>
     </MDBFooter>
+    //
   );
 }
 
 export default Footers;
-

@@ -1,10 +1,12 @@
 import React from "react"; 
+import "./Wohngeld.css"; 
 
 function Wohngeld(){
     return(
-        <div>
-            <h1> Wohngeld </h1>
-            <p>
+        <div className="Wohngeld">
+            
+          <h1> Wohngeld </h1>
+            <p> 
                 Wohngeld können Sie beziehen, wenn sie Geringverdiener sind und Inhaber von einer Wohnung oder Eigenheimen sind, 
                 während sie die Wohnkosten selbst tragen. 
                 Wohngeld wird nur auf Antrag gewährt. Es ist abhängig von <br/>
@@ -28,8 +30,7 @@ function Wohngeld(){
                 Weitere Informationen finden Sie auf folgender Seite: <br/>
                 https:"//www.stadt-muenster.de/wohnungsamt/der-wohngeldantrag" <br/>
 
-            </p>
-
+            </p> 
         </div>
 
 

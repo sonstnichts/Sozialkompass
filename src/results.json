@@ -1,16 +1,10 @@
 [
     {
-        "title": "Arbeitslosengeld",
-        "description" : "Ja das ist Kindergeld",
-        "link": "https://www.stadt-muenster.de/sozialamt/startseite",
-        "linkname": "Stadt Münster"
-
-    },
-    {
         "title": "Wohngeld",
-        "description" : "Ja das ist Wohngeld",
+        "description" : "Du könntest Anspruch auf Wohngeld haben",
         "link": "https://www.stadt-muenster.de/sozialamt/startseite",
-        "linkname": "Stadt Bielefeld"
+        "linkname": "Stadt Münster",
+        "adresse":"Amt für Wohnungswesen und Quartierentwicklung, Bahnhofstraße 8-10, 48155 Münster"
 
     }
 
