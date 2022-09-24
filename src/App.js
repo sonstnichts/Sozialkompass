@@ -9,6 +9,8 @@ import MainbodyUKR from './Components/mainbodyUKR';
 import Footers from './Components/fußzeile'; 
 import Impressum from './Components/impressum';
 import Wohngeld from './Components/Wohngeld'; 
+import Home from './Components/home';
+import LanguageSelector from "./Components/languageSwitcher"; 
 
 
 function App() {
@@ -19,6 +21,9 @@ function App() {
     <>
     <NavBar />
       <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>
           <Link to="/main-body">Mainbody</Link>
         </li>
@@ -34,13 +39,18 @@ function App() {
         <li>
           <Link to="/wohngeld">Wohngeld</Link>
         </li>
+        <li>
+          <Link to="/LanguageSelector">Sprache</Link>
+        </li>
       </ul>
       <Routes>
+        <Route path ="/" element = {<Home />} />
         <Route path ="/main-body" element = {<Mainbody />} /> 
         <Route path ="/mainbodyUKR" element = {<MainbodyUKR />} /> 
         <Route path ="/results" element = {<Results/>} />
         <Route path ="/impressum" element = {<Impressum />} />
         <Route path ="/wohngeld" element = {<Wohngeld />} />
+        <Route path ="/LanguageSelector" element = {<LanguageSelector />} />
       </Routes>
     <Footers /> 
     </>

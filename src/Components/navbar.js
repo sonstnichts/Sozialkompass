@@ -6,14 +6,15 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 
 
+
 function NavBar() {
   return (
+    
     <Navbar collapseOnSelect sticky="top" bg="light" expand="lg">
-      
        
             <Navbar.Brand href="#">
               <img
-                src={require("../assets/logo.png")}
+                src={require("../assets/logo/logo844x845.png")}
                 width="32px"
                 height="32px"
                 className="d-inline-block align-top"
