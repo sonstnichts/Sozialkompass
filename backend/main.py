@@ -1,6 +1,6 @@
 #from pymongo import MongoClient
 import json
-from algorithmus import Algorithmus
+from Algorithmus import Algorithmus
 from pathlib import Path
 
 # Mit Mongodb verbinden

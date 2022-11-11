@@ -1,5 +1,5 @@
 import copy
-from algorithmus import Algorithmus_bestandteile
+from Algorithmus import Algorithmus_bestandteile
 
 def baum_erstellen (antragsliste,attribute):
 
