@@ -1,6 +1,6 @@
 #from pymongo import MongoClient
 import json
-from Algorithmus import Algorithmus
+from algorithmus import Algorithmus
 from pathlib import Path
 
 # Mit Mongodb verbinden
@@ -21,12 +21,12 @@ def baum_laden():
 
     # Testdaten für Baum laden
 
-    data = open(dir / "Algorithmus/Antraege.json")
+    data = open(dir / "algorithmus/assets/Antraege.json")
     antragsliste = json.load(data)
 
     # Attribute laden
 
-    data = open(dir / "Algorithmus/Attribute.json")
+    data = open(dir / "algorithmus/assets/Attribute.json")
     attribute = json.load(data)
 
     # Baum mit Testdaten erstellen
@@ -46,6 +46,10 @@ baum["Postleitzahl"] = 48149
 # Baum ausgeben
 
 print(json.dumps(baum,indent=4))
+
+#Baum in Datei speichern (Fuer Debug)
+with open(dir / "algorithmus/assets/baum.json", "w") as fp:
+    json.dump(baum, fp)
 
 # Baum in MongoDB speichern
 
