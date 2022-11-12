@@ -8,9 +8,10 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 import datetime
 from flask_mongoengine import MongoEngine
 from flask_security import Security, MongoEngineUserDatastore, \
-    UserMixin, RoleMixin, auth_required
+    UserMixin, RoleMixin, auth_required, decorators
 from flask_wtf import CSRFProtect
 import bcrypt
+
 
 # no forms so no concept of flashing
 SECURITY_FLASH_MESSAGES = False
@@ -108,21 +109,33 @@ class SendTree(Resource):
         return json.load(baum) 
 
 class Register(Resource):
+    method_decorators = [jwt_required()]
     def post(self):
-        #Daten aus JSON POST anfragen
-        new_user = request.get_json()
+        #User Authentifizieren ob admin
+        current_user = get_jwt_identity()
+        user_from_db = app.security.datastore.find_user(email=current_user)
+        admin_role = app.security.datastore.find_role("admin")
+        user_roles = user_from_db.roles
 
-        #Salt ist ein Schutz fuer das Passwort beim hashen
-        salt = bcrypt.gensalt()
-        new_user["password"] = bcrypt.hashpw(new_user["password"].encode("utf-8"), salt)
+        if admin_role in user_roles:
+            
+            #Daten aus JSON POST anfragen
+            new_user = request.get_json()
 
-        #Kontrolle ob user schon in Datenbanl
-        if not app.security.datastore.find_user(email=new_user["email"]):
-            app.security.datastore.create_user(email=new_user["email"], password=new_user["password"]) 
-            return make_response(jsonify({"msg": "User created successfully"}), 201)
+            #Salt ist ein Schutz fuer das Passwort beim hashen
+            salt = bcrypt.gensalt()
+            new_user["password"] = bcrypt.hashpw(new_user["password"].encode("utf-8"), salt)
+
+            #Kontrolle ob user schon in Datenbank
+            if not app.security.datastore.find_user(email=new_user["email"]):
+                user = app.security.datastore.create_user(email=new_user["email"], password=new_user["password"])
+                #Jeder neue User muss eine Rolle erhalten, die Rolle ist die Stadt
+                app.security.datastore.add_role_to_user(user, new_user["role"]) 
+                return make_response(jsonify({"msg": "User created successfully"}), 201)
+            else:
+                return make_response(jsonify({"msg": "Username already exists"}), 409)
         else:
-            return make_response(jsonify({"msg": "Username already exists"}), 409)
-
+            return make_response(jsonify({"msg": "You don't have the permissions to create a user"}), 409)
 
 class Login(Resource):
     def post(self):
@@ -134,18 +147,54 @@ class Login(Resource):
         if user_from_db:
             #Passwort auf Korrektheit pruefen
             if bcrypt.checkpw(login_details["password"].encode("utf-8"),user_from_db["password"].encode("utf-8")):
-                print("match")
-                return make_response(jsonify({"msg": "Passwort korrekt!"}), 200)
+                access_token = create_access_token(identity=user_from_db["email"])
+                return make_response(jsonify(access_token=access_token), 200)
             
            
 
         return make_response(jsonify({'msg': 'The username or password is incorrect'}), 401)
 
 
+class Profile(Resource):
+    method_decorators = [jwt_required()]
+    def get(self):
+        current_user = get_jwt_identity()
+        user_from_db = app.security.datastore.find_user(email=current_user)
+        
+        if user_from_db:
+            del user_from_db.password
+            
+            return make_response(jsonify({"profile": user_from_db}), 200)
+        return make_response(jsonify({"msg": "Profile not found"}))
+
+#############LOESCHEN BEI BETRIEB
+class AdminCreator(Resource):
+ def post(self):
+        #Daten aus JSON POST anfragen
+        new_user = request.get_json()
+
+        #Salt ist ein Schutz fuer das Passwort beim hashen
+        salt = bcrypt.gensalt()
+        new_user["password"] = bcrypt.hashpw(new_user["password"].encode("utf-8"), salt)
+
+        #Kontrolle ob user schon in Datenbanl
+        if not app.security.datastore.find_user(email=new_user["email"]):
+            user =  app.security.datastore.create_user(email=new_user["email"], password=new_user["password"])
+            role = app.security.datastore.find_or_create_role(name = "admin")
+            app.security.datastore.add_role_to_user(user, role)
+            return make_response(jsonify({"msg": "User created successfully"}), 201)
+        else:
+            return make_response(jsonify({"msg": "Username already exists"}), 409)
+
+
+
+
 
 api.add_resource(SendTree, "/api/tree")
 api.add_resource(Register, "/api/register")
 api.add_resource(Login, "/api/login")
+api.add_resource(Profile, "/api/profile")
+api.add_resource(AdminCreator, "/api/admin")
 
 
 if __name__ == "__main__":  
