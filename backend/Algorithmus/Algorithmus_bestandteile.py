@@ -2,6 +2,7 @@
 
 # Scannt die Antragsliste nach allen vorhandenen Attributen und zählt, wie oft diese vorkommen.
 # Ergebnis wird als Dictionary ausgegeben
+
 def berechne_attribute(antragsliste):
 
     attribute = {}
@@ -32,7 +33,7 @@ def attribut_bestimmen(attributsliste):
 
 
 def teilbaum_erstellen(frage,ergebnismenge):
-    
+
     baum = {}
     baum["Frage"] = frage
     baum["Ergebnismenge"] = ergebnismenge
@@ -83,6 +84,9 @@ def spalten_loeschen(antragsliste_neu,frage):
     for delete_item in reversed(delete_columns):
         del antragsliste_neu[delete_item[0]]["Attribute"][delete_item[1]][frage]
 
+def append_new(antwortmoeglichkeiten, zeilen): #function that append new array values and correctly adapts correcting ones
+    return antwortmoeglichkeiten
+
 def antwortmöglichkeiten_generieren(antragsliste,frage,attribute):
 
     attributkategorie = attribute[frage]["Kategorie"]
@@ -94,13 +98,23 @@ def antwortmöglichkeiten_generieren(antragsliste,frage,attribute):
             return attribute[frage]["Antwortmoeglichkeiten"]
         
         # Im Fall Ganzzahl werden alle Möglichkeiten aus der Antragsliste mit allen Grenzen generiert
+        # THIS CASE ISN'T FINAL
+        # TODO check if the cast to string fucks something up elsewhere (it probably does)
+        # TODO implement append_new
         case "Ganzzahl":
-            antwortmoeglichkeiten = []
-            
-            for antrag in antragsliste.items():
+            antwortmoeglichkeiten = [] #array of possible answer arrays
+            antwortmoeglichkeitenFinal = [] #final array w/ string values
+
+            for antrag in antragsliste.items(): 
                 for bedingungen in antrag[1]["Attribute"]:
-                    for zeilen in bedingungen.values():
-                        if zeilen == frage:
-                            antwortmoeglichkeiten.append(zeilen)
-            return antwortmoeglichkeiten
-            # Erstelle Grenzen noch nicht fertig!
+                    for zeilen in bedingungen.values(): 
+                        if len(antwortmoeglichkeiten) == 0: #if the antwortmöglichkeiten array is empty
+                            if zeilen[0] != 0: #if the lower bound isnt zero
+                                antwortmoeglichkeiten.append([0, zeilen[1]-1]) #add a choice that is smaller than the array
+                            antwortmoeglichkeiten.append(zeilen) #add the actual array
+                            antwortmoeglichkeiten.append([zeilen[1]+1, 1000000]) #add a choice that is bigger than the array
+                        else: append_new(antwortmoeglichkeiten, zeilen) #compilcated adding process
+            # print(antwortmoeglichkeiten)
+            for i in antwortmoeglichkeiten: 
+                antwortmoeglichkeitenFinal.append(str(i)) #casts all antwortmoeglichkeiten to a string for the tree generation
+            return antwortmoeglichkeitenFinal #returns the string antwortmoeglichkeiten

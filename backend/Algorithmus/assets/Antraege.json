@@ -27,15 +27,18 @@
         "Attribute":
         [
             {
-                "Berufsstatus":"Auszubildender"
+                "Berufsstatus":"Auszubildender",
+                "Kinder_Anzahl": [1,100]
             },
             {
                 "Berufsstatus":"Berufstaetig",
-                "Familienstatus":"verheiratet"
+                "Familienstatus":"verheiratet",
+                "Kinder_Anzahl": [6,100]
             },
             {
                 "Berufsstatus":"Studierender",
-                "Familienstatus":"ledig"
+                "Familienstatus":"ledig",
+                "Kinder_Anzahl": [2,4]
             }
         ]
     }
