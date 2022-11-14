@@ -15,11 +15,14 @@
         "Attribute":
         [
             {
-                "Berufsstatus":"Auszubildender"
+                "Berufsstatus":"Auszubildender",
+                "Berufsstatus":"Auszubildender",
+                "Kinder_Anzahl": [9,50]
             },
             {
                 "Berufsstatus":"Auszubildender",
-                "Familienstatus":"verheiratet"
+                "Familienstatus":"verheiratet",
+                "Kinder_Anzahl": [85,89]
             }
         ]
     },
