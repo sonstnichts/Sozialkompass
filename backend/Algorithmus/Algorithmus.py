@@ -18,6 +18,7 @@ def baum_erstellen (antragsliste,attribute):
     # Bestimmt, welches Attribut als erstes abgefragt werden soll.
     # Anpassungen der Regel zur Auswahl des Attributs sollte in dieser Methode passieren.
     frage = Algorithmus_bestandteile.attribut_bestimmen(attributsliste)
+    questiontype = attribute[frage]["Kategorie"]
 
     # Template für einen Teilbaum bestimmen
     baum = Algorithmus_bestandteile.teilbaum_erstellen(frage,ergebnismenge)
@@ -32,7 +33,7 @@ def baum_erstellen (antragsliste,attribute):
         antragsliste_neu = copy.deepcopy(antragsliste)
 
         # Nicht relevante "Zeilen aus Datenbasis löschen"
-        Algorithmus_bestandteile.zeilen_loeschen(antragsliste_neu,frage,antwortmoeglichkeit)
+        Algorithmus_bestandteile.zeilen_loeschen(antragsliste_neu,frage,antwortmoeglichkeit,questiontype)
         
         # Prüfen, ob Anträge nicht mehr relevant sind und diese löschen.
         Algorithmus_bestandteile.antraege_entfernen(antragsliste_neu)
