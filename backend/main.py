@@ -31,7 +31,7 @@ def baum_laden():
 
     # Baum mit Testdaten erstellen
 
-    baum = Algorithmus.baum_erstellen(antragsliste,attribute)
+    baum = Algorithmus.baum_erstellen(antragsliste,attribute,[],[])
 
     return baum
 

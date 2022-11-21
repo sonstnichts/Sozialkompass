@@ -35,12 +35,15 @@ def attribut_bestimmen(attributsliste):
 
 
 
-def teilbaum_erstellen(frage,ergebnismenge):
+def teilbaum_erstellen(frage,ergebnismenge,skippedAttributes):
 
     baum = {}
     baum["Frage"] = frage
     baum["Ergebnismenge"] = ergebnismenge
     baum["Antworten"] = {}
+
+    if skippedAttributes:
+        baum["skippedAttributes"] = skippedAttributes
 
     return baum
 
@@ -104,6 +107,20 @@ def spalten_loeschen(antragsliste_neu,frage):
         del antragsliste_neu[delete_item[0]]["Attribute"][delete_item[1]][frage]
         if not antragsliste_neu[delete_item[0]]["Attribute"][delete_item[1]]:
             antragsliste_neu[delete_item[0]]["Attribute"].pop(delete_item[1])
+
+def acceptApplications(antragslisteNeu,acceptedApplicationsCopy):
+
+    acceptedApplications = []
+
+    for antrag in antragslisteNeu.items():
+        if not antrag[1]["Attribute"]:
+            acceptedApplications.append(antrag[0])
+            acceptedApplicationsCopy.append(antrag[0])
+
+    #Anträge entfernen
+
+    for antrag in acceptedApplications:
+        del antragslisteNeu[antrag]
 
 def antwortmöglichkeiten_generieren(applicationList,frage,attribute):
 
@@ -170,3 +187,18 @@ def antwortmöglichkeiten_generieren(applicationList,frage,attribute):
             # last entry with the highest upperbound and the maximum value is appended
             result.append(str([lastvalue+smallestUnit,maxInt]))
             return result
+
+def deleteRowsNoneOfTheAbove (antragslisteNeu,frage):
+
+    deleteRows = []
+
+    for antrag in antragslisteNeu.items():
+        for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
+            for zeilen in bedingungen.items():
+                if zeilen[0] == frage:
+                    deleteRows.append((antrag[0],idx))
+        
+    #delete rows
+
+    for deleteItem in reversed(deleteRows):
+        antragslisteNeu[deleteItem[0]]["Attribute"].pop(deleteItem[1])
