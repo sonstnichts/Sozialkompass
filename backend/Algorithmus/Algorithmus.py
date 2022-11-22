@@ -1,7 +1,7 @@
 import copy
 from Algorithmus import Algorithmus_bestandteile
 
-def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplications):
+def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplications, bruteForceDepth):
 
     # Bestimmt eine List der Anträge, welche noch in Frage kommen.
     ergebnismenge = Algorithmus_bestandteile.berechne_ergebnismenge(antragsliste)
@@ -21,7 +21,7 @@ def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplication
 
     # Bestimmt, welches Attribut als erstes abgefragt werden soll.
     # Anpassungen der Regel zur Auswahl des Attributs sollte in dieser Methode passieren.
-    frage = Algorithmus_bestandteile.attribut_bestimmen(attributsliste)
+    frage = Algorithmus_bestandteile.attribut_bestimmen(attribute, attributsliste, bruteForceDepth, antragsliste)
     questiontype = attribute[frage]["Kategorie"]
 
     # Template für einen Teilbaum bestimmen
@@ -50,7 +50,7 @@ def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplication
         Algorithmus_bestandteile.acceptApplications(antragsliste_neu,acceptedApplicationsCopy)
 
         # Antwortenteil des Teilbaumes rekursiv mit neuem Teilbaum füllen
-        baum["Antworten"][antwortmoeglichkeit] = baum_erstellen(antragsliste_neu,attribute,skippedAttributes,acceptedApplicationsCopy)
+        baum["Antworten"][antwortmoeglichkeit] = baum_erstellen(antragsliste_neu,attribute,skippedAttributes,acceptedApplicationsCopy, bruteForceDepth)
 
     # insert a skip option into the tree
     antragslisteNeu = copy.deepcopy(antragsliste)
@@ -59,7 +59,7 @@ def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplication
     skippedCopy.append(frage)
     acceptedApplicationsCopy = copy.deepcopy(acceptedApplications)
     Algorithmus_bestandteile.acceptApplications(antragslisteNeu,acceptedApplicationsCopy)
-    baum["skip"] = baum_erstellen(antragslisteNeu,attribute,skippedCopy,acceptedApplicationsCopy)
+    baum["skip"] = baum_erstellen(antragslisteNeu,attribute,skippedCopy,acceptedApplicationsCopy, bruteForceDepth)
 
     # insert a none of the above option in case of a category question
     if questiontype == "Auswahl":
@@ -67,7 +67,7 @@ def baum_erstellen (antragsliste,attribute,skippedAttributes,acceptedApplication
         Algorithmus_bestandteile.deleteRowsNoneOfTheAbove(antragslisteNeu,frage)
         Algorithmus_bestandteile.antraege_entfernen(antragslisteNeu)
         Algorithmus_bestandteile.spalten_loeschen(antragslisteNeu,frage)
-        baum["Nichts"] = baum_erstellen(antragslisteNeu,attribute,skippedAttributes,acceptedApplications)
+        baum["Nichts"] = baum_erstellen(antragslisteNeu,attribute,skippedAttributes,acceptedApplications, bruteForceDepth)
 
     return baum
 

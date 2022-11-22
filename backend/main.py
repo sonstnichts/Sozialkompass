@@ -30,8 +30,9 @@ def baum_laden():
     attribute = json.load(data)
 
     # Baum mit Testdaten erstellen
+    bruteForceDepth = 10
 
-    baum = Algorithmus.baum_erstellen(antragsliste,attribute,[],[])
+    baum = Algorithmus.baum_erstellen(antragsliste,attribute,[],[], bruteForceDepth)
 
     return baum
 

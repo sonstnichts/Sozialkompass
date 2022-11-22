@@ -4,6 +4,8 @@
 # Ergebnis wird als Dictionary ausgegeben
 
 # used to change an array as a string to a normal array
+import itertools
+import copy
 from ast import literal_eval
 
 def berechne_attribute(antragsliste):
@@ -29,11 +31,75 @@ def berechne_ergebnismenge(antragsliste):
     
     return ergebnismenge
 
-def attribut_bestimmen(attributsliste):
+def attribut_bestimmen(allAttributesOriginal, attributesNumbered,bruteForceDepth, applicationList):
+    #* adds alle relevant attributes to allAttributes
+    allAttributes = copy.deepcopy(allAttributesOriginal)
+    for attribute in attributesNumbered.items(): #loops through the attributes
+        allAttributes[attribute[0]]["uses"] = attributesNumbered[attribute[0]]
+        allAttributes[attribute[0]]["distinctPossibilities"] =  len(antwortmöglichkeiten_generieren(applicationList, attribute[0], allAttributes)) #adds the number of possibilities to the attribute
+       
+    #* sorts the attributeList by our relevance metric
+    #? should this be more mathematical? right now we only rank by the number of uses and then the distinct possibilities
+    #? we could do some cool maths or averages or something like that here
+    attributesRanked = [] #list of attributes ranked by relevance
+    for key in allAttributes:
+        if(allAttributes[key].get("uses") != None):
+            attributesRanked.append([key, allAttributes[key].get("uses"), allAttributes[key].get("distinctPossibilities")]) #adds the attribute and its relevance to the list
+    
+    attributesRanked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
+    attributesRanked = attributesRanked[:bruteForceDepth] #cut attributesRanked to the length of bruteForceDepth    
 
-    return max(attributsliste, key = attributsliste.get)
+    # * creates trees according to differently weighted attribute lists
+    #! we will end up with a lot of permuatiations (n!) here, this is probably bad for the runtime
+    #! we should probably cap this some other way (time?) or always set the brute force depth to a reasonable number
+    #? maybe 5 for the brute force depth? that would be 120 permutations, which could still be very slow
+    #? maybe we should take a semi-random sample of the permutations? would be faster
 
+    treeList = [] #creates a list of trees
+    attributeCombinations = list(itertools.permutations(attributesRanked)) #creates a list of all possible combinations of attributes
+    for attributeSequence in attributeCombinations:
+        treeList.append(create_mock_tree(list(attributeSequence), 0, applicationList, allAttributes)) #creates a tree for each attribute combination and adds it to the treeList
+    
+    # * chooses the smallest tree
+    #get the smallest tree from the treeList
+    smallestDepth = 100000000 #sets the smallestDepth to a very high number
+    smallestTree = {} #creates a variable for the smallest tree
+    
+    for tree in treeList: #evaluates every tree in the treeList
+        if tree_depth(tree[0]) < smallestDepth: #checks if the depth of the tree is smaller than the smallestDepth
+            smallestDepth = tree_depth(tree[0]) #if yes it sets the smallestDepth to the depth of the tree
+            smallestTree = tree #and sets the smallestTree to the tree
 
+    # * returns the first attribute which created the smallest tree
+    return smallestTree[1][0][0]
+
+def create_mock_tree(attributeSequence, index, applicationList, allAttributes): #shortended implementation of algorithm.py, only diffences commented
+    resultSet = berechne_ergebnismenge(applicationList)
+    if not attributeSequence:
+        return resultSet
+    question = attributeSequence[index][0] #gets the question from the attributeSequence
+    tree = teilbaum_erstellen(question, resultSet, [])
+    if not applicationList:
+        answerSet = []
+    else:
+        answerSet = antwortmöglichkeiten_generieren(applicationList, question, allAttributes)
+    print(answerSet)
+    for possibleAnswer in answerSet:
+        applicationListMock = copy.deepcopy(applicationList)
+        zeilen_loeschen(applicationListMock,question,possibleAnswer,allAttributes[question]["Kategorie"])
+        antraege_entfernen(applicationListMock)
+        spalten_loeschen(applicationListMock,question)
+        if(len(attributeSequence) - 1 > index): #checks if there are more attributes in the attributeSequence
+            index += 1 #if yes it increases the index
+            tree["Antworten"][possibleAnswer] = create_mock_tree(attributeSequence, index, applicationListMock, allAttributes) #creates the subtree from the next attribute
+    return [tree, attributeSequence] #returns the tree and its coresponding attributeSequence
+
+#! not sure if this is a great way to do this
+#! probably not
+#! should be reworked with a proper implementation
+def tree_depth(tree):
+    treeDepth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
+    return treeDepth
 
 def teilbaum_erstellen(frage,ergebnismenge,skippedAttributes):
 
