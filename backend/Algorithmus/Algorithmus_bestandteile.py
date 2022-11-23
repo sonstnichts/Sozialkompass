@@ -71,6 +71,7 @@ def attribut_bestimmen(allAttributesOriginal, attributesNumbered,bruteForceDepth
             smallestTree = tree #and sets the smallestTree to the tree
 
     # * returns the first attribute which created the smallest tree
+    #return max(allAttributesOriginal, key = allAttributesOriginal.get) #old return statement for testing
     return smallestTree[1][0][0]
 
 def create_mock_tree(attributeSequence, index, applicationList, allAttributes): #shortended implementation of algorithm.py, only diffences commented
