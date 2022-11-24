@@ -1,3 +1,25 @@
+.DS_Store
+venv/
+.env
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+.gcloudignore
+
+*.zip
+*.xlsx
+
+/backend/Algorithmus/assets/baum.json
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies

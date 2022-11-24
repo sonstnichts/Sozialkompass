@@ -1,0 +1,47 @@
+{
+    "Wohngeld":{
+        "Attribute":
+        [
+            {
+                "Berufsstatus":"Studierender"
+            },
+            {
+                "Berufsstatus":"Auszubildender",
+                "Familienstatus":"ledig"
+            }
+        ]
+    },
+    "Elterngeld":{
+        "Attribute":
+        [
+            {
+                "Berufsstatus":"Auszubildender",
+                "Kinder_Anzahl": [9,50]
+            },
+            {
+                "Berufsstatus":"Auszubildender",
+                "Familienstatus":"verheiratet",
+                "Kinder_Anzahl": [85,89]
+            }
+        ]
+    },
+    "Kindergeld":{
+        "Attribute":
+        [
+            {
+                "Berufsstatus":"Auszubildender",
+                "Kinder_Anzahl": [1,100]
+            },
+            {
+                "Berufsstatus":"Berufstaetig",
+                "Familienstatus":"verheiratet",
+                "Kinder_Anzahl": [6,100]
+            },
+            {
+                "Berufsstatus":"Studierender",
+                "Familienstatus":"ledig",
+                "Kinder_Anzahl": [2,4]
+            }
+        ]
+    }
+}
