@@ -271,12 +271,18 @@ def delete_rows_none_of_the_above (application_list_copy, question):
                     for id_entry,entry in enumerate(list):
                         for row in entry.items():
                             if row[0] == question:
-                                deleted_rows_otherwise.append(id_application,id_list,id_entry,row[0])
+                                deleted_rows_otherwise.append((id_application,id_list,id_entry,row[0]))
             else:
-                
+                if attribute[0] == question:
+                    delete_rows.append((id_application,attribute[0]))
 
 
     #delete rows
 
     for delete_item in reversed(deleted_rows):
-        application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
+        application_list_copy[deleted_rows[0]]["Attribute"].pop(delete_item[1])
+
+    for delete_item in reversed(deleted_rows_otherwise):
+        application_list_copy[deleted_rows_otherwise[0]]["Attribute"]["Sonstiges"][deleted_rows_otherwise[1]][deleted_rows_otherwise[2]].pop(deleted_rows_otherwise[3])
+
+    

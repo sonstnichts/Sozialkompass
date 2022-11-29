@@ -1,5 +1,5 @@
 from unittest import TestCase
-from Algorithmus import Algorithmus_bestandteile
+from ..Algorithmus.Algorithmus_bestandteile import *
 import json
 
 # load apllication list from assets
@@ -7,7 +7,7 @@ import json
 data = open(dir / "algorithmus/assets/test_antraege.json")
 application_list = json.load(data)
 
-# load attribute list from assets
+    # load attribute list from assets
 
 data = open(dir / "algorithmus/assets/test_attributes.json")
 attributes = json.load(data)
@@ -56,4 +56,4 @@ class test_functions(TestCase):
                     }
                 ]
 
-        self.assertDictEqual()
+        self.assertDictEqual(delete_rows_none_of_the_above(application_list,question),result)
