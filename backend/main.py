@@ -17,40 +17,40 @@ from pathlib import Path
 file_dir = Path(__file__)
 dir = file_dir.parent
 
-def baum_laden():
+def load_tree():
 
-    # Testdaten für Baum laden
+    # load apllication list from assets
 
     data = open(dir / "algorithmus/assets/Antraege.json")
-    antragsliste = json.load(data)
+    application_list = json.load(data)
 
-    # Attribute laden
+    # load attribute list from assets
 
     data = open(dir / "algorithmus/assets/Attribute.json")
     attribute = json.load(data)
 
-    # Baum mit Testdaten erstellen
-    bruteForceDepth = 10
+    # create a tree with the data in assets
+    brute_force_depth = 10
 
-    baum = Algorithmus.baum_erstellen(antragsliste,attribute,[],[], bruteForceDepth)
+    tree = Algorithmus.create_tree(application_list,attribute,[],[], brute_force_depth)
 
-    return baum
+    return tree
 
-# Baum laden
+# load the tree
 
-baum = baum_laden()
+tree = load_tree()
 
-# Baum mit Postleitzahl versehen
+# add the zip code to the tree
 
-baum["Postleitzahl"] = 48149
+tree["Postleitzahl"] = 48149
 
-# Baum ausgeben
-
-print(json.dumps(baum,indent=4))
+# return tree
+#! This causes crashes if the tree is too big, comment this line out if you want it not to
+print(json.dumps(tree,indent=4))
 
 #Baum in Datei speichern (Fuer Debug)
 with open(dir / "algorithmus/assets/baum.json", "w") as fp:
-    json.dump(baum, fp)
+    json.dump(tree, fp)
 
 # Baum in MongoDB speichern
 
