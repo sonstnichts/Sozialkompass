@@ -1,8 +1,11 @@
 from unittest import TestCase
 from ..Algorithmus.Algorithmus_bestandteile import *
 import json
+from pathlib import Path
 
 # load apllication list from assets
+file_dir = Path(__file__)
+dir = file_dir.parent.parent
 
 data = open(dir / "algorithmus/assets/test_antraege.json")
 application_list = json.load(data)
