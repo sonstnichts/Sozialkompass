@@ -131,5 +131,30 @@
             "ja",
             "nein"
         ]
+    },
+    "Haushaltsmitglieder": {
+        "Frage": "Wie viele Personen leben in deinem Haushalt?",
+        "Bescheibung": "Das ist die Beschreibung zu Haushaltsmitgliedern",
+        "Kategorie": "Ganzzahl"
+    },
+    "Mietkosten": {
+        "Frage": "Wie viel Miete zahhlst du?",
+        "Bescheibung": "Das ist die Beschreibung zu Haushaltsmitgliedern",
+        "Kategorie": "Ganzzahl"
+    },
+    "Einkommen": {
+        "Frage": "Wie hoch ist dein monatliches Einkommen?",
+        "Bescheibung": "Das ist die Beschreibung zum monatlichen Gesamteinkommen",
+        "Kategorie": "Ganzzahl"
+    },
+    "Wohnsituation": {
+        "Frage": "Wie wohnst du?",
+        "Bescheibung": "Das ist die Beschreibung zum Lebensmittelpunkt in Deutschland",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "alleine",
+            "WG",
+            "bei den Eltern"
+        ]
     }
 }
