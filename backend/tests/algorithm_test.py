@@ -1,5 +1,6 @@
 from unittest import TestCase
-from ..Algorithmus.Algorithmus_bestandteile import *
+#from ..Algorithmus.Algorithmus_bestandteile import *
+from Algorithmus import Algorithmus_bestandteile
 import json
 from pathlib import Path
 
