@@ -1,53 +1,52 @@
-# Enthält die verschiedenen Bestandteile des Algorithmuses
-
-# Scannt die Antragsliste nach allen vorhandenen Attributen und zählt, wie oft diese vorkommen.
-# Ergebnis wird als Dictionary ausgegeben
+# Contains the different functions of the Algorithm
 
 # used to change an array as a string to a normal array
 import itertools
 import copy
 from ast import literal_eval
 
-def berechne_attribute(antragsliste):
+# Scans the Application List for all existing Attributes and counts how often they occur.
+# Result is output as a dictionary
+def calculate_attributes(application_list):
 
     attribute = {}
 
-    for antrag in antragsliste.items():
-        for bedingungen in antrag[1]["Attribute"]:
-            for zeilen in bedingungen.keys():
-                if zeilen in attribute:
-                    attribute[zeilen] += 1
+    for application in application_list.items():
+        for requirement in application[1]["Attribute"]:
+            for row in requirement.keys():
+                if row in attribute:
+                    attribute[row] += 1
                 else:
-                    attribute[zeilen] = 1
+                    attribute[row] = 1
 
     return attribute
 
-def berechne_ergebnismenge(antragsliste):
+def calculate_result_set(application_list):
 
-    ergebnismenge = []
+    result_set = []
 
-    for antrag in antragsliste.keys():
-        ergebnismenge.append(antrag)
+    for application in application_list.keys():
+        result_set.append(application)
     
-    return ergebnismenge
+    return result_set
 
-def attribut_bestimmen(allAttributesOriginal, attributesNumbered,bruteForceDepth, applicationList):
+def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
-    allAttributes = copy.deepcopy(allAttributesOriginal)
-    for attribute in attributesNumbered.items(): #loops through the attributes
-        allAttributes[attribute[0]]["uses"] = attributesNumbered[attribute[0]]
-        allAttributes[attribute[0]]["distinctPossibilities"] =  len(antwortmöglichkeiten_generieren(applicationList, attribute[0], allAttributes)) #adds the number of possibilities to the attribute
+    all_attributes = copy.deepcopy(all_attributes_original)
+    for attribute in attributes_numbered.items(): #loops through the attributes
+        all_attributes[attribute[0]]["uses"] = attributes_numbered[attribute[0]]
+        all_attributes[attribute[0]]["distinctPossibilities"] =  len(generate_answers(application_list, attribute[0], all_attributes)) #adds the number of possibilities to the attribute
        
     #* sorts the attributeList by our relevance metric
     #? should this be more mathematical? right now we only rank by the number of uses and then the distinct possibilities
     #? we could do some cool maths or averages or something like that here
-    attributesRanked = [] #list of attributes ranked by relevance
-    for key in allAttributes:
-        if(allAttributes[key].get("uses") != None):
-            attributesRanked.append([key, allAttributes[key].get("uses"), allAttributes[key].get("distinctPossibilities")]) #adds the attribute and its relevance to the list
+    attributes_ranked = [] #list of attributes ranked by relevance
+    for key in all_attributes:
+        if(all_attributes[key].get("uses") != None):
+            attributes_ranked.append([key, all_attributes[key].get("uses"), all_attributes[key].get("distinctPossibilities")]) #adds the attribute and its relevance to the list
     
-    attributesRanked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
-    attributesRanked = attributesRanked[:bruteForceDepth] #cut attributesRanked to the length of bruteForceDepth    
+    attributes_ranked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
+    attributes_ranked = attributes_ranked[:brute_force_depth] #cut attributesRanked to the length of bruteForceDepth    
 
     # * creates trees according to differently weighted attribute lists
     #! we will end up with a lot of permuatiations (n!) here, this is probably bad for the runtime
@@ -55,67 +54,66 @@ def attribut_bestimmen(allAttributesOriginal, attributesNumbered,bruteForceDepth
     #? maybe 5 for the brute force depth? that would be 120 permutations, which could still be very slow
     #? maybe we should take a semi-random sample of the permutations? would be faster
 
-    treeList = [] #creates a list of trees
-    attributeCombinations = list(itertools.permutations(attributesRanked)) #creates a list of all possible combinations of attributes
-    for attributeSequence in attributeCombinations:
-        treeList.append(create_mock_tree(list(attributeSequence), 0, applicationList, allAttributes)) #creates a tree for each attribute combination and adds it to the treeList
+    tree_list = [] #creates a list of trees
+    attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
+    for attribute_sequence in attribute_combinations:
+        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes)) #creates a tree for each attribute combination and adds it to the treeList
     
     # * chooses the smallest tree
     #get the smallest tree from the treeList
-    smallestDepth = 100000000 #sets the smallestDepth to a very high number
-    smallestTree = {} #creates a variable for the smallest tree
+    smallest_depth = 100000000 #sets the smallestDepth to a very high number
+    smallest_tree = {} #creates a variable for the smallest tree
     
-    for tree in treeList: #evaluates every tree in the treeList
-        if tree_depth(tree[0]) < smallestDepth: #checks if the depth of the tree is smaller than the smallestDepth
-            smallestDepth = tree_depth(tree[0]) #if yes it sets the smallestDepth to the depth of the tree
-            smallestTree = tree #and sets the smallestTree to the tree
+    for tree in tree_list: #evaluates every tree in the treeList
+        if tree_depth(tree[0]) < smallest_depth: #checks if the depth of the tree is smaller than the smallestDepth
+            smallest_depth = tree_depth(tree[0]) #if yes it sets the smallestDepth to the depth of the tree
+            smallest_tree = tree #and sets the smallestTree to the tree
 
     # * returns the first attribute which created the smallest tree
     #return max(allAttributesOriginal, key = allAttributesOriginal.get) #old return statement for testing
-    return smallestTree[1][0][0]
+    return smallest_tree[1][0][0]
 
-def create_mock_tree(attributeSequence, index, applicationList, allAttributes): #shortended implementation of algorithm.py, only diffences commented
-    resultSet = berechne_ergebnismenge(applicationList)
-    if not attributeSequence:
-        return resultSet
-    question = attributeSequence[index][0] #gets the question from the attributeSequence
-    tree = teilbaum_erstellen(question, resultSet, [])
-    if not applicationList:
-        answerSet = []
+def create_mock_tree(attribute_sequence, index, application_list, all_attributes): #shortended implementation of algorithm.py, only diffences commented
+    result_set = calculate_result_set(application_list)
+    if not attribute_sequence:
+        return result_set
+    question = attribute_sequence[index][0] #gets the question from the attributeSequence
+    tree = create_subtree(question, result_set, [])
+    if not application_list:
+        answer_set = []
     else:
-        answerSet = antwortmöglichkeiten_generieren(applicationList, question, allAttributes)
-    print(answerSet)
-    for possibleAnswer in answerSet:
-        applicationListMock = copy.deepcopy(applicationList)
-        zeilen_loeschen(applicationListMock,question,possibleAnswer,allAttributes[question]["Kategorie"])
-        antraege_entfernen(applicationListMock)
-        spalten_loeschen(applicationListMock,question)
-        if(len(attributeSequence) - 1 > index): #checks if there are more attributes in the attributeSequence
+        answer_set = generate_answers(application_list, question, all_attributes)
+    for possible_answer in answer_set:
+        application_list_copy = copy.deepcopy(application_list)
+        delete_rows(application_list_copy,question,possible_answer,all_attributes[question]["Kategorie"])
+        remove_applications(application_list_copy)
+        delete_columns(application_list_copy,question)
+        if(len(attribute_sequence) - 1 > index): #checks if there are more attributes in the attributeSequence
             index += 1 #if yes it increases the index
-            tree["Antworten"][possibleAnswer] = create_mock_tree(attributeSequence, index, applicationListMock, allAttributes) #creates the subtree from the next attribute
-    return [tree, attributeSequence] #returns the tree and its coresponding attributeSequence
+            tree["Antworten"][possible_answer] = create_mock_tree(attribute_sequence, index, application_list_copy, all_attributes) #creates the subtree from the next attribute
+    return [tree, attribute_sequence] #returns the tree and its coresponding attributeSequence
 
 #! not sure if this is a great way to do this
 #! probably not
 #! should be reworked with a proper implementation
 def tree_depth(tree):
-    treeDepth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
-    return treeDepth
+    tree_depth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
+    return tree_depth
 
-def teilbaum_erstellen(frage,ergebnismenge,skippedAttributes):
+def create_subtree(question, result_set, skipped_attributes):
 
-    baum = {}
-    baum["Frage"] = frage
-    baum["Ergebnismenge"] = ergebnismenge
-    baum["Antworten"] = {}
+    tree = {}
+    tree["Frage"] = question
+    tree["Ergebnismenge"] = result_set
+    tree["Antworten"] = {}
 
-    if skippedAttributes:
-        baum["skippedAttributes"] = skippedAttributes
+    if skipped_attributes:
+        tree["skippedAttributes"] = skipped_attributes
 
-    return baum
+    return tree
 
 
-def zeilen_loeschen(antragsliste_neu,frage,antwortmoeglichkeit,questiontype):
+def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
     
     delete_rows = []
 
@@ -123,149 +121,149 @@ def zeilen_loeschen(antragsliste_neu,frage,antwortmoeglichkeit,questiontype):
 
         case "Auswahl":
 
-            for antrag in antragsliste_neu.items():
-                for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
-                    for zeilen in bedingungen.items():
-                        if zeilen[0] == frage and zeilen[1] != antwortmoeglichkeit:
-                            delete_rows.append((antrag[0],idx))
+            for application in application_list_copy.items():
+                for idx,condition in enumerate(application[1]["Attribute"]):
+                    for row in condition.items():
+                        if row[0] == question and row[1] != answer_possibilities:
+                            delete_rows.append((application[0],idx))
 
         case "Ganzzahl":
 
-            range = literal_eval(antwortmoeglichkeit)
+            range = literal_eval(answer_possibilities)
 
-            for antrag in antragsliste_neu.items():
-                for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
-                    for zeilen in bedingungen.items():
-                        if zeilen[0] == frage and (zeilen[1][0] > range[1] or zeilen[1][1] <range[0]):
-                            delete_rows.append((antrag[0],idx))
+            for application in application_list_copy.items():
+                for idx,condition in enumerate(application[1]["Attribute"]):
+                    for row in condition.items():
+                        if row[0] == question and (row[1][0] > range[1] or row[1][1] < range[0]):
+                            delete_rows.append((application[0],idx))
             
         
-    #Zeilen löschen
+    #delete rows
 
     for delete_item in reversed(delete_rows):
-        antragsliste_neu[delete_item[0]]["Attribute"].pop(delete_item[1])
+        application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
 
-def antraege_entfernen(antragsliste_neu):
+def remove_applications(application_list_copy):
 
-    abgelehnte_antraege = []
+    rejected_applications = []
 
-    for antrag in antragsliste_neu.items():
-        if not antrag[1]["Attribute"]:
-            abgelehnte_antraege.append(antrag[0])
+    for application in application_list_copy.items():
+        if not application[1]["Attribute"]:
+            rejected_applications.append(application[0])
 
     #Anträge entfernen
 
-    for antrag in abgelehnte_antraege:
-        del antragsliste_neu[antrag]
+    for application in rejected_applications:
+        del application_list_copy[application]
 
-def spalten_loeschen(antragsliste_neu,frage):
+def delete_columns(application_list_copy, question):
 
-    delete_columns = []
+    deleted_columns = []
     
 
-    for antrag in antragsliste_neu.items():
+    for antrag in application_list_copy.items():
         for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
             for zeilen in bedingungen.items():
-                if zeilen[0] == frage:
-                    delete_columns.append((antrag[0],idx))
+                if zeilen[0] == question:
+                    deleted_columns.append((antrag[0],idx))
 
     #Spalten löschen
-    for delete_item in reversed(delete_columns):
-        del antragsliste_neu[delete_item[0]]["Attribute"][delete_item[1]][frage]
-        if not antragsliste_neu[delete_item[0]]["Attribute"][delete_item[1]]:
-            antragsliste_neu[delete_item[0]]["Attribute"].pop(delete_item[1])
+    for delete_item in reversed(deleted_columns):
+        del application_list_copy[delete_item[0]]["Attribute"][delete_item[1]][question]
+        if not application_list_copy[delete_item[0]]["Attribute"][delete_item[1]]:
+            application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
 
-def acceptApplications(antragslisteNeu,acceptedApplicationsCopy):
+def accept_applications(application_list_copy,accepted_applications_copy):
 
-    acceptedApplications = []
+    accepted_applications = []
 
-    for antrag in antragslisteNeu.items():
-        if not antrag[1]["Attribute"]:
-            acceptedApplications.append(antrag[0])
-            acceptedApplicationsCopy.append(antrag[0])
+    for application in application_list_copy.items():
+        if not application[1]["Attribute"]:
+            accepted_applications.append(application[0])
+            accepted_applications_copy.append(application[0])
 
-    #Anträge entfernen
+    #remove applications
 
-    for antrag in acceptedApplications:
-        del antragslisteNeu[antrag]
+    for application in accepted_applications:
+        del application_list_copy[application]
 
-def antwortmöglichkeiten_generieren(applicationList,frage,attribute):
+def generate_answers(application_list,question,attribute):
 
-    attributkategorie = attribute[frage]["Kategorie"]
+    attribute_category = attribute[question]["Kategorie"]
 
-    match attributkategorie:
+    match attribute_category:
 
         # In case of a selection, the possible answers of the attributes are being returned-
         case "Auswahl":
-            return attribute[frage]["Antwortmoeglichkeiten"]
+            return attribute[question]["Antwortmoeglichkeiten"]
 
         # In case of a numberinput, ranges are created
         case "Ganzzahl":
 
             # Maximum value for an input of a user
-            maxInt = 10000000
+            max_int = 10000000
 
             # Determines how many digits after the decimalpoint the algorithm accepts.
             # Just add zeros after the comma
-            smallestUnit = 0.01
+            smallest_unit = 0.01
 
             # A list for all relevant lower and upper bounds is created
-            lowerBounds = []
-            upperBounds = []
+            lower_bounds = []
+            upper_bounds = []
             
             # Boundlists are filled with the entries in the applicationlist.
-            for application in applicationList.items():
+            for application in application_list.items():
                 for requirements in application[1]["Attribute"]:
                     for entry in requirements.items():
-                        if entry[0] == frage:
-                            lowerBounds.append(entry[1][0])
-                            upperBounds.append(entry[1][1])
+                        if entry[0] == question:
+                            lower_bounds.append(entry[1][0])
+                            upper_bounds.append(entry[1][1])
 
             # In both lists duplicates are removed and result gets sorted
-            lowerBounds = list(dict.fromkeys(lowerBounds))
-            lowerBounds.sort()
-            upperBounds = list(dict.fromkeys(upperBounds))
-            upperBounds.sort()
+            lower_bounds = list(dict.fromkeys(lower_bounds))
+            lower_bounds.sort()
+            upper_bounds = list(dict.fromkeys(upper_bounds))
+            upper_bounds.sort()
 
             # resultlist is created
             result = []
 
             # if there is no zero as a lowerBound, a lowerbound of zero is created
-            lastvalue = lowerBounds[0]-smallestUnit
-            if lowerBounds[0]>0:
+            lastvalue = lower_bounds[0]-smallest_unit
+            if lower_bounds[0]>0:
                 result.append(str([0,lastvalue]))
-                lowerBounds.pop(0)
+                lower_bounds.pop(0)
             else:
-                lastvalue = -smallestUnit
-                lowerBounds.pop(0)
+                lastvalue = -smallest_unit
+                lower_bounds.pop(0)
 
             # two lists progressively get smaller
-            while lowerBounds or upperBounds:
-                if lowerBounds:
-                    if lowerBounds[0]>upperBounds[0]:
-                        result.append(str([lastvalue+smallestUnit,upperBounds[0]]))
-                        lastvalue = upperBounds.pop(0)
+            while lower_bounds or upper_bounds:
+                if lower_bounds:
+                    if lower_bounds[0]>upper_bounds[0]:
+                        result.append(str([lastvalue+smallest_unit,upper_bounds[0]]))
+                        lastvalue = upper_bounds.pop(0)
                     else:
-                        result.append(str([lastvalue+smallestUnit,lowerBounds[0]-smallestUnit]))
-                        lastvalue = lowerBounds.pop(0)-smallestUnit
+                        result.append(str([lastvalue+smallest_unit,lower_bounds[0]-smallest_unit]))
+                        lastvalue = lower_bounds.pop(0)-smallest_unit
                 else:
-                    result.append(str([lastvalue+smallestUnit,upperBounds[0]]))
-                    lastvalue = upperBounds.pop(0)
+                    result.append(str([lastvalue+smallest_unit,upper_bounds[0]]))
+                    lastvalue = upper_bounds.pop(0)
             # last entry with the highest upperbound and the maximum value is appended
-            result.append(str([lastvalue+smallestUnit,maxInt]))
+            result.append(str([lastvalue+smallest_unit,max_int]))
             return result
 
-def deleteRowsNoneOfTheAbove (antragslisteNeu,frage):
+def delete_rows_none_of_the_above (application_list_copy, question):
 
-    deleteRows = []
+    deleted_rows = []
 
-    for antrag in antragslisteNeu.items():
-        for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
-            for zeilen in bedingungen.items():
-                if zeilen[0] == frage:
-                    deleteRows.append((antrag[0],idx))
+    for application in application_list_copy.items():
+        for idx,condition in enumerate(application[1]["Attribute"]):
+            for row in condition.items():
+                if row[0] == question:
+                    deleted_rows.append((application[0],idx))
         
     #delete rows
 
-    for deleteItem in reversed(deleteRows):
-        antragslisteNeu[deleteItem[0]]["Attribute"].pop(deleteItem[1])
+    for delete_item in reversed(deleted_rows):
+        application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
