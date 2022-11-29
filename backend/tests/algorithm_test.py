@@ -7,7 +7,7 @@ import json
 data = open(dir / "algorithmus/assets/test_antraege.json")
 application_list = json.load(data)
 
-    # load attribute list from assets
+# load attribute list from assets
 
 data = open(dir / "algorithmus/assets/test_attributes.json")
 attributes = json.load(data)
@@ -57,3 +57,8 @@ class test_functions(TestCase):
                 ]
 
         self.assertDictEqual(delete_rows_none_of_the_above(application_list,question),result)
+
+class test_calculate_attributes(TestCase):
+    def test_normal(self):
+        result = {["Berufsstatus", 1], ["Ausbildungsstaette", 1], ["Alter bei Beginn der Ausbildung", 2], ["Staatsangehörigkeit", 3], ["Jahre in Deutschland", 1], ["Kinder Anzahl", 1]}
+        self.assertDictEqual(calculate_attributes(application_list), result)
