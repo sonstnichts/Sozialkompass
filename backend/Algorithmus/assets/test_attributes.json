@@ -1,0 +1,50 @@
+{
+    "Ausbildungsstätte": {
+        "Frage": "Welche Ausbildungsstätte besuchst du?",
+        "Beschreibung": "Das ist die Beschreibung zur Ausbildungsstätte",
+        "Antwortmöglichkeiten": [
+            "Akademie",
+            "Universität",
+            "Schule",
+            "Fachhochschule",
+            "Hochschule"
+        ]
+    },
+    "Berufsstatus": {
+        "Frage": "Was ist ihr Berufsstatus?",
+        "Beschreibung": "Das ist die Beschreibung zum Berufsstatus",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "Studierender",
+            "Berufstaetig",
+            "Auszubildender",
+            "Arbeitslos",
+            "Rentner"
+        ]
+    },
+    "Kinder Anzahl": {
+        "Frage": "Wie viele Kinder haben Sie?",
+        "Bescheibung": "Das ist die Beschreibung zur Anzahl der Kinder",
+        "Kategorie": "Ganzzahl"
+    },
+    "Alter bei Beginn der Ausbildung": {
+        "Frage": "Wie alt warst du zu Beginn deiner Ausbildung?",
+        "Bescheibung": "Das ist die Beschreibung zum Alter bei Beginn der Ausbildung",
+        "Kategorie": "Ganzzahl"
+    },
+    "Staatsangehörigkeit": {
+        "Frage": "Welchem Staat gehörst du an?",
+        "Beschreibung": "Das ist die Beschreibung zur Staatsangehörigkeit",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "deutsch",
+            "EU-Ausland",
+            "Ausland"
+        ]
+    },
+    "Jahre in Deutschland": {
+        "Frage": "Wie viele Jahre bist du in Deutschland?",
+        "Bescheibung": "Das ist die Beschreibung zu Jahren in Deutschland",
+        "Kategorie": "Ganzzahl"
+    }
+}

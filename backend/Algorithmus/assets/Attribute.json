@@ -1,135 +1,19 @@
 {
-    "Ausbildungsstätte": {
-        "Frage": "Welche Ausbildungsstätte besuchst du?",
-        "Beschreibung": "Das ist die Beschreibung zur Ausbildungsstätte",
-        "Antwortmöglichkeiten": [
-            "Akademie",
-            "Universität",
-            "Schule",
-            "Fachhochschule",
-            "Hochschule"
-        ]
+    "Berufsstatus":{
+        "Frage":"Was ist ihr Berufsstatus?",
+        "Beschreibung":"Das ist die Beschreibung zum Berufsstatus",
+        "Kategorie":"Auswahl",
+        "Antwortmoeglichkeiten":["Studierender", "Berufstaetig","Auszubildender"]
     },
-    "Berufsstatus": {
-        "Frage": "Was ist ihr Berufsstatus?",
-        "Beschreibung": "Das ist die Beschreibung zum Berufsstatus",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "Studierender",
-            "Berufstaetig",
-            "Auszubildender",
-            "Arbeitslos",
-            "Rentner"
-        ],
-        "Antwortgruppierungen": {
-            "in_Ausbildung": [
-                "Studierender",
-                "Auszubildender",
-                "Schueler"
-            ]
-        }
+    "Familienstatus":{
+        "Frage":"Was ist ihr Familienstatus?",
+        "Beschreibung":"Das ist die Beschreibung zum Familienstatus",
+        "Kategorie":"Auswahl",
+        "Antwortmoeglichkeiten":["ledig","verheiratet","geschieden"]
     },
-    "Familienstatus": {
-        "Frage": "Was ist ihr Familienstatus?",
-        "Beschreibung": "Das ist die Beschreibung zum Familienstatus",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "ledig",
-            "verheiratet",
-            "geschieden"
-        ]
-    },
-    "Kinder_Anzahl": {
-        "Frage": "Wie viele Kinder haben Sie?",
-        "Bescheibung": "Das ist die Beschreibung zur Anzahl der Kinder",
-        "Kategorie": "Ganzzahl"
-    },
-    "Vermögen": {
-        "Frage": "Wie viel Vermögen haben Sie?",
-        "Bescheibung": "Das ist die Beschreibung zur Höhe des Vermögens",
-        "Kategorie": "Ganzzahl"
-    },
-    "Alter bei Beginn der Ausbildung": {
-        "Frage": "Wie alt warst du zu Beginn deiner Ausbildung?",
-        "Bescheibung": "Das ist die Beschreibung zum Alter bei Beginn der Ausbildung",
-        "Kategorie": "Ganzzahl"
-    },
-    "Studienpensum": {
-        "Frage": "Studierst du in Vollzeit oder Teilzeit?",
-        "Beschreibung": "Das ist die Beschreibung zum Studienpensum",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "Vollzeit",
-            "Teilzeit"
-        ]
-    },
-    "Staatsangehörigkeit": {
-        "Frage": "Welchem Staat gehörst du an?",
-        "Beschreibung": "Das ist die Beschreibung zur Staatsangehörigkeit",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "deutsch",
-            "EU-Ausland",
-            "Ausland"
-        ],
-        "Antwortgruppierungen": {
-            "EWR": [
-                "LaenderEWR"
-            ],
-            "EU": [
-                "LaenderEU"
-            ]
-        }
-    },
-    "dauerhafter Aufenthalt": {
-        "Frage": "Welchem Staat gehörst du an?",
-        "Beschreibung": "Das ist die Beschreibung zu dem dauerhaften Aufenthalt",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "ja",
-            "nein"
-        ]
-    },
-    "Aufenthaltsgenehmigung": {
-        "Frage": "Hast du eine Aufenthaltsgenehmigung?",
-        "Beschreibung": "Das ist die Beschreibung zur Aufenthaltsgenehmigung",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "ja",
-            "nein"
-        ]
-    },
-    "Jahre in Deutschland": {
-        "Frage": "Wie viele Jahre bist du in Deutschland?",
-        "Bescheibung": "Das ist die Beschreibung zu Jahren in Deutschland",
-        "Kategorie": "Ganzzahl"
-    },
-    "Alter": {
-        "Frage": "Wie alt bist du?",
-        "Bescheibung": "Das ist die Beschreibung zum Alter",
-        "Kategorie": "Ganzzahl"
-    },
-    "Lebensmittelpunkt in Deutschland": {
-        "Frage": "Lebensmittelpunkt in Deutschland?",
-        "Bescheibung": "Das ist die Beschreibung zum Lebensmittelpunkt in Deutschland",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "ja",
-            "nein"
-        ]
-    },
-    "Tages Arbeitszeit": {
-        "Frage": "Wie viele Stunden kannst du pro Tag arbeiten?",
-        "Bescheibung": "Das ist die Beschreibung zu Arbeitsstunden pro Tag",
-        "Kategorie": "Ganzzahl"
-    },
-    "Hilfebedürftigkeit": {
-        "Frage": "Bist du hilfebedürftig?",
-        "Bescheibung": "TODO: Berechnung hinzufügen",
-        "Kategorie": "Auswahl",
-        "Antwortmoeglichkeiten": [
-            "ja",
-            "nein"
-        ]
+    "Kinder_Anzahl":{
+        "Frage":"Wie viele Kinder haben Sie?",
+        "Bescheibung":"Das ist die Beschreibung zur Anzahl der Kinder",
+        "Kategorie":"Ganzzahl"
     }
 }

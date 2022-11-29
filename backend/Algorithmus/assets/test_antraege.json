@@ -1,0 +1,61 @@
+[
+    {
+        "Name": "Bafög",
+        "Attribute": {
+            "Berufsstatus": "Studierender",
+            "Ausbildungsstaette": [
+                "Universität",
+                "Akademie",
+                "Fachhochschule",
+                "Hochschule"
+            ],
+            "Alter bei Beginn der Ausbildung": [
+                0,
+                45
+            ],
+            "Sonstiges": [
+                {
+                    "Staatsangehoerigkeit": [
+                        "deutsch"
+                    ]
+                },
+                {
+                    "Staatsangehoerigkeit": [
+                        "Ausland"
+                    ],
+                    "Jahre in Deutschland": [
+                        5,
+                        1000
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "Name": "Kindergeld",
+        "Attribute": {
+            "Kinder Anzahl": [
+                1,
+                50
+            ],
+            "Sonstiges": [
+                [
+                    {
+                        "Staatsangehoerigkeit": [
+                            "deutsch",
+                            "EWR_alle_Laender"
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "Alter_Kind": [
+                            0,
+                            17
+                        ]
+                    }
+                ]
+            ]
+        }
+    }
+]
