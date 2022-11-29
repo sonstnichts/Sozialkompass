@@ -147,6 +147,15 @@
         "Bescheibung": "Das ist die Beschreibung zum monatlichen Gesamteinkommen",
         "Kategorie": "Ganzzahl"
     },
+    "Wohnen_bei_Eltern": {
+        "Frage": "Wohnst du bei deinen Eltern?",
+        "Bescheibung": "Das ist die Beschreibung zum Wohnen bei Eltern",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "ja",
+            "nein"
+        ]
+    },
     "Wohnsituation": {
         "Frage": "Wie wohnst du?",
         "Bescheibung": "Das ist die Beschreibung zum Lebensmittelpunkt in Deutschland",

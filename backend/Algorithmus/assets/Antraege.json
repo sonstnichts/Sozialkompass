@@ -139,12 +139,10 @@
         15,
         1000
       ],
-      "not": {
-        "Berufsstatus": [
-          "Rentner",
-          "Studierender"
-        ]
-      }
+      "Berufsstatus": [
+        "Berufstaetig",
+        "Arbeitslos"
+      ]
     }
   },
   {
@@ -260,9 +258,7 @@
         18,
         1000
       ],
-      "not": {
-        "Wohnsituation": "bei den Eltern"
-      },
+      "Wohnen_bei_Eltern": "nein",
       "Sonstiges": [
         {
           "Kinder_Anzahl": [
