@@ -1,14 +1,15 @@
 import os
 from pathlib import Path
-from flask import Flask, jsonify, make_response, request, render_template_string
+from flask import Flask, jsonify, make_response, request
 from flask_restful import Resource, Api
 import json
 from flask_talisman import Talisman
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import set_access_cookies, unset_jwt_cookies, get_jwt, create_refresh_token, set_refresh_cookies
 import datetime
 from flask_mongoengine import MongoEngine
 from flask_security import Security, MongoEngineUserDatastore, \
-    UserMixin, RoleMixin, auth_required, decorators
+    UserMixin, RoleMixin, auth_required, decorators, changeable, utils
 from flask_wtf import CSRFProtect
 import bcrypt
 
@@ -61,28 +62,39 @@ api = Api(app)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw')
 
 
-jwt = JWTManager(app)
+#IMPORTANT set to really secret at deployment
 app.config["JWT_SECRET_KEY"] = "Secret KEY"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(days=1)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=1)
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
+app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
+#IMPORTANT set to True at deployment
+app.config["JWT_COOKIE_SECURE"] = False
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+
+app.config["SECURITY_PASSWORD_SALT"] = "odhvoenonvoenrvonepo43p43jfk34f"
+salt = "odhvoenonvoenrvonepo43p43jfk34f"
+
+jwt = JWTManager(app)
 
 #Security Headers -> bei deployment auf server
-# Talisman(app)
+Talisman(app)
 
 file_dir = Path(__file__)
 dir = file_dir.parent
 
 # MongoDB Config
-app.config['MONGODB_DB'] = 'local'
-app.config['MONGODB_HOST'] = 'localhost'
-app.config['MONGODB_PORT'] = 27017
+app.config['MONGODB_DB'] = 'sozialkompass'
+app.config['MONGODB_HOST'] = 'sozialkompass-dev.uni-muenster.de'
+app.config['MONGODB_PORT'] = 80
+
 
 # Create database connection object
 db = MongoEngine(app)
 
 
 
-
-#User und deren Rollen definieren
+#Define Users and their roles
 class Role(db.Document, RoleMixin):
     name = db.StringField(max_length=80, unique=True)
     description = db.StringField(max_length=255)
@@ -98,10 +110,25 @@ class User(db.Document, UserMixin):
 
 
 user_datastore = MongoEngineUserDatastore(db, User, Role)
-#flask-security instanz erschaffen
+#flask-security instance
 app.security = Security(app, user_datastore)
 
-
+#Access token refresh to prevent random logout
+@app.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.datetime.now()
+        target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+          
+            set_access_cookies(response, access_token)
+            
+        return response
+    except (RuntimeError, KeyError):
+        # Case where there is not a valid JWT. Just return the original response
+        return response
 
 class SendTree(Resource):
     def get(self):
@@ -111,7 +138,7 @@ class SendTree(Resource):
 class Register(Resource):
     method_decorators = [jwt_required()]
     def post(self):
-        #User Authentifizieren ob admin
+        #User authentication true if admin
         current_user = get_jwt_identity()
         user_from_db = app.security.datastore.find_user(email=current_user)
         admin_role = app.security.datastore.find_role("admin")
@@ -119,17 +146,19 @@ class Register(Resource):
 
         if admin_role in user_roles:
             
-            #Daten aus JSON POST anfragen
+            #Get Data from request (sent via json)
             new_user = request.get_json()
 
-            #Salt ist ein Schutz fuer das Passwort beim hashen
+            #Salt is a hash protection
             salt = bcrypt.gensalt()
             new_user["password"] = bcrypt.hashpw(new_user["password"].encode("utf-8"), salt)
 
-            #Kontrolle ob user schon in Datenbank
+            #Check if user already exists
             if not app.security.datastore.find_user(email=new_user["email"]):
+                #create or find the role provided ##### NO ADMIN PROTECTION YET
+                role = app.security.datastore.find_or_create_role(name = new_user["role"])
                 user = app.security.datastore.create_user(email=new_user["email"], password=new_user["password"])
-                #Jeder neue User muss eine Rolle erhalten, die Rolle ist die Stadt
+                #Each user needs a role
                 app.security.datastore.add_role_to_user(user, new_user["role"]) 
                 return make_response(jsonify({"msg": "User created successfully"}), 201)
             else:
@@ -137,22 +166,64 @@ class Register(Resource):
         else:
             return make_response(jsonify({"msg": "You don't have the permissions to create a user"}), 409)
 
+class ChangePassword(Resource):
+    method_decorators = [jwt_required()]
+    def post(self):
+        user_details = request.get_json()
+        #Check if user exists
+        user_from_db = app.security.datastore.find_user(email=user_details["email"])
+
+        
+        password = bcrypt.hashpw(user_details["password"].encode("utf-8"), salt)
+        user_from_db["password"] = password
+        
+
+        response = jsonify({'change password': True})
+        return response
+
 class Login(Resource):
     def post(self):
         login_details = request.get_json()
-        #Schauen ob user schon in Datenbank
         
+        #Check if user exists
         user_from_db = app.security.datastore.find_user(email=login_details["email"])
 
         if user_from_db:
-            #Passwort auf Korrektheit pruefen
-            if bcrypt.checkpw(login_details["password"].encode("utf-8"),user_from_db["password"].encode("utf-8")):
+            #check if password is correct
+            # if bcrypt.checkpw(login_details["password"].encode("utf-8"),user_from_db["password"].encode("utf-8")):
+            if utils.verify_password(password=login_details["password"], password_hash=user_from_db["password"]):
                 access_token = create_access_token(identity=user_from_db["email"])
-                return make_response(jsonify(access_token=access_token), 200)
-            
+                refresh_token = create_refresh_token(identity=user_from_db["email"])
+                response = jsonify({'login': True})
+                set_access_cookies(response, access_token)
+                set_refresh_cookies(response, refresh_token)
+                response.status_code = 200
+                return response
            
 
         return make_response(jsonify({'msg': 'The username or password is incorrect'}), 401)
+
+
+class Refresh(Resource):
+    method_decorators = [jwt_required()]
+    def post(self):
+        current_user = get_jwt_identity()
+        user_from_db = app.security.datastore.find_user(email=current_user)
+        access_token = create_access_token(identity=user_from_db["email"])
+
+        response = jsonify({"refresh": True})
+        response.status_code = 200
+        set_access_cookies(response, access_token)
+
+        return response
+
+
+class Logout(Resource):
+    def post(self):
+        response = jsonify({"logout": True})
+        unset_jwt_cookies(response)
+        response.status_code = 200
+        return response
 
 
 class Profile(Resource):
@@ -167,17 +238,17 @@ class Profile(Resource):
             return make_response(jsonify({"profile": user_from_db}), 200)
         return make_response(jsonify({"msg": "Profile not found"}))
 
-#############LOESCHEN BEI BETRIEB
+############# DELETE AT DEPLOYMENT
 class AdminCreator(Resource):
  def post(self):
-        #Daten aus JSON POST anfragen
+        #Get data from JSON HTTP POST
         new_user = request.get_json()
 
-        #Salt ist ein Schutz fuer das Passwort beim hashen
+        #Salt is a hash protection
         salt = bcrypt.gensalt()
         new_user["password"] = bcrypt.hashpw(new_user["password"].encode("utf-8"), salt)
 
-        #Kontrolle ob user schon in Datenbanl
+        #Check if user is in database
         if not app.security.datastore.find_user(email=new_user["email"]):
             user =  app.security.datastore.create_user(email=new_user["email"], password=new_user["password"])
             role = app.security.datastore.find_or_create_role(name = "admin")
@@ -195,10 +266,11 @@ api.add_resource(Register, "/api/register")
 api.add_resource(Login, "/api/login")
 api.add_resource(Profile, "/api/profile")
 api.add_resource(AdminCreator, "/api/admin")
+api.add_resource(Logout, "/api/logout")
+api.add_resource(Refresh, "/api/refresh")
+api.add_resource(ChangePassword, "/api/resetPassword")
 
 
 if __name__ == "__main__":  
-    # with app.app_context():
-        # Create a user to test with
-        # role = app.security.datastore.find_or_create_role(name="standard", permissions="osna") 
         app.run(debug=True)
+        
