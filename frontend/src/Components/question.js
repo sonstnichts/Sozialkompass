@@ -1,10 +1,6 @@
 import React from "react" ; 
 import { Grid, Paper, Button, Box, styled, Typography } from "@mui/material"; 
 
-
-
-
-
 function question(){
 
     return(

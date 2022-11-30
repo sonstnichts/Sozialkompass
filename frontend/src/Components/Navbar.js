@@ -36,7 +36,7 @@ const handleClose = () => {
   // AppBar is used to create navigation bar (in combination with Typography)
   // Stack is used to include additional pages or menu settings on the right side of the page
     return (
-        <AppBar position='static' color="default"> 
+        <AppBar position='sticky' color="default"> 
             <Toolbar>
             <Logo src={logo} onClick="/home"  /> 
             <Typography variant="title" color="inherit" noWrap>
