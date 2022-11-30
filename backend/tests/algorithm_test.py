@@ -1,6 +1,6 @@
 from unittest import TestCase
-#from ..Algorithmus.Algorithmus_bestandteile import *
-from Algorithmus import Algorithmus_bestandteile
+from ..Algorithmus.Algorithmus_bestandteile import *
+#from Algorithmus import Algorithmus_bestandteile
 import json
 from pathlib import Path
 
@@ -64,5 +64,12 @@ class test_functions(TestCase):
 
 class test_calculate_attributes(TestCase):
     def test_normal(self):
-        result = {["Berufsstatus", 1], ["Ausbildungsstaette", 1], ["Alter bei Beginn der Ausbildung", 2], ["Staatsangehörigkeit", 3], ["Jahre in Deutschland", 1], ["Kinder Anzahl", 1]}
+        #{'d': 1, 'c': 1, 'f': 1}
+        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehörigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1}
         self.assertDictEqual(calculate_attributes(application_list), result)
+    
+    def test_true(self):
+        self.assertTrue(self)
+
+    def test_false(self):
+        self.assertFalse(self)

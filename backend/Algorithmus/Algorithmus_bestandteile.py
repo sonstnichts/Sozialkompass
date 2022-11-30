@@ -18,7 +18,7 @@ def calculate_attributes(application_list):
                     attribute[row] += 1
                 else:
                     attribute[row] = 1
-
+    print(attribute)
     return attribute
 
 def calculate_result_set(application_list):
