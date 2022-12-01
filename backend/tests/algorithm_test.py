@@ -63,13 +63,22 @@ class test_functions(TestCase):
         self.assertDictEqual(delete_rows_none_of_the_above(application_list,question),result)
 
 class test_calculate_attributes(TestCase):
+    #{'a': 1, 'b': 2, 'c': 4} -> how the attributes are formated
     def test_normal(self):
-        #{'a': 1, 'b': 2, 'c': 4} -> how the attributes are formated
         result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1} #result list for the test
         self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
 
 class test_calculate_result_set(TestCase):
+    #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
     def test_normal(self):
-        #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
         result = ["Bafoeg", "Kindergeld"] #result list for the test
         self.assertListEqual(calculate_result_set(application_list), result) #checks the wanted results against the actual results
+
+class test_create_subtree(TestCase):
+    # {'Frage': 'Kinder_Anzahl', 'Ergebnismenge': ['Wohngeld', 'Elterngeld', 'Kindergeld'], 'Antworten': {}} -> how the tree is formated
+    def test_normal(self):
+        question = "Kinder Anzahl"
+        result_set = ["Bafoeg", "Kindergeld"]
+        skippedAttributes = []
+        result = {"Frage": "Kinder Anzahl", "Ergebnismenge": ["Bafoeg", "Kindergeld"], "Antworten": {}} #result list for the test
+        self.assertDictEqual(create_subtree(question, result_set, skippedAttributes), result) #checks the wanted results against the actual results

@@ -109,15 +109,15 @@ def tree_depth(tree):
 
 def create_subtree(question, result_set, skipped_attributes):
 
-    tree = {}
-    tree["Frage"] = question
-    tree["Ergebnismenge"] = result_set
-    tree["Antworten"] = {}
+    tree = {} #creates the tree structure
+    tree["Frage"] = question #adds the question to the tree with the key "Frage"
+    tree["Ergebnismenge"] = result_set #adds the result set to the tree with the key "Ergebnismenge"
+    tree["Antworten"] = {} #creates an empty space for the answers
 
-    if skipped_attributes:
-        tree["skippedAttributes"] = skipped_attributes
+    if skipped_attributes: #if any attributes were skipped
+        tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
-    return tree
+    return tree #returns the tree
 
 
 def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
