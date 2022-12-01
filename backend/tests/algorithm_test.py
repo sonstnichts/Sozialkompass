@@ -16,51 +16,59 @@ application_list = json.load(data)
 data = open(dir / "algorithmus/assets/test_attributes.json")
 attributes = json.load(data)
 
-class test_functions(TestCase):
+# set variable for test_asset path:
+test_asset_path = "tests/test_assets"
+
+class test_delete_rows_none_of_the_above(TestCase):
 
     def test_delete_rows_none_of_the_above(self):
 
         question = "Staatsangehoerigkeit"
 
-        result = [
-                    {
-                        "Name": "Bafög",
-                        "Attribute": {
-                        "Berufsstatus": "Studierender",
-                        "Ausbildungsstaette": [
-                            "Universität",
-                            "Akademie",
-                            "Fachhochschule",
-                            "Hochschule"
-                        ],
-                        "Alter bei Beginn der Ausbildung": [0, 45],
-                        "Sonstiges": [
-                            [
-                            {},
-                            {
-                                "Jahre in Deutschland": [5, 1000]
-                            }
-                            ]
-                        ]
-                        }
-                    },
-                    {
-                        "Name": "Kindergeld",
-                        "Attribute": {
-                        "Kinder Anzahl": [1, 50],
-                        "Sonstiges": [
-                            [{}],
-                            [
-                            {
-                                "Alter bei Beginn der Ausbildung": [0, 17]
-                            }
-                            ]
-                        ]
-                        }
-                    }
-                ]
+        # load input data
+        data = open(dir / test_asset_path / "test_delete_rows_none_of_the_above_input.json")
+        application_list = json.load(data)
+        
+        #load result data
+        data = open(dir / test_asset_path / "test_delete_rows_none_of_the_above_result.json")
+        result = json.load(data)
 
-        self.assertDictEqual(delete_rows_none_of_the_above(application_list,question),result)
+        delete_rows_none_of_the_above(application_list,question)
+        self.assertListEqual(application_list,result)
+
+# class test_accept_applications(TestCase):
+    
+#     def test_accept_applications(self):
+
+#         # load input data
+#         data = open(dir / test_asset_path / "test_accept_applications.json")
+#         application_list = json.load(data)
+        
+#         #load result data
+#         data = open(dir / test_asset_path / "test_delete_rows_none_of_the_above_result.json")
+#         result = json.load(data)
+
+class test_delete_rows(TestCase):
+
+    def test_delete_rows(self):
+
+        # load input data
+
+        data = open(dir / "algorithmus/assets/test_antraege.json")
+        application_list = json.load(data)
+
+
+        # load result data
+        
+        data = open(dir / test_asset_path / "test_accept_applications.json")
+        result = json.load(data)
+
+        question = "Staatsangehoerigkeit"
+        answer_possibilities = "deutsch"
+        questiontype = "Auswahl"
+
+        delete_rows(application_list,question,answer_possibilities,questiontype)
+        self.assertListEqual(application_list,result)
 
 class test_calculate_attributes(TestCase):
     def test_normal(self):

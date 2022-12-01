@@ -255,34 +255,14 @@ def generate_answers(application_list,question,attribute):
 
 def delete_rows_none_of_the_above (application_list_copy, question):
 
-    deleted_rows = []
-    deleted_rows_otherwise = []
+    for application in application_list_copy:
 
-    for application in application_list_copy.items():
-        for idx,condition in enumerate(application[1]["Attribute"]):
-            for row in condition.items():
-                if row[0] == question:
-                    deleted_rows.append((application[0],idx))
-
-    for id_application,application in enumerate(application_list_copy):
-        for attribute in application["Attribute"].items():
-            if attribute[0] == "Sonstiges":
-                for id_list,list in enumerate(attribute[1]):
-                    for id_entry,entry in enumerate(list):
-                        for row in entry.items():
-                            if row[0] == question:
-                                deleted_rows_otherwise.append((id_application,id_list,id_entry,row[0]))
-            else:
-                if attribute[0] == question:
-                    delete_rows.append((id_application,attribute[0]))
-
-
-    #delete rows
-
-    for delete_item in reversed(deleted_rows):
-        application_list_copy[deleted_rows[0]]["Attribute"].pop(delete_item[1])
-
-    for delete_item in reversed(deleted_rows_otherwise):
-        application_list_copy[deleted_rows_otherwise[0]]["Attribute"]["Sonstiges"][deleted_rows_otherwise[1]][deleted_rows_otherwise[2]].pop(deleted_rows_otherwise[3])
-
+        if question in application["Attribute"]:
+            del application["Attribute"][question]
+            
+        if "Sonstiges" in application["Attribute"]:
+            for list in application["Attribute"]["Sonstiges"]:
+                for entry in list:
+                    if question in entry:
+                        del entry[question]
     
