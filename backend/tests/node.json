@@ -1,0 +1,18 @@
+{
+    "ID":"dfaösdfh3bg239u",
+    "ParentID":"aspe9iqwg383ß8",
+    "Frage":"Staatsangehörigkeit",
+    "Kategorie":"Auswahl",
+    "Antworten":[
+        {
+            "Bezeichnung":["deutsch"],
+            "NodeID":"w9eiv239r8h90"
+        },
+        {
+            "Bezeichnung":["italienisch","türkisch"],
+            "NodeID":"q23p9823ign98rj"
+        }
+    ],
+    "NoneoftheAboveID":"p984z2p93g",
+    "SkipID":"aösoei23g823tu"
+}

@@ -50,6 +50,7 @@ class test_delete_rows_none_of_the_above(TestCase):
 
 class test_delete_rows(TestCase):
 
+    # case where the attributes to be deleted are in the "Sonstiges"-section
     def test_delete_rows(self):
 
         # load input data
@@ -69,6 +70,26 @@ class test_delete_rows(TestCase):
 
         delete_rows(application_list,question,answer_possibilities,questiontype)
         self.assertListEqual(application_list,result)
+
+    # case where the attributes to be deleted are in the main section
+    def test_delete_rows_2(self):
+
+        data = open(dir / test_asset_path / "test_delete_rows_2_input.json")
+        application_list = json.load(data)
+
+
+        # load result data
+        
+        data = open(dir / test_asset_path / "test_delete_rows_2_result.json")
+        result = json.load(data)
+
+        question = "Staatsangehoerigkeit"
+        answer_possibilities = ["Ausland"]
+        questiontype = "Auswahl"
+
+        delete_rows(application_list,question,answer_possibilities,questiontype)
+        self.assertListEqual(application_list,result)
+
 
 # class test_generate_answers(TestCase):
 

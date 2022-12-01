@@ -122,8 +122,6 @@ def create_subtree(question, result_set, skipped_attributes):
 
 def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
     
-    delete_rows = []
-
     def check_result(questiontype,answers,results):
 
         returnvalue = True
@@ -141,22 +139,30 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
 
         return returnvalue
 
-    for application in application_list_copy:
+    deleted_rows = []
+    deleted_rows_other = []
+
+    for idx,application in enumerate(application_list_copy):
         if question in application["Attribute"]:
-            if check_result(questiontype,answer_possibilities,application[question]):
-                del application
+            if check_result(questiontype,answer_possibilities,application["Attribute"][question]):
+                deleted_rows.append(idx)
             else:
                 del application[question]
 
         if "Sonstiges" in application["Attribute"]:
-            for lists in application["Attribute"]["Sonstiges"]:
-                for entry in lists:
+            for id_lists,lists in enumerate(application["Attribute"]["Sonstiges"]):
+                for index, entry in enumerate(lists):
                     if question in entry:
                         if check_result(questiontype,answer_possibilities,entry[question]):
-                            del entry
+                            deleted_rows_other.append((idx,id_lists,index))
                         else:
-                            del entry[question]
-            
+                            del lists[index][question]
+
+    for deleted_row in deleted_rows:
+        application_list_copy.pop(deleted_row)
+    
+    for deleted_row in reversed(deleted_rows_other):
+        application_list_copy[deleted_row[0]]["Attribute"]["Sonstiges"][deleted_row[1]].pop(deleted_row[2])
 
 def remove_applications(application_list_copy):
 
