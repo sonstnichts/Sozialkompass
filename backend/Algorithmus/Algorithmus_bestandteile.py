@@ -11,24 +11,31 @@ def calculate_attributes(application_list):
 
     attribute = {}
 
-    for application in application_list.items():
-        for requirement in application[1]["Attribute"]:
-            for row in requirement.keys():
-                if row in attribute:
-                    attribute[row] += 1
+    for application in application_list: #loops throught the applications
+        for requirement in application["Attribute"].items(): #loops through all requirements (attributes) an application has
+            if (requirement[0] != "Sonstiges"): #checks if the requirement  not nested
+                if requirement[0] in attribute: #checks if the requirement is already in the attribute list
+                    attribute[requirement[0]] += 1 #if it is it increases the counter
                 else:
-                    attribute[row] = 1
-    print(attribute)
-    return attribute
+                    attribute[requirement[0]] = 1 #if it isn't it creates a new entry in the attribute list
+            else: #if the requirement is nested
+                for nested_requirements in requirement[1]: #loops through the information after the "sonstige" keyword
+                    for nested_requirement in nested_requirements: #loops through the nested requirements themselves
+                        for key in nested_requirement: #loops through the keys of each nested requirement (should only be one)
+                            if key in attribute: #same check for adding an attribute as above
+                                attribute[key] += 1
+                            else:
+                                attribute[key] = 1
+    return attribute #returns the attribute list
 
 def calculate_result_set(application_list):
 
-    result_set = []
+    result_set = [] #creates a list for the result set
 
-    for application in application_list.keys():
-        result_set.append(application)
+    for application in application_list: #loops through the applications
+        result_set.append(application["Name"]) #gets the name of the application and adds it to the result set
     
-    return result_set
+    return result_set 
 
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
@@ -102,15 +109,15 @@ def tree_depth(tree):
 
 def create_subtree(question, result_set, skipped_attributes):
 
-    tree = {}
-    tree["Frage"] = question
-    tree["Ergebnismenge"] = result_set
-    tree["Antworten"] = {}
+    tree = {} #creates the tree structure
+    tree["Frage"] = question #adds the question to the tree with the key "Frage"
+    tree["Ergebnismenge"] = result_set #adds the result set to the tree with the key "Ergebnismenge"
+    tree["Antworten"] = {} #creates an empty space for the answers
 
-    if skipped_attributes:
-        tree["skippedAttributes"] = skipped_attributes
+    if skipped_attributes: #if any attributes were skipped
+        tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
-    return tree
+    return tree #returns the tree
 
 
 def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
