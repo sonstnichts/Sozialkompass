@@ -70,4 +70,6 @@ class test_calculate_attributes(TestCase):
 
 class test_calculate_result_set(TestCase):
     def test_normal(self):
-        result = 
+        #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
+        result = ["Bafoeg", "Kindergeld"] #result list for the test
+        self.assertListEqual(calculate_result_set(application_list), result) #checks the wanted results against the actual results

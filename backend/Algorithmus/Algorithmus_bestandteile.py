@@ -30,12 +30,12 @@ def calculate_attributes(application_list):
 
 def calculate_result_set(application_list):
 
-    result_set = []
+    result_set = [] #creates a list for the result set
 
-    for application in application_list.keys():
-        result_set.append(application)
+    for application in application_list: #loops through the applications
+        result_set.append(application["Name"]) #gets the name of the application and adds it to the result set
     
-    return result_set
+    return result_set 
 
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
