@@ -11,13 +11,23 @@ def calculate_attributes(application_list):
 
     attribute = {}
 
-    for application in application_list.items():
-        for requirement in application[1]["Attribute"]:
-            for row in requirement.keys():
-                if row in attribute:
-                    attribute[row] += 1
+    for application in application_list:
+        for requirement in application["Attribute"].items():
+            print(requirement[0])
+            if (requirement[0] != "Sonstiges"):
+                if requirement[0] in attribute:
+                    attribute[requirement[0]] += 1
                 else:
-                    attribute[row] = 1
+                    attribute[requirement[0]] = 1
+            else:
+                for nested_requirements in requirement[1]:
+                    for nested_requirement in nested_requirements:
+                        print("for ", nested_requirement, "in ", nested_requirements)
+                        for key in nested_requirement:
+                            if key in attribute:
+                                attribute[key] += 1
+                            else:
+                                attribute[key] = 1
     print(attribute)
     return attribute
 
