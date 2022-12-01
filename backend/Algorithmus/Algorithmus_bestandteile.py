@@ -11,25 +11,22 @@ def calculate_attributes(application_list):
 
     attribute = {}
 
-    for application in application_list:
-        for requirement in application["Attribute"].items():
-            print(requirement[0])
-            if (requirement[0] != "Sonstiges"):
-                if requirement[0] in attribute:
-                    attribute[requirement[0]] += 1
+    for application in application_list: #loops throught the applications
+        for requirement in application["Attribute"].items(): #loops through all requirements (attributes) an application has
+            if (requirement[0] != "Sonstiges"): #checks if the requirement  not nested
+                if requirement[0] in attribute: #checks if the requirement is already in the attribute list
+                    attribute[requirement[0]] += 1 #if it is it increases the counter
                 else:
-                    attribute[requirement[0]] = 1
-            else:
-                for nested_requirements in requirement[1]:
-                    for nested_requirement in nested_requirements:
-                        print("for ", nested_requirement, "in ", nested_requirements)
-                        for key in nested_requirement:
-                            if key in attribute:
+                    attribute[requirement[0]] = 1 #if it isn't it creates a new entry in the attribute list
+            else: #if the requirement is nested
+                for nested_requirements in requirement[1]: #loops through the information after the "sonstige" keyword
+                    for nested_requirement in nested_requirements: #loops through the nested requirements themselves
+                        for key in nested_requirement: #loops through the keys of each nested requirement (should only be one)
+                            if key in attribute: #same check for adding an attribute as above
                                 attribute[key] += 1
                             else:
                                 attribute[key] = 1
-    print(attribute)
-    return attribute
+    return attribute #returns the attribute list
 
 def calculate_result_set(application_list):
 

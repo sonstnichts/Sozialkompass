@@ -64,7 +64,7 @@ class test_functions(TestCase):
 
 class test_calculate_attributes(TestCase):
     def test_normal(self):
-        #{'d': 1, 'c': 1, 'f': 1}
-        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1}
-        self.assertDictEqual(calculate_attributes(application_list), result)
+        #{'a': 1, 'b': 2, 'c': 4} -> how the attributes are formated
+        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1} #result list for the test
+        self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
     
