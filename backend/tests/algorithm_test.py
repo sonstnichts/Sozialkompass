@@ -60,15 +60,35 @@ class test_delete_rows(TestCase):
 
         # load result data
         
-        data = open(dir / test_asset_path / "test_accept_applications.json")
+        data = open(dir / test_asset_path / "test_delete_rows_result.json")
         result = json.load(data)
 
         question = "Staatsangehoerigkeit"
-        answer_possibilities = "deutsch"
+        answer_possibilities = ["deutsch"]
         questiontype = "Auswahl"
 
         delete_rows(application_list,question,answer_possibilities,questiontype)
         self.assertListEqual(application_list,result)
+
+# class test_generate_answers(TestCase):
+
+#     def test_generate_answers(self):
+
+#         question = "Staatsangehoerigkeit"
+
+#         # load input data
+#         data = open(dir / "algorithmus/assets/test_antraege.json")
+#         application_list = json.load(data)
+
+#         data = open(dir / "algorithmus/assets/test_attributes.json")
+#         attributes = json.load(data)
+        
+#         #load result data
+#         data = open(dir / test_asset_path / "test_generate_answers_result.json")
+#         result = json.load(data)
+
+#         self.assertListEqual(generate_answers(application_list,question,attributes),result)
+
 
 class test_calculate_attributes(TestCase):
     #{'a': 1, 'b': 2, 'c': 4} -> how the attributes are formated

@@ -32,7 +32,7 @@
         "Bescheibung": "Das ist die Beschreibung zum Alter bei Beginn der Ausbildung",
         "Kategorie": "Ganzzahl"
     },
-    "Staatsangehörigkeit": {
+    "Staatsangehoerigkeit": {
         "Frage": "Welchem Staat gehörst du an?",
         "Beschreibung": "Das ist die Beschreibung zur Staatsangehörigkeit",
         "Kategorie": "Auswahl",

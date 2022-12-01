@@ -124,31 +124,39 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
     
     delete_rows = []
 
-    match questiontype:
+    def check_result(questiontype,answers,results):
 
-        case "Auswahl":
+        returnvalue = True
 
-            for application in application_list_copy.items():
-                for idx,condition in enumerate(application[1]["Attribute"]):
-                    for row in condition.items():
-                        if row[0] == question and row[1] != answer_possibilities:
-                            delete_rows.append((application[0],idx))
-
-        case "Ganzzahl":
-
-            range = literal_eval(answer_possibilities)
-
-            for application in application_list_copy.items():
-                for idx,condition in enumerate(application[1]["Attribute"]):
-                    for row in condition.items():
-                        if row[0] == question and (row[1][0] > range[1] or row[1][1] < range[0]):
-                            delete_rows.append((application[0],idx))
+        match questiontype:
             
-        
-    #delete rows
+            case "Auswahl":
+                for answer in answers:
+                    if answer in results:
+                        returnvalue = False
+            case "Ganzzahl":
+                range = literal_eval(answers)
+                if results[0] <= range [1] and results[1] <= range[0]:
+                    returnvalue = False
 
-    for delete_item in reversed(delete_rows):
-        application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
+        return returnvalue
+
+    for application in application_list_copy:
+        if question in application["Attribute"]:
+            if check_result(questiontype,answer_possibilities,application[question]):
+                del application
+            else:
+                del application[question]
+
+        if "Sonstiges" in application["Attribute"]:
+            for lists in application["Attribute"]["Sonstiges"]:
+                for entry in lists:
+                    if question in entry:
+                        if check_result(questiontype,answer_possibilities,entry[question]):
+                            del entry
+                        else:
+                            del entry[question]
+            
 
 def remove_applications(application_list_copy):
 
@@ -194,7 +202,7 @@ def accept_applications(application_list_copy,accepted_applications_copy):
     for application in accepted_applications:
         del application_list_copy[application]
 
-def generate_answers(application_list,question,attribute):
+def generate_answers(application_list,question,attribute): # Not done yet
 
     attribute_category = attribute[question]["Kategorie"]
 
@@ -202,7 +210,18 @@ def generate_answers(application_list,question,attribute):
 
         # In case of a selection, the possible answers of the attributes are being returned-
         case "Auswahl":
-            return attribute[question]["Antwortmoeglichkeiten"]
+            answers = []
+
+            for application in application_list:
+                if question in application["Attribute"]:
+                    answers.append(requirements[question])
+                if "Sonstiges" in application["Attribute"]:
+                    for lists in application["Attribute"]["Sonstiges"]:
+                            for entry in lists:
+                                if question in entry:
+                                    answers.append(entry[question])
+            print(answers)
+            return answers
 
         # In case of a numberinput, ranges are created
         case "Ganzzahl":
@@ -219,12 +238,17 @@ def generate_answers(application_list,question,attribute):
             upper_bounds = []
             
             # Boundlists are filled with the entries in the applicationlist.
-            for application in application_list.items():
-                for requirements in application[1]["Attribute"]:
-                    for entry in requirements.items():
-                        if entry[0] == question:
-                            lower_bounds.append(entry[1][0])
-                            upper_bounds.append(entry[1][1])
+            for application in application_list:
+                for requirements in application["Attribute"]:
+                    if question in requirements:
+                        lower_bounds.append(requirements[question][0])
+                        upper_bounds.append(requirements[question][1])
+                    if "Sonstiges" in requirements:
+                        for lists in requirements["Sonstiges"]:
+                            for entry in lists:
+                                if question in entry:
+                                    lower_bounds.append(entry[question][0])
+                                    upper_bounds.append(entry[question][1])
 
             # In both lists duplicates are removed and result gets sorted
             lower_bounds = list(dict.fromkeys(lower_bounds))
@@ -260,13 +284,14 @@ def generate_answers(application_list,question,attribute):
             result.append(str([lastvalue+smallest_unit,max_int]))
             return result
 
+# done
 def delete_rows_none_of_the_above (application_list_copy, question):
 
     for application in application_list_copy:
 
         if question in application["Attribute"]:
             del application["Attribute"][question]
-            
+
         if "Sonstiges" in application["Attribute"]:
             for list in application["Attribute"]["Sonstiges"]:
                 for entry in list:
