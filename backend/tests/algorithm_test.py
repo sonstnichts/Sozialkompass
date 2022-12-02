@@ -134,3 +134,19 @@ class test_create_subtree(TestCase):
         skippedAttributes = []
         result = {"Frage": "Kinder Anzahl", "Ergebnismenge": ["Bafoeg", "Kindergeld"], "Antworten": {}} #result list for the test
         self.assertDictEqual(create_subtree(question, result_set, skippedAttributes), result) #checks the wanted results against the actual results
+
+class test_split_array(TestCase):
+    def test_easy(self):
+        array = [["a", "b", "c"], ["c"], ["c", "d"]]
+        result = [["a", "b"], ["c"], ["d"]]
+        self.assertEqual(split_array(array), result)
+
+    def test_mid(self):
+        array = [["e", "f", "g"], ["f", "g"]]
+        result = [["e"], ["f", "g"]]
+        self.assertEqual(split_array(array), result)
+
+    def test_hard(self):
+        array = [["a", "b", "c"], ["c"], ["c", "d"], ["e", "f", "g"], ["f", "g"]]
+        result = [["a", "b"], ["c"], ["d"], ["e"], ["f", "g"]]
+        self.assertEqual(split_array(array), result)
