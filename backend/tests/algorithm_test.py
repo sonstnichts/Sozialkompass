@@ -36,17 +36,20 @@ class test_delete_rows_none_of_the_above(TestCase):
         delete_rows_none_of_the_above(application_list,question)
         self.assertListEqual(application_list,result)
 
-# class test_accept_applications(TestCase):
-    
-#     def test_accept_applications(self):
+class test_remove_applications(TestCase):
 
-#         # load input data
-#         data = open(dir / test_asset_path / "test_accept_applications.json")
-#         application_list = json.load(data)
+    def test_remove_applications(self):
+
+        # load input data
+        data = open(dir / test_asset_path / "test_remove_applications_input.json")
+        application_list = json.load(data)
         
-#         #load result data
-#         data = open(dir / test_asset_path / "test_delete_rows_none_of_the_above_result.json")
-#         result = json.load(data)
+        #load result data
+        data = open(dir / test_asset_path / "test_remove_applications_result.json")
+        result = json.load(data)
+
+        remove_applications(application_list)
+        self.assertListEqual(application_list,result)
 
 class test_delete_rows(TestCase):
 

@@ -142,10 +142,10 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
     deleted_rows = []
     deleted_rows_other = []
 
-    for idx,application in enumerate(application_list_copy):
+    for id_application,application in enumerate(application_list_copy):
         if question in application["Attribute"]:
             if check_result(questiontype,answer_possibilities,application["Attribute"][question]):
-                deleted_rows.append(idx)
+                deleted_rows.append(id_application)
             else:
                 del application[question]
 
@@ -154,7 +154,7 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
                 for index, entry in enumerate(lists):
                     if question in entry:
                         if check_result(questiontype,answer_possibilities,entry[question]):
-                            deleted_rows_other.append((idx,id_lists,index))
+                            deleted_rows_other.append((id_application,id_lists,index))
                         else:
                             del lists[index][question]
 
@@ -165,23 +165,35 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
         application_list_copy[deleted_row[0]]["Attribute"]["Sonstiges"][deleted_row[1]].pop(deleted_row[2])
 
 def remove_applications(application_list_copy):
-
+#optimise array operations
     rejected_applications = []
+    removed_table_entries = []
 
-    for application in application_list_copy.items():
-        if not application[1]["Attribute"]:
-            rejected_applications.append(application[0])
-
+    for id_application,application in enumerate(application_list_copy):
+        if "Sonstiges" in application["Attribute"]:
+            for index_lists,lists in enumerate(application["Attribute"]["Sonstiges"]):
+                if not lists:
+                    rejected_applications.append(id_application)
+                else:
+                    for index_list,entry in enumerate(lists):
+                        if not entry:
+                            removed_table_entries.append((id_application,index_lists,index_list))
     #Anträge entfernen
 
-    for application in rejected_applications:
-        del application_list_copy[application]
+    for application_index in reversed(rejected_applications):
+        application_list_copy.pop(application_index)
 
-def delete_columns(application_list_copy, question):
+    for table_index in reversed(removed_table_entries):
+        del application_list_copy[table_index[0]]["Attribute"]["Sonstiges"][table_index[1]][table_index[2]]
+        if not application_list_copy[table_index[0]]["Attribute"]["Sonstiges"][table_index[1]]:
+            application_list_copy[table_index[0]]["Attribute"]["Sonstiges"].pop(table_index[1])
+        if not application_list_copy[table_index[0]]["Attribute"]["Sonstiges"]:
+            del application_list_copy[table_index[0]]["Attribute"]["Sonstiges"]
+
+def delete_columns(application_list_copy, question):# wahrscheinlich nicht mehr nötig
 
     deleted_columns = []
     
-
     for antrag in application_list_copy.items():
         for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
             for zeilen in bedingungen.items():
