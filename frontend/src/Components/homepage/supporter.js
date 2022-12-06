@@ -15,7 +15,7 @@ export function Supporter() {
       sx={{
         width: "flex",
         height: "400px",
-        backgroundColor: "#0088ff",
+        backgroundColor: "#4E98DD ",
       }}
     >
       <Box>

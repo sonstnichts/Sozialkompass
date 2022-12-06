@@ -12,7 +12,7 @@ export function Contact(){
         sx={{
           width: 'flex',
           height: '350px',
-          backgroundColor: '#003153',
+          backgroundColor: '#0E1C36 ',
           
         }}
     >

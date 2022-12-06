@@ -3,7 +3,7 @@ import "./home.css";
 import { Grid, Paper, Button, Box, styled, Typography } from "@mui/material";
 import { spacing } from "@mui/system";
 import logobig from "../../Assets/logo/logoOne.png";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import { useTheme, ThemeProvider } from "@mui/material/styles";
 import people from "../../Assets/logo/People.png";
 
@@ -15,7 +15,7 @@ const LogoBig = styled("img")(() => ({
 }));
 
 // Homepage
-function Home() {
+ export function Home() {
   const theme = useTheme();
   // Structure of the home page
   // Box is used for setting up objects of home page
@@ -38,19 +38,12 @@ function Home() {
           </Box>
         </Box>
 
-        <Box
-          sx={{ m: 4 }}
-          display="flex-end"
-          margin="auto"
-          justifyContent="center"
-          alignItems="justify-end"
-          textAlign="center"
-        >
+        <Box>
           {/* <Link to = "/question"/> */}
-          <Typography align="center" variant="h1">
+          <Typography align="center" variant="h3">
             Willkommen bei dem Sozialkompass. 
           </Typography>
-          <Typography align="center" variant="h3">
+          <Typography align="center" variant="h4">
             Wir wollen dir helfen Anträge zu finden auf die du Anspruch haben
             kannst, aber schwer zu finden sind. Zum starten klicke einfach auf
             den Knopf unter diesem Text.
@@ -64,16 +57,18 @@ function Home() {
           alignItems="justify-end"
           textAlign="center"
         >
+          <Link to="/question" style={{ textDecoration: 'none' }}>
           <Button
           style={{maxWidth: '150px', maxHeight: '150px', minWidth: '150px', minHeight: '150px'}}
-            href="Components/question"
             variant="contained"
             color="inherit"
             sx={{ color: 'black', backgroundColor: '#92D293',border: '40px', borderColor: 'black' }}
           >
-            {" "}
-            START{" "}
-          </Button>
+            
+            <Typography align="center" variant="h5">
+           START
+          </Typography> </Button>
+          </Link>
           <Box
           sx={{ m: 11 }}
           display="flex-end"
@@ -81,8 +76,9 @@ function Home() {
           justifyContent="center"
           alignItems="justify-end"
           textAlign="center"
+          
         >
-          {/* <Link to = "/question"/> */}
+         
           <div style={{ padding: 70 }}>
           <Grid container spacing={45}>
             <Grid item xs={12} sm={6} md={4}>
@@ -107,7 +103,7 @@ function Home() {
   );
 }
 
-export default Home;
+
 {
   /* <ul>
                 <li>

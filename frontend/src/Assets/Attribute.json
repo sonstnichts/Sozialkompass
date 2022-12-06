@@ -1,0 +1,27 @@
+{
+    "Berufsstatus": {
+        "Frage": "Was ist ihr Berufsstatus?",
+        "Beschreibung": "Das ist die Beschreibung zum Berufsstatus",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "Studierender",
+            "Berufstaetig",
+            "Auszubildender"
+        ]
+    },
+    "Familienstatus": {
+        "Frage": "Was ist ihr Familienstatus?",
+        "Beschreibung": "Das ist die Beschreibung zum Familienstatus",
+        "Kategorie": "Auswahl",
+        "Antwortmoeglichkeiten": [
+            "ledig",
+            "verheiratet",
+            "geschieden"
+        ]
+    },
+    "Kinder_Anzahl": {
+        "Frage": "Wie viele Kinder haben Sie?",
+        "Bescheibung": "Das ist die Beschreibung zur Anzahl der Kinder",
+        "Kategorie": "Ganzzahl"
+    }
+}
