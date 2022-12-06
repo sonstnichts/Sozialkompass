@@ -4,6 +4,7 @@
 import itertools
 import copy
 from ast import literal_eval
+from datetime import datetime
 
 # Scans the Application List for all existing Attributes and counts how often they occur.
 # Result is output as a dictionary
@@ -107,18 +108,25 @@ def tree_depth(tree):
     tree_depth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
     return tree_depth
 
-def create_subtree(question, result_set, skipped_attributes):
+def create_node(question, result_set, skipped_attributes,nodeId,parentId):
 
     tree = {} #creates the tree structure
-    tree["Frage"] = question #adds the question to the tree with the key "Frage"
+    tree["_id"] = nodeId
+    if parentId != "":
+        tree["parentId"] = parentId
+    else:
+        tree["time"] = str(datetime.now())
+    tree["Attribut"] = question #adds the question to the tree with the key "Frage"
     tree["Ergebnismenge"] = result_set #adds the result set to the tree with the key "Ergebnismenge"
-    tree["Antworten"] = {} #creates an empty space for the answers
+    tree["Antworten"] = [] #creates an empty space for the answers
 
     if skipped_attributes: #if any attributes were skipped
         tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
     return tree #returns the tree
 
+def return_max(allAttributesOriginal):
+    return max(allAttributesOriginal, key = allAttributesOriginal.get)
 
 def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
     
@@ -134,7 +142,7 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
                         returnvalue = False
             case "Ganzzahl":
                 range = literal_eval(answers)
-                if results[0] <= range [1] and results[1] <= range[0]:
+                if results[0] <= range [0] and results[1] >= range[1]:
                     returnvalue = False
 
         return returnvalue
@@ -147,7 +155,7 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
             if check_result(questiontype,answer_possibilities,application["Attribute"][question]):
                 deleted_rows.append(id_application)
             else:
-                del application[question]
+                del application["Attribute"][question]
 
         if "Sonstiges" in application["Attribute"]:
             for id_lists,lists in enumerate(application["Attribute"]["Sonstiges"]):
@@ -158,11 +166,11 @@ def delete_rows(application_list_copy, question, answer_possibilities, questiont
                         else:
                             del lists[index][question]
 
-    for deleted_row in deleted_rows:
-        application_list_copy.pop(deleted_row)
-    
     for deleted_row in reversed(deleted_rows_other):
         application_list_copy[deleted_row[0]]["Attribute"]["Sonstiges"][deleted_row[1]].pop(deleted_row[2])
+
+    for deleted_row in reversed(deleted_rows):
+        application_list_copy.pop(deleted_row)
 
 def remove_applications(application_list_copy):
 #optimise array operations
@@ -180,49 +188,32 @@ def remove_applications(application_list_copy):
                             removed_table_entries.append((id_application,index_lists,index_list))
     #Anträge entfernen
 
-    for application_index in reversed(rejected_applications):
-        application_list_copy.pop(application_index)
 
     for table_index in reversed(removed_table_entries):
-        del application_list_copy[table_index[0]]["Attribute"]["Sonstiges"][table_index[1]][table_index[2]]
+        application_list_copy[table_index[0]]["Attribute"]["Sonstiges"][table_index[1]].pop(table_index[2])
         if not application_list_copy[table_index[0]]["Attribute"]["Sonstiges"][table_index[1]]:
             application_list_copy[table_index[0]]["Attribute"]["Sonstiges"].pop(table_index[1])
         if not application_list_copy[table_index[0]]["Attribute"]["Sonstiges"]:
             del application_list_copy[table_index[0]]["Attribute"]["Sonstiges"]
 
-def delete_columns(application_list_copy, question):# wahrscheinlich nicht mehr nötig
-
-    deleted_columns = []
-    
-    for antrag in application_list_copy.items():
-        for idx,bedingungen in enumerate(antrag[1]["Attribute"]):
-            for zeilen in bedingungen.items():
-                if zeilen[0] == question:
-                    deleted_columns.append((antrag[0],idx))
-
-    #Spalten löschen
-    for delete_item in reversed(deleted_columns):
-        del application_list_copy[delete_item[0]]["Attribute"][delete_item[1]][question]
-        if not application_list_copy[delete_item[0]]["Attribute"][delete_item[1]]:
-            application_list_copy[delete_item[0]]["Attribute"].pop(delete_item[1])
+    for application_index in reversed(rejected_applications):
+        application_list_copy.pop(application_index)
 
 def accept_applications(application_list_copy,accepted_applications_copy):
 
     accepted_applications = []
 
-    for application in application_list_copy.items():
-        if not application[1]["Attribute"]:
-            accepted_applications.append(application[0])
-            accepted_applications_copy.append(application[0])
+    for id_application,application in enumerate(application_list_copy):
+        if not application["Attribute"]:
+            accepted_applications.append(id_application)
+            accepted_applications_copy.append(application["Name"])
 
     #remove applications
 
-    for application in accepted_applications:
-        del application_list_copy[application]
+    for application in reversed(accepted_applications):
+        application_list_copy.pop(application)
 
-def generate_answers(application_list,question,attribute): # Not done yet
-
-    attribute_category = attribute[question]["Kategorie"]
+def generate_answers(application_list,question,attribute_category): # Not done yet
 
     match attribute_category:
 
@@ -232,13 +223,16 @@ def generate_answers(application_list,question,attribute): # Not done yet
 
             for application in application_list:
                 if question in application["Attribute"]:
-                    answers.append(requirements[question])
+                    for answer in application["Attribute"][question]:
+                        if not answers.__contains__(answer):
+                            answers.append([answer])
                 if "Sonstiges" in application["Attribute"]:
                     for lists in application["Attribute"]["Sonstiges"]:
-                            for entry in lists:
-                                if question in entry:
-                                    answers.append(entry[question])
-            print(answers)
+                        for entry in lists:
+                            if question in entry:
+                                for answer in entry[question]:
+                                    if not answers.__contains__(answer):
+                                        answers.append([answer])
             return answers
 
         # In case of a numberinput, ranges are created
@@ -257,16 +251,15 @@ def generate_answers(application_list,question,attribute): # Not done yet
             
             # Boundlists are filled with the entries in the applicationlist.
             for application in application_list:
-                for requirements in application["Attribute"]:
-                    if question in requirements:
-                        lower_bounds.append(requirements[question][0])
-                        upper_bounds.append(requirements[question][1])
-                    if "Sonstiges" in requirements:
-                        for lists in requirements["Sonstiges"]:
-                            for entry in lists:
-                                if question in entry:
-                                    lower_bounds.append(entry[question][0])
-                                    upper_bounds.append(entry[question][1])
+                if question in application["Attribute"]:
+                    lower_bounds.append(application["Attribute"][question][0])
+                    upper_bounds.append(application["Attribute"][question][1])
+                if "Sonstiges" in application["Attribute"]:
+                    for lists in application["Attribute"]["Sonstiges"]:
+                        for entry in lists:
+                            if question in entry:
+                                lower_bounds.append(entry[question][0])
+                                upper_bounds.append(entry[question][1])
 
             # In both lists duplicates are removed and result gets sorted
             lower_bounds = list(dict.fromkeys(lower_bounds))

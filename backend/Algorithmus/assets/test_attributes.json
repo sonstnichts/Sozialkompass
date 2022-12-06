@@ -1,7 +1,8 @@
 {
-    "Ausbildungsstätte": {
+    "Ausbildungsstaette": {
         "Frage": "Welche Ausbildungsstätte besuchst du?",
         "Beschreibung": "Das ist die Beschreibung zur Ausbildungsstätte",
+        "Kategorie":"Auswahl",
         "Antwortmöglichkeiten": [
             "Akademie",
             "Universität",

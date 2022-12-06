@@ -1,8 +1,8 @@
 import copy
 
-a = [["a","b","c"],["c"],["c","d"],["e","f","g"],["g"],["g"]]
+a = [["a","b","c"],["c"],["c","d"],["e","f","g"],["f","g"]]
+result = [["a","b"],["c"],["d"],["e"],["f","g"]]    
 b = copy.deepcopy(a)
-result = [["a","b"],["c"],["d"],["e"],["f","g"]]
 
 def clean_subsets(a):
     print(a)
@@ -35,8 +35,6 @@ def split_array(array):
         if sub_array: #if the sub array isn't empty
             result_array.append(sub_array) #add the sub array to the result array
     return result_array #return the result array
-
-
 
 #print(clean_subsets(a))
 print(split_array(b))

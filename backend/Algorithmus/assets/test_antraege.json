@@ -2,7 +2,7 @@
   {
     "Name": "Bafoeg",
     "Attribute": {
-      "Berufsstatus": "Studierender",
+      "Berufsstatus": ["Studierender"],
       "Ausbildungsstaette": [
         "Universität",
         "Akademie",
