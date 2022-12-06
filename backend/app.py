@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response, request, session
 from flask_restful import Resource, Api
 import json
 from flask_talisman import Talisman
@@ -12,6 +12,9 @@ from flask_security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, auth_required, decorators, changeable, utils
 from flask_wtf import CSRFProtect
 import bcrypt
+from pymongo import MongoClient
+
+
 
 
 # no forms so no concept of flashing
@@ -49,7 +52,10 @@ WTF_CSRF_CHECK_DEFAULT = False
 WTF_CSRF_TIME_LIMIT = None
 
 
-
+client = MongoClient("mongodb://sozialkompass-dev.uni-muenster.de:80", username= "root", password="rootpassword")
+db = client.sozialkompass
+treenodes = db.treenodes
+attribute = db.attribute
 
 app = Flask(__name__)
 api = Api(app)
@@ -87,6 +93,8 @@ dir = file_dir.parent
 app.config['MONGODB_DB'] = 'sozialkompass'
 app.config['MONGODB_HOST'] = 'sozialkompass-dev.uni-muenster.de'
 app.config['MONGODB_PORT'] = 80
+app.config["MONGODB_USERNAME"] = "root"
+app.config["MONGODB_PASSWORD"] = "rootpassword"
 
 
 # Create database connection object
@@ -130,10 +138,57 @@ def refresh_expiring_jwts(response):
         # Case where there is not a valid JWT. Just return the original response
         return response
 
+
+
+class Treenodes(db.Document):
+    parentId = db.StringField()
+    Frage = db.StringField()
+    Kategorie = db.StringField()
+    Antworten = db.ListField()
+    NoneoftheAboveID = db.StringField()
+    SkipID = db.StringField()
+
 class SendTree(Resource):
+    #GET request for the first node
     def get(self):
-        baum = open(dir / "algorithmus/assets/baum.json")
-        return json.load(baum) 
+        #check if session exists, then send last node
+        first_cookie = request.cookies.get("firstlogin")
+        id_cookie = request.cookies.get("_id")
+        if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
+            result = treenodes.find_one({"_id":id_cookie})
+            #Add attributes to result
+            attribut = attribute.find_one({"Name":result["Attribut"]})
+            result["Frage"] = attribut["Frage"]
+            result["Beschreibung"] = attribut["Beschreibung"]
+            response = make_response(jsonify(result),200)
+            return response
+
+        #else send first node
+        result = treenodes.find_one({"parentId":{"$exists": False}})
+        attribut = attribute.find_one({"Name":result["Attribut"]})
+        result["Frage"] = attribut["Frage"]
+        result["Beschreibung"] = attribut["Beschreibung"]
+        response = make_response(jsonify(result), 200)
+        return response
+
+    #POST request for every next node, frontend sends corresponding id
+    def post(self):
+
+        #Get json from frontend
+        args = request.get_json()
+        #if frontend wants a reset
+        if args["_id"] == "reset":
+            result = treenodes.find_one({"parentId":{"$exists": False}})
+        else:
+            #Search for next node in DB
+            result = treenodes.find_one({"_id":args["_id"]})
+        response = jsonify(result)
+        #set cookie for first node id to check if old session is valid with new tree (if a new tree is generated)
+        #set cookie for current node to continue
+        first_id = treenodes.find_one({"parentId":{"$exists": False}})["_id"]
+        response.set_cookie("_id", args["_id"])
+        response.set_cookie("firstlogin", first_id)
+        return response
 
 class Register(Resource):
     method_decorators = [jwt_required()]
