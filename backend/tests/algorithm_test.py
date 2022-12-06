@@ -134,3 +134,39 @@ class test_create_subtree(TestCase):
         skippedAttributes = []
         result = {"Frage": "Kinder Anzahl", "Ergebnismenge": ["Bafoeg", "Kindergeld"], "Antworten": {}} #result list for the test
         self.assertDictEqual(create_subtree(question, result_set, skippedAttributes), result) #checks the wanted results against the actual results
+
+class test_split_array(TestCase):
+    def test_normal(self):
+        array = [["a", "b", "c"], ["c"], ["c", "d"]]
+        result = [["a", "b"], ["c"], ["d"]]
+        self.assertEqual(split_array(array), result)
+
+    def test_subset(self):
+        array = [["e", "f", "g"], ["f", "g"]]
+        result = [["e"], ["f", "g"]]
+        self.assertEqual(split_array(array), result)
+
+    def test_normal_subset_combination(self):
+        array = [["a", "b", "c"], ["c"], ["c", "d"], ["e", "f", "g"], ["f", "g"]]
+        result = [["a", "b"], ["c"], ["d"], ["e"], ["f", "g"]]
+        self.assertEqual(split_array(array), result)
+
+    def test_equals(self):
+        array = [["a", "b", "c"], ["a", "b", "c"]]
+        result = [["a", "b", "c"]]
+        self.assertEqual(split_array(array), result)
+    
+    def test_empty(self):
+        array = []
+        result = []
+        self.assertEqual(split_array(array), result)
+    
+    def test_only_one_array(self):
+        array = [["a", "b", "c"]]
+        result = [["a", "b", "c"]]
+        self.assertEqual(split_array(array), result)
+    
+    def test_double_subset(self):
+        array = [["c", "d"], ["c", "d", "e", "f", "g"], ["f", "g"]]
+        result = [["c", "d"], ["e"], ["f", "g"]]
+        self.assertEqual(split_array(array), result)

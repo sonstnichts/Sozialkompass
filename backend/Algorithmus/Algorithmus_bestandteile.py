@@ -311,17 +311,34 @@ def delete_rows_none_of_the_above (application_list_copy, question):
 
 def split_array(array):
     result_array = [] #creates an empty array for the results
+    if not array:
+        return result_array
     result_array.append(array[0]) #adds the first element of the array to the result array
     array.pop(0) #removes the first element of the array
     for sub_array in array: #iterates over the remaining elements of the array
         for result in result_array: #iterates over the elements of the result array
-            for element in sub_array: #iterates over the elements of the sub array
-                for result_element in result: #iterates over the elements of the result from the erlier iteration
-                    if element == result_element: #if the element is already in the result array
-                        sub_array.remove(element) #remove the element from the sub array
-                        if len(result) > 1: #if the elment isn't already atomar
-                            result.remove(element) #remove the element from the results
-                            result_array.append([element]) #add the element to the result array
-        if sub_array: #if the sub array isn't empty
-            result_array.append(sub_array) #add the sub array to the result array
+            if set(sub_array).issubset(set(result)): #check if the sub_array is a subset of the result
+                if sub_array == result: #check if the sub_array is equal to the result
+                    continue #if yes, continue with the next sub_array
+                for element in sub_array: #iterates over the elements of the sub_array
+                    result.remove(element) #removes the any elements from the result that are also in the sub_array
+                if not sub_array in result_array: #if the sub array is not already in the result array
+                    result_array.append(sub_array) #appends the sub_array
+            elif set(result).issubset(set(sub_array)): #check if the result is a subset of the sub_array
+                if sub_array == result: #check if the sub_array is equal to the result
+                    continue #if yes, continue with the next sub_array
+                for element in result: #iterates over the elements of the result
+                    sub_array.remove(element) #removes the any elements from the result that are also in the result
+                if not sub_array in result_array: #if the sub array is not already in the result array
+                    result_array.append(sub_array) #appends the sub_array
+            else:
+                for element in sub_array: #iterates over the elements of the sub array
+                    for result_element in result: #iterates over the elements of the result from the erlier iteration
+                        if element == result_element: #if the element is already in the result array
+                            sub_array.remove(element) #remove the element from the sub array
+                            if len(result) > 1: #if the elment isn't already atomar
+                                result.remove(element) #remove the element from the results
+                                result_array.append([element]) #add the element to the result array
+                if not sub_array in result_array: #if the sub array is not already in the result array
+                    result_array.append(sub_array)
     return result_array #return the result array
