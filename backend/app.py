@@ -168,6 +168,7 @@ class SendTree(Resource):
             attribut = attribute.find_one({"Name":result["Attribut"]})
             result["Frage"] = attribut["Frage"]
             result["Beschreibung"] = attribut["Beschreibung"]
+            result["Kategorie"] = attribut["Kategorie"]
             response = make_response(jsonify(result),200)
             return response
 
@@ -176,6 +177,7 @@ class SendTree(Resource):
         attribut = attribute.find_one({"Name":result["Attribut"]})
         result["Frage"] = attribut["Frage"]
         result["Beschreibung"] = attribut["Beschreibung"]
+        result["Kategorie"] = attribut["Kategorie"]
         response = make_response(jsonify(result), 200)
         return response
 
@@ -190,6 +192,11 @@ class SendTree(Resource):
         else:
             #Search for next node in DB
             result = treenodes.find_one({"_id":args["_id"]})
+        if "Attribut" in result:
+            attribut = attribute.find_one({"Name":result["Attribut"]})
+            result["Frage"] = attribut["Frage"]
+            result["Kategorie"] = attribut["Kategorie"]
+        #result["Beschreibung"] = attribut["Beschreibung"]
         response = jsonify(result)
         #set cookie for first node id to check if old session is valid with new tree (if a new tree is generated)
         #set cookie for current node to continue
