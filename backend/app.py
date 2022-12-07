@@ -56,7 +56,11 @@ from flask_cors import CORS
 # WTF_CSRF_TIME_LIMIT = None
 
 
-client = MongoClient("mongodb://sozialkompass-dev.uni-muenster.de:80", username= "root", password="rootpassword")
+MONGO_DB_ADDRESS = os.getenv("MONGO_DB_ADDRESS")
+MONGO_DB_USER = os.getenv("MONGO_DB_USER")
+MONGO_DB_PASSWORD = os.getenv("MONGO_DB_PASSWORD")
+client = MongoClient(MONGO_DB_ADDRESS, username= MONGO_DB_USER, password=MONGO_DB_PASSWORD)
+
 db = client.sozialkompass
 treenodes = db.treenodes
 attribute = db.attribute
@@ -95,13 +99,6 @@ jwt = JWTManager(app)
 
 file_dir = Path(__file__)
 dir = file_dir.parent
-
-# MongoDB Config
-app.config['MONGODB_DB'] = 'sozialkompass'
-app.config['MONGODB_HOST'] = 'sozialkompass-dev.uni-muenster.de'
-app.config['MONGODB_PORT'] = 80
-app.config["MONGODB_USERNAME"] = "root"
-app.config["MONGODB_PASSWORD"] = "rootpassword"
 
 
 # Create database connection object
