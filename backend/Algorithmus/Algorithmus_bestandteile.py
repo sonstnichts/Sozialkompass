@@ -108,7 +108,7 @@ def tree_depth(tree):
     tree_depth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
     return tree_depth
 
-def create_node(question, result_set, skipped_attributes,nodeId,parentId):
+def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepted_applications):
 
     tree = {} #creates the tree structure
     tree["_id"] = nodeId
@@ -119,7 +119,8 @@ def create_node(question, result_set, skipped_attributes,nodeId,parentId):
     tree["Attribut"] = question #adds the question to the tree with the key "Frage"
     tree["Ergebnismenge"] = result_set #adds the result set to the tree with the key "Ergebnismenge"
     tree["Antworten"] = [] #creates an empty space for the answers
-
+    if accepted_applications:
+        tree["Akzeptiert"] = accepted_applications
     if skipped_attributes: #if any attributes were skipped
         tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
@@ -342,3 +343,20 @@ def split_array(array):
                 if not sub_array in result_array: #if the sub array is not already in the result array
                     result_array.append(sub_array)
     return result_array #return the result array
+
+# not currently used
+# used for generating the skip attribute
+def handleskip(application_list,question):
+    for application in application_list:
+        if question in application["Attribute"]:
+            del application["Attribute"][question]
+        if "Sonstiges" in application["Attribute"]:
+            for lists in application["Attribute"]["Sonstiges"]:
+                for entry in lists:
+                    if question in entry:
+                        del entry[question]
+            for list in application["Attribute"]["Sonstiges"]:
+                filter(lambda entry: entry,list)
+            filter(lambda entry: entry,application["Attribute"]["Sonstiges"])
+            if not application["Attribute"]["Sonstiges"]:
+                del application["Attribute"]["Sonstiges"]

@@ -31,7 +31,7 @@ def create_tree(application_list, attribute, skipped_attributes,accepted_applica
     question_type = attribute[question]
 
     # choose the template for the subtree
-    node = Algorithmus_bestandteile.create_node(question,result_set,skipped_attributes,nodeId,parentId)
+    node = Algorithmus_bestandteile.create_node(question,result_set,skipped_attributes,nodeId,parentId,accepted_applications)
 
     # determines the possible answers for the question
     possible_answers = Algorithmus_bestandteile.generate_answers(application_list,question,question_type)
@@ -59,23 +59,28 @@ def create_tree(application_list, attribute, skipped_attributes,accepted_applica
         create_tree(application_list_copy,attribute,skipped_attributes,accepted_applications_copy, brute_force_depth,nodelist,childNodeId,nodeId)
 
     # insert a skip option into the tree
-    #! This option leads to a lot of new subtrees
-    #! This causes the runtime of the alforithm and the file size of the result to increase drastically
-    # application_list_copy = copy.deepcopy(application_list)
-    # #Algorithmus_bestandteile.delete_columns(application_list_copy,question)
-    # skipped_copy = copy.deepcopy(skipped_attributes)
-    # skipped_copy.append(question)
-    # accepted_applications_copy = copy.deepcopy(accepted_applications)
-    # Algorithmus_bestandteile.accept_applications(application_list_copy,accepted_applications_copy)
-    # tree["skip"] = create_tree(application_list_copy,attribute,skipped_copy,accepted_applications_copy,brute_force_depth)
+    # ! This option leads to a lot of new subtrees
+    # ! This causes the runtime of the alforithm and the file size of the result to increase drastically
+    if question_type == "Auswahl":
+        application_list_copy = copy.deepcopy(application_list)
+        skipped_copy = copy.deepcopy(skipped_attributes)
+        Algorithmus_bestandteile.delete_rows_none_of_the_above(application_list_copy,question)
+        Algorithmus_bestandteile.remove_applications(application_list_copy)
+        skipped_copy.append(question)
+        accepted_applications_copy = copy.deepcopy(accepted_applications)
 
-    # # insert a none of the above option in case of a category question
-    # if question_type == "Auswahl":
-    #     application_list_copy = copy.deepcopy(application_list)
-    #     Algorithmus_bestandteile.delete_rows_none_of_the_above(application_list_copy,question)
-    #     Algorithmus_bestandteile.remove_applications(application_list_copy)
-    #     #Algorithmus_bestandteile.delete_columns(application_list_copy,question)
-    #     tree["Nichts"] = create_tree(application_list_copy,attribute,skipped_attributes,accepted_applications,brute_force_depth)
+        childNodeId = str(ObjectId())
+        node["noneoftheabove"]=childNodeId
+        create_tree(application_list_copy,attribute,skipped_copy,accepted_applications_copy,brute_force_depth,nodelist,childNodeId,nodeId)
+
+    # insert a none of the above option in case of a category question
+    # application_list_copy = copy.deepcopy(application_list)
+    # Algorithmus_bestandteile.handleskip(application_list_copy,question)
+        #Algorithmus_bestandteile.delete_columns(application_list_copy,question)
+    
+    # childNodeId = str(ObjectId())
+    # node["skip"] = childNodeId
+    # create_tree(application_list_copy,attribute,skipped_attributes,accepted_applications,brute_force_depth,nodelist,childNodeId,nodeId)
 
     nodelist.append(node)
 
