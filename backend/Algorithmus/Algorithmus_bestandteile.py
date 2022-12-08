@@ -48,8 +48,9 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
         append_array.append(len(generate_answers(application_list, attribute[0], all_attributes_original[attribute[0]]))) #adds the number of possibilities to the attribute
         attributes_ranked.append(append_array) #adds the attribute to the list of attributes
        
-    print(attributes_ranked)
     attributes_ranked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
+    if (brute_force_depth == 0): #if brute forcing is disabled
+        return attributes_ranked[0][0] #returns the first attribute in the list
     attributes_ranked = attributes_ranked[:brute_force_depth] #cut attributesRanked to the length of bruteForceDepth    
 
     # * creates trees according to differently weighted attribute lists
@@ -61,24 +62,22 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     tree_list = [] #creates a list of trees
     attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
     for attribute_sequence in attribute_combinations:
-        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes_original)) #creates a tree for each attribute combination and adds it to the treeList
-        print(attribute_sequence)
-        print(tree_list)
+        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes_original, [])) #creates a tree for each attribute combination and adds it to the treeList
     
     # * chooses the smallest tree
     print(tree_list)
-    tree_list.sort(key=lambda x: (x[2]), reverse=True) #sorts the treeList by the number of nodes
+    #sort the treeList by the second attribute (number of nodes)
+    tree_list.sort(key=lambda x: (x[1]), reverse=True) #sorts the treeList by the number of nodes
     best_attribute = tree_list[0][0] #gets the first attribute from the first tree in the treeList
 
     # * returns the first attribute which created the smallest tree
     return best_attribute
 
 # we need to create a list of the nodes here and then just use the start attribute which leads to the fewest nodes
-def create_mock_tree(attribute_sequence, index, application_list, all_attributes): #shortended implementation of algorithm.py, only diffences commented
-    node_list = [] #creates a list of nodes
+def create_mock_tree(attribute_sequence, index, application_list, all_attributes, node_list): #shortended implementation of algorithm.py, only diffences commented
     accepted_applications = []
     if(index >= len(attribute_sequence)): #checks if the index is out of bounds
-        return [attribute_sequence[0], len(node_list)]
+        return
     question = attribute_sequence[index][0] #gets the question from the attribute sequence
     question_type = all_attributes[question]
     result_set = calculate_result_set(application_list) 
@@ -92,7 +91,9 @@ def create_mock_tree(attribute_sequence, index, application_list, all_attributes
         accept_applications(application_list_copy,accepted_applications_copy)
         node["Antworten"].append({"Bezeichnung":possible_answer})
         index += 1
-        node_list.append(create_mock_tree(attribute_sequence,index,application_list,all_attributes))
+        node_list.append(create_mock_tree(attribute_sequence,index,application_list,all_attributes, []))
+    return [attribute_sequence[0][0], len(node_list)]
+
 
 def create_node(question, result_set, skipped_attributes,nodeId,parentId):
 

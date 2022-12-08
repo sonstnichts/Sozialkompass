@@ -61,9 +61,9 @@ def generate_tree():
     Algorithmus.create_tree(application_list,attribute,[],[], brute_force_depth,nodelist,id,"")
 
     # delete old nodes
-    #treenodes.drop()
+    treenodes.drop()
     # insert new nodes
-    #treenodes.insert_many(nodelist)
+    treenodes.insert_many(nodelist)
 
     print(len(nodelist))
 
