@@ -7,6 +7,7 @@ import theme from "./Components/theme";
 import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom";
 import { Supporter } from "./Components/homepage/supporter";
 import { Contact } from "./Components/homepage/contact";
+import { Question } from "./Components/question";
 
 
 // Adding components into this main file 
@@ -15,11 +16,10 @@ function App() {
 
     <div className="App">
       <ThemeProvider theme={theme}>
-                <MuiNavbar/>
-                <Home/>
-                <Supporter />
-                <Contact />
-            
+        <Routes>
+          <Route path="/" element={<><MuiNavbar/><Home/><Supporter/><Contact/></>}/>
+          <Route path="/questions" element={<><MuiNavbar/><Question/></>}/>
+        </Routes>
       </ThemeProvider>
     </div>
 
