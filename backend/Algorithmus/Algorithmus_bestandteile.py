@@ -224,14 +224,14 @@ def generate_answers(application_list,question,attribute_category): # Not done y
             for application in application_list:
                 if question in application["Attribute"]:
                     for answer in application["Attribute"][question]:
-                        if not answers.__contains__(answer):
+                        if not answers.__contains__([answer]):
                             answers.append([answer])
                 if "Sonstiges" in application["Attribute"]:
                     for lists in application["Attribute"]["Sonstiges"]:
                         for entry in lists:
                             if question in entry:
                                 for answer in entry[question]:
-                                    if not answers.__contains__(answer):
+                                    if not answers.__contains__([answer]):
                                         answers.append([answer])
             return answers
 

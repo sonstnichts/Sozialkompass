@@ -3,7 +3,6 @@ from Algorithmus import Algorithmus_bestandteile
 from bson.objectid import ObjectId
 
 
-
 def create_tree(application_list, attribute, skipped_attributes,accepted_applications, brute_force_depth,nodelist,nodeId,parentId):
 
     # Creates a list of applications that can still be result based on the given answers

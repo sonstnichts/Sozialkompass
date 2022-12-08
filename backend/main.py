@@ -1,63 +1,71 @@
-#from pymongo import MongoClient
 import json
 from Algorithmus import Algorithmus
 from pathlib import Path
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
+import os
 
-client = MongoClient("mongodb://sozialkompass-dev.uni-muenster.de:80",username = "root",password="rootpassword")
 
+# load logindata from envfile
+load_dotenv()
+# setup connection to mongodb
+MONGO_DB_ADDRESS = os.getenv("MONGO_DB_ADDRESS")
+MONGO_DB_USER = os.getenv("MONGO_DB_USER")
+MONGO_DB_PASSWORD = os.getenv("MONGO_DB_PASSWORD")
+client = MongoClient(MONGO_DB_ADDRESS, username= MONGO_DB_USER, password=MONGO_DB_PASSWORD)
+
+# setup for databases and collections
 db = client.sozialkompass
 treenodes = db.treenodes
+attributes = db.attribute
+applications = db.antraege
 
 file_dir = Path(__file__)
 dir = file_dir.parent
 
-def load_tree(nodelist):
+def generate_tree():
 
     # load apllication list from assets
 
-    data = open(dir / "algorithmus/assets/Antraege.json")
-    application_list = json.load(data)
+    # data = open(dir / "algorithmus/assets/Antraege.json")
+    # application_list = json.load(data)
+
+    # load applications list from database
+
+    application_list = list(applications.find())
 
     # load attribute list from assets
 
-    data = open(dir / "algorithmus/assets/Attribute.json")
-    attribute_list = json.load(data)
+    # data = open(dir / "algorithmus/assets/Attribute.json")
+    # attribute_list = json.load(data)
+
+    # load applications list from database
+
+    attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
 
     attribute = {}
     for attribut in attribute_list:
         attribute[attribut["Name"]] = attribut["Kategorie"]
 
-
-
     # create a tree with the data in assets
     brute_force_depth = 10
 
+    # list of nodes that will be saved in the Database
+    nodelist = []
+
+    # creates ID for first node of the tree
     id = str(ObjectId())
 
+    # creates the tree and fills nodelist
     Algorithmus.create_tree(application_list,attribute,[],[], brute_force_depth,nodelist,id,"")
 
+    # delete old nodes
+    treenodes.drop()
+    # insert new nodes
+    treenodes.insert_many(nodelist)
 
-# load the tre
-nodelist = []
-load_tree(nodelist)
-treenodes.drop()
-treenodes.insert_many(nodelist)
+    print(len(nodelist))
 
-print(len(nodelist))
-# add the zip code to the tree
-
-#tree["Postleitzahl"] = 48149
-
-# return tree
-#! This causes crashes if the tree is too big, comment this line out if you want it not to
-#print(json.dumps(tree,indent=4))
-
-#Baum in Datei speichern (Fuer Debug)
-#with open(dir / "algorithmus/assets/baum.json", "w") as fp:
-#    json.dump(tree, fp)
-
-# Baum in MongoDB speichern
-
-# baueme.insert_one(baum)
+if __name__ == "__main__":
+    generate_tree()

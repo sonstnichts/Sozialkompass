@@ -1,51 +1,33 @@
+import json
+from Algorithmus import Algorithmus
+from pathlib import Path
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import json
-from pathlib import Path
+from dotenv import load_dotenv
+import os
 
-client = MongoClient("mongodb://sozialkompass-dev.uni-muenster.de:80",username = "root",password="rootpassword")
 
+# load logindata from envfile
+load_dotenv()
+# setup connection to mongodb
+MONGO_DB_ADDRESS = os.getenv("MONGO_DB_ADDRESS")
+MONGO_DB_USER = os.getenv("MONGO_DB_USER")
+MONGO_DB_PASSWORD = os.getenv("MONGO_DB_PASSWORD")
+client = MongoClient(MONGO_DB_ADDRESS, username= MONGO_DB_USER, password=MONGO_DB_PASSWORD)
+
+# setup for databases and collections
 db = client.sozialkompass
 treenodes = db.treenodes
-antraege = db.antraege
-attribute = db.attribute
+attributes = db.attribute
+applications = db.antraege
 
 
 file_dir = Path(__file__)
 dir = file_dir.parent
 
-data = open(dir / "algorithmus/assets/Antraege.json")
-antraegelist = json.load(data)
 
-data = open(dir / "algorithmus/assets/Attribute.json")
-attributelist = json.load(data)
+if __name__ == "__main__":
+    attributeslist = attributes.find({},{"Name":1,"_id":0,"Kategorie":1})
 
-oid = str(ObjectId())
-oid1 = str(ObjectId())
-oid2 = str(ObjectId())
-oid3 = str(ObjectId())
-oid4 = str(ObjectId())
-
-
-
-beispielnode = {
-    "_id":oid,
-    "Frage":"Alter",
-    "Kategorie":"Auswahl",
-    "Antworten":[
-        {
-            "Bezeichnung":["deutsch"],
-            "NodeID":oid1
-        },
-        {
-            "Bezeichnung":["italienisch","türkisch"],
-            "NodeID":oid2
-        }
-    ],
-    "NoneoftheAboveID":oid4,
-    "SkipID":oid3
-}
-result = attribute.insert_many(attributelist)
-#result = treenodes.find({"ParentID":{"$exists":False}})
-
-print(result.acknowledged)
+    for i in attributeslist:
+        print(i)
