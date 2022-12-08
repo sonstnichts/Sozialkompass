@@ -8,6 +8,7 @@ import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom
 import { Supporter } from "./Components/homepage/supporter";
 import { Contact } from "./Components/homepage/contact";
 import { Question } from "./Components/question";
+import { Results } from "./Components/results/results"
 
 
 // Adding components into this main file 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<><MuiNavbar/><Home/><Supporter/><Contact/></>}/>
           <Route path="/questions" element={<><MuiNavbar/><Question/></>}/>
+          <Route path="/results" element={<><MuiNavbar/><Results/></>}/>
         </Routes>
       </ThemeProvider>
     </div>
