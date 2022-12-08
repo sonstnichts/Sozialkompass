@@ -49,7 +49,7 @@ def generate_tree():
         attribute[attribut["Name"]] = attribut["Kategorie"]
 
     # create a tree with the data in assets
-    brute_force_depth = 2
+    brute_force_depth = 3
 
     # list of nodes that will be saved in the Database
     nodelist = []

@@ -58,15 +58,13 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     #! we should probably cap this some other way (time?) or always set the brute force depth to a reasonable number
     #? maybe 5 for the brute force depth? that would be 120 permutations, which could still be very slow
     #? maybe we should take a semi-random sample of the permutations? would be faster
-
+    #! something is still wrong here, [attribute, #nodes] is appended twice in some cases
     tree_list = [] #creates a list of trees
     attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
     for attribute_sequence in attribute_combinations:
         tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes_original, [])) #creates a tree for each attribute combination and adds it to the treeList
     
     # * chooses the smallest tree
-    print(tree_list)
-    #sort the treeList by the second attribute (number of nodes)
     tree_list.sort(key=lambda x: (x[1]), reverse=True) #sorts the treeList by the number of nodes
     best_attribute = tree_list[0][0] #gets the first attribute from the first tree in the treeList
 
