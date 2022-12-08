@@ -1,47 +1,166 @@
-{
-    "Wohngeld":{
-        "Attribute":
+[
+  {
+    "Name": "Bafög",
+    "PLZ-Gebiet": [48149, 48151],
+    "Attribute": {
+      "Berufsstatus": ["Studierender"],
+      "Ausbildungsstaette": [
+        "Universität",
+        "Akademie",
+        "Fachhochschule",
+        "Hochschule"
+      ],
+      "Studienpensum": ["Vollzeit"],
+      "Alter bei Beginn der Ausbildung": [0, 45],
+      "Vermögen": [0, 15000],
+      "Sonstiges": [
         [
-            {
-                "Berufsstatus":"Studierender"
-            },
-            {
-                "Berufsstatus":"Auszubildender",
-                "Familienstatus":"ledig"
-            }
+          {
+            "Staatsangehoerigkeit": ["deutsch"]
+          },
+          {
+            "Staatsangehoerigkeit": ["EU_Ausland"],
+            "dauerhafter Aufenthalt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Jahre in Deutschland": [5, 1000]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Aufenthaltsgenehmigung": ["ja"]
+          }
         ]
-    },
-    "Elterngeld":{
-        "Attribute":
-        [
-            {
-                "Berufsstatus":"Auszubildender",
-                "Kinder_Anzahl": [9,50]
-            },
-            {
-                "Berufsstatus":"Auszubildender",
-                "Familienstatus":"verheiratet",
-                "Kinder_Anzahl": [85,89]
-            }
-        ]
-    },
-    "Kindergeld":{
-        "Attribute":
-        [
-            {
-                "Berufsstatus":"Auszubildender",
-                "Kinder_Anzahl": [1,100]
-            },
-            {
-                "Berufsstatus":"Berufstaetig",
-                "Familienstatus":"verheiratet",
-                "Kinder_Anzahl": [6,100]
-            },
-            {
-                "Berufsstatus":"Studierender",
-                "Familienstatus":"ledig",
-                "Kinder_Anzahl": [2,4]
-            }
-        ]
+      ]
     }
-}
+  },
+  {
+    "Name": "Kindergeld",
+    "PLZ-Gebiet": [48149, 48151],
+    "Attribute": {
+      "Kinder_Anzahl": [1, 50],
+      "Kindergeld_Fremdbezug": ["nein"],
+      "Kinder_Verhältnis": ["Kinderarten"],
+      "Kind_Haushalt": ["ja"],
+      "Wohnsitz_Kind": ["Deutschland", "EWR_alle_Laender"],
+      "Sonstiges": [
+        [
+          {
+            "Staatsangehoerigkeit": ["deutsch", "EWR_alle_Laender"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Algerien", "Marokko", "..."],
+            "Erwerbstaetigkeit_Dt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Rest"],
+            "Fluechtling_Anerkannt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Rest"],
+            "Asylberechtigung": ["ja"]
+          }
+        ],
+        [
+          {
+            "Alter_Kind": [0, 17]
+          },
+          {
+            "Alter_Kind": [18, 21],
+            "Status_Kind": ["arbeitssuchendetc."]
+          },
+          {
+            "Alter_Kind": [22, 25],
+            "Status_Kind": ["arbeitssuchendetcanders."]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "Name": "ALG2",
+    "PLZ-Gebiet": [48149, 48151],
+    "Attribute": {
+      "Lebensmittelpunkt in Deutschland": ["ja"],
+      "Tages Arbeitszeit": [3, 1000],
+      "Hilfebedürftigkeit": ["ja"],
+      "Alter": [15, 1000],
+      "Berufsstatus": ["Berufstaetig", "Arbeitslos"]
+    }
+  },
+  {
+    "Name": "Wohngeld",
+    "PLZ-Gebiet": [48149, 48151],
+    "Attribute": {
+      "Sonstiges": [
+        [
+          {
+            "Haushaltsmitglieder": [1,1],
+            "Einkommen": [0, 1129],
+            "Mietkosten": [540, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [2,2],
+            "Einkommen": [0, 1549],
+            "Mietkosten": [654, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [3,3],
+            "Einkommen": [0, 1874],
+            "Mietkosten": [778, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [4,4],
+            "Einkommen": [0, 2425],
+            "Mietkosten": [909, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [5,5],
+            "Einkommen": [0, 2762],
+            "Mietkosten": [1038, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [6, 1000],
+            "Einkommen": [0, 3094],
+            "Mietkosten": [1162, 100000]
+          }
+        ],
+        [
+          {
+            "Staatsangehoerigkeit": ["deutsch"]
+          },
+          {
+            "Staatsangehoerigkeit": ["EU_Ausland"],
+            "dauerhafter Aufenthalt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Jahre in Deutschland": [5, 1000]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Aufenthaltsgenehmigung": ["ja"]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "Name": "BAB",
+    "PLZ-Gebiet": [48149, 48151],
+    "Attribute": {
+      "Alter": [18, 1000],
+      "Wohnen_bei_Eltern": ["nein"],
+      "Sonstiges": [
+        [
+          {
+            "Kinder_Anzahl": [1, 1000]
+          },
+          {
+            "Familienstatus": ["verheiratet"]
+          }
+        ]
+      ]
+    }
+  }
+]
