@@ -26,8 +26,8 @@ def create_tree(application_list, attribute, skipped_attributes,accepted_applica
 
     # Choses the attribute that should be asked first
     # Changes in the rule for choosing the attribute should happen in this method.
-    question = Algorithmus_bestandteile.determine_attribute(attribute, attribute_list, brute_force_depth, application_list)
-    #question = Algorithmus_bestandteile.return_max(attribute_list)
+    #question = Algorithmus_bestandteile.determine_attribute(attribute, attribute_list, brute_force_depth, application_list)
+    question = Algorithmus_bestandteile.return_max(attribute_list)
     question_type = attribute[question]
 
     # choose the template for the subtree
