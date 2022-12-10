@@ -3,7 +3,7 @@ import {red} from '@mui/material/colors';
 
 
 // Sets up theme for page (blue color)
-const theme = createTheme({
+export const theme = createTheme({
   spacing: 8,
 
   shape: {

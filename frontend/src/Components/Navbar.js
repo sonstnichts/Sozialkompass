@@ -44,7 +44,7 @@ export const MuiNavbar = () => {
           backgroundColor: "white",
           justifyContent: "space-between"
         }}>
-        <Logo src={logo} onClick="/home" />
+        <Logo src={logo} />
         <Typography variant="title" color="inherit" noWrap>
           &nbsp;
         </Typography>
