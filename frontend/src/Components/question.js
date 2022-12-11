@@ -1,82 +1,54 @@
 import {
-  Grid, Container, Paper, Button, Box, styled, Typography, TextField, Input, Card, CardContent, CardAct, Buttonions, Autocomplete,
+  Grid,
+  Container,
+  Paper,
+  Button,
+  Box,
+  styled,
+  Typography,
+  TextField,
+  Input,
+  Card,
+  CardContent,
+  CardAct,
+  Buttonions,
+  Autocomplete,
+  IconButton
 } from "@mui/material";
-import test from "../Assets/test"
-import attribute from "../Assets/Attribute"
-import React, { useEffect, useState } from 'react';
-import { sizing } from '@mui/system';
+import test from "../Assets/test";
+import attribute from "../Assets/Attribute";
+import React, { useContext, useEffect, useState } from "react";
+import { sizing } from "@mui/system";
 import { useTheme, ThemeProvider } from "@mui/material/styles";
-
-
-
-
-
-function RenderPreviousContent() {
-
-
-  return (
-    <h1>TEST</h1>
-  )
-}
-
-
-function Iterate() {
-
-
-
-
-  return (
-
-    test.Antworten.map((entry) => {
-      entry.Bezeichnung.map((name) => {
-
-
-        <h1> test </h1>
-
-
-
-
-        /* if (value.includes('Auswahl')) {
-          <RenderCategory />
-        }
-        else if (value.includes('Ganzzahl')) {
-    
-        }
-        else if (value.includes('JaNein')) {
-    
-        } */
-      })
-    })
-
-
-
-  )
-
-
-}
-
-function RenderNumbers() {
-  return (
-    <TextField id="outlined-basic" label="ttt" variant="outlined" />
-  )
-}
-
+import { ApplicationContext } from "../App";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
 export function Question() {
   const theme = useTheme();
 
-
-
-  const [message, setMessage] = useState('');
-  const [current, setCurrent] = useState(['eins','zwei'])
+  const { applications, setApplications } = useContext(ApplicationContext);
+  const [message, setMessage] = useState("");
+  const [current, setCurrent] = useState(["eins", "zwei"]);
   const [question, setQuestion] = useState({});
+  const [count, setCount] = useState(1);
+
+  const ColorButton = styled(Button)(({ theme }) => ({
+    backgroundColor: "rgba(244, 91, 57, 0.71)",
+
+    color: "#0E1C36",
+    borderRadius: "25px",
+    boxShadow: "0px 4px 4px rgba(0,0,0,0.25)",
+    width: "405px",
+    height: "60px",
+  }));
+
   const fetchUrl = "http://127.0.0.1:5000/api/tree";
   const handleSubmit = () => {
     fetch(fetchUrl, { method: "GET" })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
-          setQuestion(result)
+          setQuestion(result);
         },
         (error) => {
           console.log(error);
@@ -84,20 +56,25 @@ export function Question() {
       );
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setMessage(event.target.value);
 
-    console.log('value is:', event.target.value);
+    console.log("value is:", event.target.value);
   };
 
   const updatequestion = (id) => {
-    console.log(id)
-    fetch(fetchUrl, { method: "POST", body: JSON.stringify({ _id: id }), headers: { 'Content-Type': 'application/JSON' } })
-      .then(res => res.json())
+    console.log(id);
+    fetch(fetchUrl, {
+      method: "POST",
+      body: JSON.stringify({ _id: id }),
+      headers: { "Content-Type": "application/JSON" },
+    })
+      .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result)
-          setQuestion(result)
+          console.log(result);
+          setQuestion(result);
+          setCount(count+1)
         },
         (error) => {
           console.log(error);
@@ -105,128 +82,150 @@ export function Question() {
       );
   };
   useEffect(() => {
-    handleSubmit()
+    handleSubmit();
   }, []);
 
   const compareQuestion = (mess) => {
-const answers = question.Antworten
-console.log(question.Antworten)
+    const answers = question.Antworten;
+    console.log(question.Antworten);
 
+    question.Antworten?.map((entry, index) => {
+      console.log(entry.Bezeichnung);
+      var convert = JSON.parse(entry.Bezeichnung);
+      const both = [convert, entry.NodeId];
 
-    
-      question.Antworten?.map((entry, index) => {
-        console.log(entry.Bezeichnung)
-        var convert = JSON.parse(entry.Bezeichnung);
-        const both = [convert, entry.NodeId]
+      convert.forEach(function (item, n) {
+        if (mess >= convert[0] && mess <= convert[1]) {
+          updatequestion(entry.NodeId);
+        }
+      });
+    });
+  };
 
-        convert.forEach(function (item, n) {
-
-
-          if (mess >= convert[0] && mess <= convert[1]) {
-            updatequestion(entry.NodeId)
-
-          }
-        })
-      }
-      )
+  const updateResults = (applications) =>{
     
   }
 
-  const getAnswerNode = (value) =>{
+  const getAnswerNode = (value) => {
     question.Antworten?.map((entry, index) => {
-      if(value === entry.Bezeichnung){
-        updatequestion(entry.NodeId)
+      if (value === entry.Bezeichnung) {
+        updatequestion(entry.NodeId);
       }
-    })}
-
-
-
-
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <div className="Question">
         <Container border={40}>
-
           <Grid
-            container spacing={24}
+            container
+            spacing={24}
             justifyContent="center"
-            alignItems="center">
-            <Grid item md={4}>
-
+            alignItems="center"
+          >
+            <Grid item md={1}>
+            {question.parentId && (
+                    <IconButton>
+                    <ArrowBackIosNewOutlinedIcon  onClick={() => {updatequestion(question.parentId); setCount(count-1)}}>
+                     
+                        </ArrowBackIosNewOutlinedIcon>
+                      zurück
+                    </IconButton>
+                  )}
 
             </Grid>
-            <Grid item md={4}>
-              <Card style={{
-                width: '100%',
-                margin: 'auto',
-                padding: '10px',
-                backgroundColor: '#ECEFF1',
-                minHeight: '30vw',
-                marginTop: "100px",
-              }}>
-                <CardContent>
+            <Grid item md={6}>
+              <Box
+                sx={{
+            
+                  margin: "auto",
+                  padding: "10px",
+                  backgroundColor: "#FFFFF",
+                  minHeight: "30vw",
+                  marginTop: "100px",
+                  textAlign:"center",
+                  alignItems: "justify-start",
+                  borderRadius: "16px",
+                  border: "2px solid" ,
+                  borderColor: "black.500"
+                }}
+              >
+                <h1>
+                <Typography variant="h4" > Frage {count}:</Typography>
+                </h1>
                   {question.Frage && <h1>{question.Frage}</h1>}
 
-                  {question.Kategorie == "Auswahl" &&
+                  {question.Kategorie == "Auswahl" && (
                     <div>
-
-
-                      <Autocomplete disablePortal
+                      <Autocomplete
+                        disablePortal
                         id="combo-box-demo"
-                        options={question.Antworten?.map((entry, index) => (entry.Bezeichnung))} 
+                        options={question.Antworten?.map(
+                          (entry, index) => entry.Bezeichnung
+                        )}
                         sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Eingabe" />} onChange={(event, value) => getAnswerNode(value)}>
-                       
-                      </Autocomplete>
-                      
-
-
-                    </div>}
-
-
-
-
-                  {question.Kategorie == "Ganzzahl" &&
+                        renderInput={(params) => (
+                          <TextField {...params} label="Eingabe" />
+                        )}
+                        onChange={(event, value) => getAnswerNode(value)}
+                      ></Autocomplete>
+                    </div>
+                  )}
+                  {question.Kategorie == "Ganzzahl" && (
                     <div>
+                      <Input
+                        type="number"
+                        id="outlined-basic"
+                        label="Eingabe"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={message}
+                      ></Input>
 
-                      <Input type="number" id="outlined-basic" label="Eingabe" variant="outlined" onChange={handleChange}
-                        value={message}></Input>
+                      <ColorButton onClick={() => compareQuestion(message)}>
+                        Weiter
+                      </ColorButton>
+                    </div>
+                  )}
 
-                      <Button onClick={() => compareQuestion(message)}>Weiter</Button>
-                    </div>}
-
-
-                  <Button onClick={() => updatequestion('reset')}>Neu Starten</Button>
-                  {question.parentId && <Button onClick={() => updatequestion(question.parentId)}>zurück</Button>}
+                  <ColorButton onClick={() => updatequestion("reset")}>
+                    Neu Starten
+                  </ColorButton>
+                  
                   {question.result?.map((result, index) => (
                     <div key={index}>{result}</div>
                   ))}
                   {question.Kategorie && <div>{question.Kategorie}</div>}
-                </CardContent>
-              </Card>
+           
+              </Box>
             </Grid>
             <Grid item md={4}>
-              <Card style={{
-                width: '100%',
-                margin: 'auto',
-                padding: '10px',
-                backgroundColor: '#ECEFF1',
-                minHeight: '30vw',
-                marginTop: "100px",
-              }}>
-                <CardContent>
+              <Box
+                sx={{
+                  width: "100%",
+                  margin: "auto",
+                  padding: "10px",
+                  backgroundColor: "#FFFFF",
+                  minHeight: "30vw",
+                  marginTop: "100px",
+                  textAlign:"center",
+                  borderRadius: "16px",
+                  border: "2px solid" ,
+                  borderColor: "black"
+                }}
+              >
+                
                   <Typography variant="h4">Vorläufiges Ergebnis</Typography>
                   {question.Ergebnismenge?.map((result, index) => (
                     <div key={index}>{result}</div>
                   ))}
-                </CardContent>
-              </Card>
+                
+              </Box>
             </Grid>
           </Grid>
         </Container>
       </div>
     </ThemeProvider>
-  )
-};
-
+  );
+}
