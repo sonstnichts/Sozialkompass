@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useTheme, ThemeProvider } from "@mui/material/styles";
 import people from "../../Assets/logo/People.png";
 import logoHome from "../../Assets/logo/mainLogo.png";
+import antraege from "../../Assets/logo/antraege.png";
 import resultExample from "../../Assets/logo/resultExample.png";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -264,7 +265,7 @@ export function Home() {
                 component="img"
                 height="auto"
                 width="408px"
-                src={resultExample}
+                src={antraege}
                 sx={{ filter: "blur(0.5px)" }}
               ></Box>
             </Grid>

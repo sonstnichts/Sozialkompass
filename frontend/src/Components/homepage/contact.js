@@ -7,6 +7,9 @@ import { Container, padding, width } from "@mui/system";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
 import logoHome from "../../Assets/logo/mainLogo.png";
+import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
+import EmailIcon from "@mui/icons-material/Email";
+
 const ColorButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgba(244, 91, 57, 0.71)",
 
@@ -120,31 +123,124 @@ export function Contact() {
             </Typography>
             <List>
               <ListItem>
-                <Link>Sozialkompass</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Sozialkompass
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Q&A</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Q&A
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Das Team</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Das Team
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Unser Blog</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Unser Blog
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Kontakt</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Kontakt
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Impressum</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Impressum
+                </Link>
               </ListItem>
               <ListItem>
-                <Link>Datenschutz</Link>
+                <Link
+                  sx={{
+                    color: "white",
+                    display: "list-item",
+                    listStyleType: "disc",
+                    pl: 4,
+                  }}
+                >
+                  Datenschutz
+                </Link>
               </ListItem>
             </List>
           </Grid>
 
           <Grid xs={4}>
             <Box component={"img"} src={logoHome} width="266px"></Box>
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontSize: "23px",
+                fontWeight: 400,
+                lineHeight: "28px",
+                color: "white",
+              }}
+            >
+              <PhoneEnabledIcon
+                fontSize="large"
+                sx={{ color: "rgba(244, 91, 57, 0.71)" }}
+              />{" "}
+              +49 1800 00 00
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontSize: "23px",
+                fontWeight: 400,
+                lineHeight: "28px",
+                color: "white",
+              }}
+            >
+              <EmailIcon
+                fontSize="large"
+                sx={{ color: "rgba(244, 91, 57, 0.71)" }}
+              />{" "}
+              sozialkompass@ercis.uni-muenster.de
+            </Typography>
           </Grid>
         </Grid>
       </Box>
