@@ -13,6 +13,7 @@ import {
   CardAct,
   Buttonions,
   Autocomplete,
+  FormControl,
   IconButton
 } from "@mui/material";
 import test from "../Assets/test";
@@ -34,7 +35,7 @@ export function Question() {
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "rgba(244, 91, 57, 0.71)",
-
+   
     color: "#0E1C36",
     borderRadius: "25px",
     boxShadow: "0px 4px 4px rgba(0,0,0,0.25)",
@@ -74,7 +75,7 @@ export function Question() {
         (result) => {
           console.log(result);
           setQuestion(result);
-          setCount(count+1)
+          
         },
         (error) => {
           console.log(error);
@@ -124,10 +125,10 @@ export function Question() {
             justifyContent="center"
             alignItems="center"
           >
-            <Grid item md={1}>
+            <Grid item xs={1}>
             {question.parentId && (
-                    <IconButton>
-                    <ArrowBackIosNewOutlinedIcon  onClick={() => {updatequestion(question.parentId); setCount(count-1)}}>
+                    <IconButton onClick={() => {updatequestion(question.parentId); setCount(count-1)}}>
+                    <ArrowBackIosNewOutlinedIcon  >
                      
                         </ArrowBackIosNewOutlinedIcon>
                       zurück
@@ -138,17 +139,20 @@ export function Question() {
             <Grid item md={6}>
               <Box
                 sx={{
-            
+                  m: 1,
+                  display:"flex",
                   margin: "auto",
                   padding: "10px",
                   backgroundColor: "#FFFFF",
-                  minHeight: "30vw",
+                  minHeight: "35vw",
                   marginTop: "100px",
-                  textAlign:"center",
-                  alignItems: "justify-start",
+                  alignItems: "center",
+                  width: "30vw",
                   borderRadius: "16px",
                   border: "2px solid" ,
-                  borderColor: "black.500"
+                  borderColor: "black.500",
+                  justiyContent:'space-between',
+                  flexDirection:'column'
                 }}
               >
                 <h1>
@@ -161,42 +165,54 @@ export function Question() {
                       <Autocomplete
                         disablePortal
                         id="combo-box-demo"
+                        
                         options={question.Antworten?.map(
                           (entry, index) => entry.Bezeichnung
                         )}
-                        sx={{ width: 300 }}
+                        
+                        sx={{ width: 300, alignItems: "center" }}
                         renderInput={(params) => (
                           <TextField {...params} label="Eingabe" />
                         )}
-                        onChange={(event, value) => getAnswerNode(value)}
+                        onChange={(event, value) => {getAnswerNode(value); setCount(count+1)}}
                       ></Autocomplete>
                     </div>
                   )}
                   {question.Kategorie == "Ganzzahl" && (
                     <div>
-                      <Input
-                        type="number"
-                        id="outlined-basic"
-                        label="Eingabe"
-                        variant="outlined"
+                      <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                      sx={{
+                        type:"number",
+                        id:"outlined-basic",
+                        label:"Eingabe",
+                        variant:"outlined",
+                        alignItems:"center",
+                        m:3
+                      }}
                         onChange={handleChange}
                         value={message}
-                      ></Input>
 
-                      <ColorButton onClick={() => compareQuestion(message)}>
+                      ></TextField>
+                        </FormControl>
+                      <div>
+                      <ColorButton  onClick={() => {compareQuestion(message); setCount(count+1)}}>
                         Weiter
                       </ColorButton>
+                      </div>
                     </div>
                   )}
-
-                  <ColorButton onClick={() => updatequestion("reset")}>
-                    Neu Starten
-                  </ColorButton>
+                  
+                
                   
                   {question.result?.map((result, index) => (
                     <div key={index}>{result}</div>
                   ))}
                   {question.Kategorie && <div>{question.Kategorie}</div>}
+                  
+                  <ColorButton  sx={{marginTop:25}}onClick={() => {updatequestion("reset"); setCount(1)}}>
+                    Neu Starten
+                  </ColorButton>
            
               </Box>
             </Grid>
@@ -207,7 +223,7 @@ export function Question() {
                   margin: "auto",
                   padding: "10px",
                   backgroundColor: "#FFFFF",
-                  minHeight: "30vw",
+                  minHeight: "35vw",
                   marginTop: "100px",
                   textAlign:"center",
                   borderRadius: "16px",
