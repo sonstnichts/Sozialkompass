@@ -21,10 +21,13 @@ def calculate_attributes(application_list):
                     attribute[requirement[0]] = 1 #if it isn't it creates a new entry in the attribute list
             else: #if the requirement is nested
                 for nested_requirements in requirement[1]: #loops through the information after the "sonstige" keyword
+                    added_key = [] #creates a list to check if the key has already been added
                     for nested_requirement in nested_requirements: #loops through the nested requirements themselves
                         for key in nested_requirement: #loops through the keys of each nested requirement (should only be one)
                             if key in attribute: #same check for adding an attribute as above
-                                attribute[key] += 1
+                                if key not in added_key: #if the key hasn't been added yet (in the nested requirements)
+                                    added_key.append(key) #append the key
+                                    attribute[key] += 1
                             else:
                                 attribute[key] = 1
     return attribute #returns the attribute list
