@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { Question } from './Components/question';
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="question" element={<Question />} />
-    </Routes>
+   <Provider store={store}>
+    <App/>
+    </Provider>
   </BrowserRouter>
     
   </React.StrictMode>

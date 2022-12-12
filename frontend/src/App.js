@@ -12,30 +12,24 @@ import { Question } from "./Components/question";
 import { useState } from "react";
 
 
-export const ApplicationContext = React.createContext(0)
+
  
 // Adding components into this main file 
 function App() {
-  const [applications,setApplications] = useState({
-    Kindergeld:1,
-    Bab:0,
-    Bafög:-1
-  })
+ 
 
   //Addition of a applicationlist, that keeps track of the status of an application. It is passed down into the components.
   
   return (
 
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <ApplicationContext.Provider value={{applications, setApplications}}>
+       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<><MuiNavbar/><Home/><Supporter/><Contact/></>}/>
-          <Route path="/questions" element={<><MuiNavbar/><Question/></>}/>
-          {/* <Route path="/results" element={<><MuiNavbar/><Results applicationstatus={applications}/></>}/> */}
+          <Route path="/question" element={<><MuiNavbar/><Question/></>}/>
         </Routes>
-        </ApplicationContext.Provider>
       </ThemeProvider>
+  
     </div>
 
   );
