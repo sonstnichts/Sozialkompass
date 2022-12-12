@@ -7,22 +7,33 @@ import theme from "./Components/theme";
 import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom";
 import { Supporter } from "./Components/homepage/supporter";
 import { Contact } from "./Components/homepage/contact";
+import { Results } from "./Components/results/results"
+import {useState} from 'react'
 import Question  from "./Components/question";
 
 
 // Adding components into this main file 
 function App() {
+
+  //Addition of a applicationlist, that keeps track of the status of an application. It is passed down into the components.
+  const [applications,setApplications] = useState({
+    Kindergeld:1,
+    Bab:0,
+    Bafög:-1
+  })
+
   return (
 
     <div className="App">
       <ThemeProvider theme={theme}>
         <Routes>
+
           <Route path="/" element={<><Navbar/><Home/><Supporter/><Contact/></>}/>
           <Route path="/questions" element={<><Navbar/><Question/></>}/>
+          <Route path="/results" element={<><Navbar/><Results applicationstatus={applications}/></>}/>
         </Routes>
       </ThemeProvider>
     </div>
-
 
   );
 }
