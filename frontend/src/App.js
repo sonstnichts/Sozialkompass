@@ -7,10 +7,11 @@ import theme from "./Components/theme";
 import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom";
 import { Supporter } from "./Components/homepage/supporter";
 import { Contact } from "./Components/homepage/contact";
-
+import store from "./redux/store";
 import { Results } from "./Components/results/results"
 import {useState} from 'react'
 import Question  from "./Components/question";
+import { Provider } from 'react-redux'
 
 
 

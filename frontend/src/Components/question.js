@@ -7,11 +7,11 @@ import {
   styled,
   Typography,
   TextField,
-  Input,
-  Card,
-  CardContent,
-  CardAct,
-  Buttonions,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
   Autocomplete,
   FormControl,
   IconButton
@@ -26,18 +26,31 @@ import { getApplications } from "../redux/applicationReducer";
 import { one, zero, minus } from "../redux/applicationReducer";
 import store from "../redux/store"
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Root } from "react-dom/client";
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useNavigate } from "react-router-dom";
 
-export function Question() {
+
+export default function Question() {
   const theme = useTheme();
   const applications = useSelector((state) => state.application)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [message, setMessage] = useState("");
   const [current, setCurrent] = useState(['']);
   const [question, setQuestion] = useState({});
   const [count, setCount] = useState(1);
   const [declined, setDeclined] = useState([]);
-
+  const [faded, setFaded] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "rgba(244, 91, 57, 0.71)",
@@ -48,6 +61,17 @@ export function Question() {
     width: "405px",
     height: "60px",
   }));
+
+
+   function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+   const handleListItemClick = async (event, index) => {
+    setFaded(false);
+    await timeout(300);
+    setSelectedIndex(index);
+    setFaded(true);
+  };
 
   const fetchUrl = "http://127.0.0.1:5000/api/tree";
   const handleSubmit = () => {
@@ -62,14 +86,18 @@ export function Question() {
         }
       );
   };
-  const handleDeclined = (event) =>{
-    setDeclined(event.target.value)
-  }
+  
+
   const handleChange = (event) => {
     setMessage(event.target.value);
 
     console.log("value is:", event.target.value);
   };
+
+   function navigateResult(){
+    navigate("/results")
+
+  }
 
   const updatequestion = (id) => {
     console.log(id);
@@ -280,10 +308,10 @@ export function Question() {
                 )}
 
 
-
-                {question.result?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}
+{question.result &&(
+ 
+ <ColorButton onClick={() =>{navigateResult()}}> Ergebnisse anzeigen </ColorButton>
+)}
 
                 <ColorButton sx={{ marginTop: 20 }} onClick={() => { updatequestion("reset"); setCount(1) }}>
                   Neu Starten
@@ -308,19 +336,66 @@ export function Question() {
               >
 
                 <Typography variant="h4">Vorläufiges Ergebnis</Typography>
-                {question.Ergebnismenge && <h1>{question.Ergebnismenge?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}</h1>
+                <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      }}
+    >
 
-                }
+<ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <CheckCircleOutlineIcon />
+          </Avatar>
+        </ListItemAvatar>
+        {question.Akzeptiert && <div>{question.Akzeptiert?.map((result, index) =>{
+                  return( <h2 key={index}> {result}</h2>);
+        })}</div>}
 
-                {question.Akzeptiert && <h4>{question.Akzeptiert?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}</h4>
 
-                }
+      </ListItem>
+      <Divider variant="inset" component="li" />
+                <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <HelpOutlineIcon />
+          </Avatar>
+        </ListItemAvatar>
+        {question.Ergebnismenge && <div>{question.Ergebnismenge?.map((result, index) => {
+                  return( <h2 key={index}> {result}</h2>);
+        })}</div>}
 
-                <h2>{declined}</h2>
+      </ListItem>
+      <Divider variant="inset" component="li" />
+     
+      <Divider variant="inset" component="li" />
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <HighlightOffIcon />
+          </Avatar>
+        </ListItemAvatar>
+        
+        <div>
+     {declined.map((value, index) => {
+         return (
+             <h2 key={index}>
+                {value}
+             </h2>
+          );
+         })
+      }
+     </div>
+      </ListItem>
+    </List>
+
+
+                 
+
+                 
+                
 
                 <ColorButton sx={{ marginTop: 20, width: "200px", }} onClick={() => { updateResults() }}> {/* updateResults() */}
                   Beenden
