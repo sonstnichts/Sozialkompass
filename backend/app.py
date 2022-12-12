@@ -16,6 +16,7 @@ from flask_wtf import CSRFProtect
 import bcrypt
 from pymongo import MongoClient
 from flask_cors import CORS
+import bson
 
 
 
@@ -64,6 +65,7 @@ client = MongoClient(MONGO_DB_ADDRESS, username= MONGO_DB_USER, password=MONGO_D
 db = client.sozialkompass
 treenodes = db.treenodes
 attribute = db.attribute
+aemter = db.aemter
 
 app = Flask(__name__)
 api = Api(app)
@@ -151,6 +153,17 @@ class Treenodes(db.Document):
     Antworten = db.ListField()
     NoneoftheAboveID = db.StringField()
     SkipID = db.StringField()
+
+
+
+class SendResults(Resource):
+    def get(self):
+        #Exclude object_id, cause it's bad
+        cursor = aemter.find({}, {"_id": False})
+        cur_list = list(cursor)        
+        return jsonify(cur_list)
+
+
 
 class SendTree(Resource):
     #GET request for the first node
@@ -336,6 +349,7 @@ api.add_resource(AdminCreator, "/api/admin")
 api.add_resource(Logout, "/api/logout")
 api.add_resource(Refresh, "/api/refresh")
 api.add_resource(ChangePassword, "/api/resetPassword")
+api.add_resource(SendResults, "/api/results")
 
 
 if __name__ == "__main__":  

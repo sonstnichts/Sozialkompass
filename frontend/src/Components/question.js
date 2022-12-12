@@ -238,6 +238,7 @@ export function Question() {
                           (entry, index) => entry.Bezeichnung
                         )}
 
+
                         sx={{ width: 300, alignItems: "center", m: 3 }}
                         renderInput={(params) => (
                           <TextField {...params} label="Eingabe" />
@@ -333,3 +334,4 @@ export function Question() {
     </ThemeProvider>
   );
 }
+

@@ -18,7 +18,7 @@ import EasyLanguage from "../Assets/logo/Icon-Easy-Language (1) (1).png";
 import { useNavigate } from "react-router-dom";
 import { Container } from "@mui/system";
 import { useEffect } from "react";
-import "./Navbar.css";
+import "./NavbarInDialogue.css";
 
 // Settings for size of Logo (Compass picture)
 const Logo = styled("img")(() => ({
@@ -51,7 +51,7 @@ const ColorOrangeButton = styled(Button)(({ theme }) => ({
   height: "60px",
 }));
 
-function Navbar() {
+function NavbarInDialogue() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const navigate = useNavigate();
@@ -68,7 +68,6 @@ function Navbar() {
   // AppBar is used to create navigation bar (in combination with Typography)
   // Stack is used to include additional pages or menu settings on the right side of the page
   return (
-
     <AppBar position="sticky" color="default" margin="0px">
       <Container maxWidth="l">
         <Toolbar
@@ -149,21 +148,7 @@ function Navbar() {
             </ColorButton>
           </Stack>
           <Stack direction="row" spacing={2}>
-            <ColorOrangeButton>
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontFamily: "Inter",
-                  fontSize: "22px",
-                  lineHeight: "27px",
-                  alignItems: "center",
-                  textAlign: "center",
-                  textTransform: "none"
-                }}
-              >
-                Starte den Dialog
-              </Typography>
-            </ColorOrangeButton>
+            
             <Button color="inherit" sx={{ width: "50px" }}>
               <SignLanguageIcon fontSize="large"/>
             </Button>
@@ -184,8 +169,7 @@ function Navbar() {
           </Stack>
         </Toolbar>
       </Container>
-
     </AppBar>
   );
 }
-export default Navbar;
+export default NavbarInDialogue;

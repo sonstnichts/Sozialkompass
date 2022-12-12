@@ -40,20 +40,17 @@ def calculate_result_set(application_list):
 
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
-    all_attributes = copy.deepcopy(all_attributes_original)
-    for attribute in attributes_numbered.items(): #loops through the attributes
-        all_attributes[attribute[0]]["uses"] = attributes_numbered[attribute[0]]
-        all_attributes[attribute[0]]["distinctPossibilities"] =  len(generate_answers(application_list, attribute[0], all_attributes)) #adds the number of possibilities to the attribute
-       
-    #* sorts the attributeList by our relevance metric
-    #? should this be more mathematical? right now we only rank by the number of uses and then the distinct possibilities
-    #? we could do some cool maths or averages or something like that here
     attributes_ranked = [] #list of attributes ranked by relevance
-    for key in all_attributes:
-        if(all_attributes[key].get("uses") != None):
-            attributes_ranked.append([key, all_attributes[key].get("uses"), all_attributes[key].get("distinctPossibilities")]) #adds the attribute and its relevance to the list
-    
+    for attribute in attributes_numbered.items(): #loops through the attributes
+        append_array = [] #creates a temporary array
+        append_array.append(attribute[0])
+        append_array.append(attribute[1])
+        append_array.append(len(generate_answers(application_list, attribute[0], all_attributes_original[attribute[0]]))) #adds the number of possibilities to the attribute
+        attributes_ranked.append(append_array) #adds the attribute to the list of attributes
+       
     attributes_ranked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
+    if (brute_force_depth == 0): #if brute forcing is disabled
+        return attributes_ranked[0][0] #returns the first attribute in the list
     attributes_ranked = attributes_ranked[:brute_force_depth] #cut attributesRanked to the length of bruteForceDepth    
 
     # * creates trees according to differently weighted attribute lists
@@ -61,52 +58,40 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     #! we should probably cap this some other way (time?) or always set the brute force depth to a reasonable number
     #? maybe 5 for the brute force depth? that would be 120 permutations, which could still be very slow
     #? maybe we should take a semi-random sample of the permutations? would be faster
-
+    #! something is still wrong here, [attribute, #nodes] is appended twice in some cases
     tree_list = [] #creates a list of trees
     attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
     for attribute_sequence in attribute_combinations:
-        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes)) #creates a tree for each attribute combination and adds it to the treeList
+        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes_original, [])) #creates a tree for each attribute combination and adds it to the treeList
     
     # * chooses the smallest tree
-    #get the smallest tree from the treeList
-    smallest_depth = 100000000 #sets the smallestDepth to a very high number
-    smallest_tree = {} #creates a variable for the smallest tree
-    
-    for tree in tree_list: #evaluates every tree in the treeList
-        if tree_depth(tree[0]) < smallest_depth: #checks if the depth of the tree is smaller than the smallestDepth
-            smallest_depth = tree_depth(tree[0]) #if yes it sets the smallestDepth to the depth of the tree
-            smallest_tree = tree #and sets the smallestTree to the tree
+    tree_list.sort(key=lambda x: (x[1]), reverse=True) #sorts the treeList by the number of nodes
+    best_attribute = tree_list[0][0] #gets the first attribute from the first tree in the treeList
 
     # * returns the first attribute which created the smallest tree
-    #return max(allAttributesOriginal, key = allAttributesOriginal.get) #old return statement for testing
-    return smallest_tree[1][0][0]
+    return best_attribute
 
-def create_mock_tree(attribute_sequence, index, application_list, all_attributes): #shortended implementation of algorithm.py, only diffences commented
-    result_set = calculate_result_set(application_list)
-    if not attribute_sequence:
-        return result_set
-    question = attribute_sequence[index][0] #gets the question from the attributeSequence
-    tree = create_subtree(question, result_set, [])
-    if not application_list:
-        answer_set = []
-    else:
-        answer_set = generate_answers(application_list, question, all_attributes)
-    for possible_answer in answer_set:
+# we need to create a list of the nodes here and then just use the start attribute which leads to the fewest nodes
+def create_mock_tree(attribute_sequence, index, application_list, all_attributes, node_list): #shortended implementation of algorithm.py, only diffences commented
+    accepted_applications = []
+    if(index >= len(attribute_sequence)): #checks if the index is out of bounds
+        return
+    question = attribute_sequence[index][0] #gets the question from the attribute sequence
+    question_type = all_attributes[question]
+    result_set = calculate_result_set(application_list) 
+    node = create_node(question,result_set, [], "", "")
+    possible_answers = generate_answers(application_list,question,question_type)
+    for possible_answer in possible_answers:
         application_list_copy = copy.deepcopy(application_list)
-        delete_rows(application_list_copy,question,possible_answer,all_attributes[question]["Kategorie"])
+        delete_rows(application_list_copy,question,possible_answer,question_type)
         remove_applications(application_list_copy)
-        delete_columns(application_list_copy,question)
-        if(len(attribute_sequence) - 1 > index): #checks if there are more attributes in the attributeSequence
-            index += 1 #if yes it increases the index
-            tree["Antworten"][possible_answer] = create_mock_tree(attribute_sequence, index, application_list_copy, all_attributes) #creates the subtree from the next attribute
-    return [tree, attribute_sequence] #returns the tree and its coresponding attributeSequence
+        accepted_applications_copy = copy.deepcopy(accepted_applications)
+        accept_applications(application_list_copy,accepted_applications_copy)
+        node["Antworten"].append({"Bezeichnung":possible_answer})
+        index += 1
+        node_list.append(create_mock_tree(attribute_sequence,index,application_list,all_attributes, []))
+    return [attribute_sequence[0][0], len(node_list)]
 
-#! not sure if this is a great way to do this
-#! probably not
-#! should be reworked with a proper implementation
-def tree_depth(tree):
-    tree_depth = len(tree) #tree depth is the number of keys in the tree, which is very shallow. we need to evaluate the depth of the longest path on the tree
-    return tree_depth
 
 def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepted_applications):
 

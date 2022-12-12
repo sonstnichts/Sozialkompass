@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: tuckingmodular/react-flask-app-api
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: tuckingmodular/react-flask-app-client
+    ports:
+      - "443:443"

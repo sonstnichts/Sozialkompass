@@ -53,26 +53,26 @@ class test_remove_applications(TestCase):
 
 class test_delete_rows(TestCase):
 
-    # case where the attributes to be deleted are in the "Sonstiges"-section
-    def test_delete_rows(self):
+    # # case where the attributes to be deleted are in the "Sonstiges"-section
+    # def test_delete_rows(self):
 
-        # load input data
+    #     # load input data
 
-        data = open(dir / "algorithmus/assets/test_antraege.json")
-        application_list = json.load(data)
+    #     data = open(dir / "algorithmus/assets/test_antraege.json")
+    #     application_list = json.load(data)
 
 
-        # load result data
+    #     # load result data
         
-        data = open(dir / test_asset_path / "test_delete_rows_result.json")
-        result = json.load(data)
+    #     data = open(dir / test_asset_path / "test_delete_rows_result.json")
+    #     result = json.load(data)
 
-        question = "Staatsangehoerigkeit"
-        answer_possibilities = ["deutsch"]
-        questiontype = "Auswahl"
+    #     question = "Staatsangehoerigkeit"
+    #     answer_possibilities = ["deutsch"]
+    #     questiontype = "Auswahl"
 
-        delete_rows(application_list,question,answer_possibilities,questiontype)
-        self.assertListEqual(application_list,result)
+    #     delete_rows(application_list,question,answer_possibilities,questiontype)
+    #     self.assertListEqual(application_list,result)
 
     # case where the attributes to be deleted are in the main section
     def test_delete_rows_2(self):
@@ -126,14 +126,14 @@ class test_calculate_result_set(TestCase):
         result = ["Bafoeg", "Kindergeld"] #result list for the test
         self.assertListEqual(calculate_result_set(application_list), result) #checks the wanted results against the actual results
 
-class test_create_subtree(TestCase):
-    # {'Frage': 'Kinder_Anzahl', 'Ergebnismenge': ['Wohngeld', 'Elterngeld', 'Kindergeld'], 'Antworten': {}} -> how the tree is formated
-    def test_normal(self):
-        question = "Kinder Anzahl"
-        result_set = ["Bafoeg", "Kindergeld"]
-        skippedAttributes = []
-        result = {"Frage": "Kinder Anzahl", "Ergebnismenge": ["Bafoeg", "Kindergeld"], "Antworten": {}} #result list for the test
-        self.assertDictEqual(create_subtree(question, result_set, skippedAttributes), result) #checks the wanted results against the actual results
+# class test_create_subtree(TestCase):
+#     # {'Frage': 'Kinder_Anzahl', 'Ergebnismenge': ['Wohngeld', 'Elterngeld', 'Kindergeld'], 'Antworten': {}} -> how the tree is formated
+#     def test_normal(self):
+#         question = "Kinder Anzahl"
+#         result_set = ["Bafoeg", "Kindergeld"]
+#         skippedAttributes = []
+#         result = {"Frage": "Kinder Anzahl", "Ergebnismenge": ["Bafoeg", "Kindergeld"], "Antworten": {}} #result list for the test
+#         self.assertDictEqual(create_subtree(question, result_set, skippedAttributes), result) #checks the wanted results against the actual results
 
 class test_split_array(TestCase):
     def test_normal(self):

@@ -1,0 +1,11 @@
+FROM --platform=linux/amd64 python:3.11.0-bullseye
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY ./backend/requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
+
+COPY ./backend /app
+
+CMD ["gunicorn"  , "-b", ":5000","--workers=3", "--timeout", "60", "app:app"]
