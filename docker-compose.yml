@@ -11,3 +11,16 @@ services:
     image: tuckingmodular/react-flask-app-client
     ports:
       - "443:443"
+  database:
+    image: mongo:4.4.6
+    container_name: mongodb
+    command: [--auth]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=YcY723j%LE@P0STx**Nua
+    volumes:
+      - mongoData:/mongoData/db
+    ports:
+      - 80:27017
+volumes:
+  mongoData:

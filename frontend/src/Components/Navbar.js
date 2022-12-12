@@ -61,6 +61,10 @@ function Navbar() {
   function handleHomeClick() {
     navigate("/");
   }
+
+  function handleQuestionsClick(){
+    navigate("/questions");
+  }
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -104,7 +108,9 @@ function Navbar() {
             </Typography>
           </ButtonBase>
           <Stack direction="row" spacing={2}>
-            <ColorButton>
+            <ColorButton
+            onClick={handleHomeClick}
+            >
               {" "}
               <Typography
                 sx={{
@@ -148,7 +154,9 @@ function Navbar() {
             </ColorButton>
           </Stack>
           <Stack direction="row" spacing={2}>
-            <ColorOrangeButton>
+            <ColorOrangeButton
+            onClick={handleQuestionsClick}
+            >
               <Typography
                 sx={{
                   fontWeight: 700,
