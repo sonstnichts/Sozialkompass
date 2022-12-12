@@ -1,33 +1,33 @@
 [
   {
-    "Name": "Bafög",
-    "PLZ-Gebiet": [48149, 48151],
+    "Name": "BAfoeG",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
       "Berufsstatus": ["Studierender"],
       "Ausbildungsstaette": [
-        "Universität",
+        "Universitaet",
         "Akademie",
         "Fachhochschule",
         "Hochschule"
       ],
       "Studienpensum": ["Vollzeit"],
       "Alter bei Beginn der Ausbildung": [0, 45],
-      "Vermögen": [0, 15000],
+      "Vermoegen": [0, 15000],
       "Sonstiges": [
         [
           {
-            "Staatsangehoerigkeit": ["deutsch"]
+            "Staatsangehoerigkeit": ["Deutschland"]
           },
           {
-            "Staatsangehoerigkeit": ["EU_Ausland"],
+            "Staatsangehoerigkeit": ["Belgien", "Bulgarien", "Daenemark", "Estland", "Finnland", "Frankreich", "Griechenland", "Irland", "Italien", "Kroatien", "Lettland", "Litauen", "Luxemburg", "Malta", "Niederlande", "Oesterreich", "Polen", "Portugal", "Rumaenien", "Schweden", "Slowakei", "Slowenien", "Spanien", "Tschechische Republik", "Ungarn", "Zypern"],
             "dauerhafter Aufenthalt": ["ja"]
           },
           {
-            "Staatsangehoerigkeit": ["Ausland"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Island", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Jahre in Deutschland": [5, 1000]
           },
           {
-            "Staatsangehoerigkeit": ["Ausland"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Island", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Aufenthaltsgenehmigung": ["ja"]
           }
         ]
@@ -36,28 +36,28 @@
   },
   {
     "Name": "Kindergeld",
-    "PLZ-Gebiet": [48149, 48151],
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
-      "Kinder_Anzahl": [1, 50],
+      "Kind_Anzahl": [1, 50],
       "Kindergeld_Fremdbezug": ["nein"],
-      "Kinder_Verhältnis": ["Kinderarten"],
+      "Kind_Verhaeltnis": ["leibliches Kind", "Adoptivkind", "Stiefkind", "Kind des Lebenspartners", "Enkelkind", "Pflegekind"],
       "Kind_Haushalt": ["ja"],
-      "Wohnsitz_Kind": ["Deutschland", "EWR_alle_Laender"],
+      "Wohnsitz_Kind": ["Belgien", "Bulgarien", "Daenemark", "Deutschland", "Estland", "Finnland", "Frankreich", "Griechenland", "Irland", "Island", "Italien", "Kroatien", "Lettland", "Litauen", "Liechtenstein", "Luxemburg", "Malta", "Niederlande", "Norwegen", "Oesterreich", "Polen", "Portugal", "Rumaenien", "Schweden", "Schweiz", "Slowakei", "Slowenien", "Spanien", "Tschechische Republik", "Ungarn", "Zypern"],
       "Sonstiges": [
         [
           {
-            "Staatsangehoerigkeit": ["deutsch", "EWR_alle_Laender"]
+            "Staatsangehoerigkeit": ["Belgien", "Bulgarien", "Daenemark", "Deutschland", "Estland", "Finnland", "Frankreich", "Griechenland", "Irland", "Island", "Italien", "Kroatien", "Lettland", "Litauen", "Liechtenstein", "Luxemburg", "Malta", "Niederlande", "Norwegen", "Oesterreich", "Polen", "Portugal", "Rumaenien", "Schweden", "Schweiz", "Slowakei", "Slowenien", "Spanien", "Tschechische Republik", "Ungarn", "Zypern"]
           },
           {
-            "Staatsangehoerigkeit": ["Algerien", "Marokko", "..."],
+            "Staatsangehoerigkeit": ["Algerien", "Bosnien und Herzegowina", "Kosovo", "Marokko", "Montenegro", "Serbien", "Tunesien"],
             "Erwerbstaetigkeit_Dt": ["ja"]
           },
           {
-            "Staatsangehoerigkeit": ["Rest"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Senegal", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Fluechtling_Anerkannt": ["ja"]
           },
           {
-            "Staatsangehoerigkeit": ["Rest"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Senegal", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Asylberechtigung": ["ja"]
           }
         ],
@@ -67,11 +67,11 @@
           },
           {
             "Alter_Kind": [18, 21],
-            "Status_Kind": ["arbeitssuchendetc."]
+            "Status_Kind": ["arbeitssuchend", "in Berufsausbildung", "Freiwilligendienst", "ausbildungsplatzsuchend"]
           },
           {
             "Alter_Kind": [22, 25],
-            "Status_Kind": ["arbeitssuchendetcanders."]
+            "Status_Kind": ["in Berufsausbildung", "Freiwilligendienst", "ausbildungsplatzsuchend"]
           }
         ]
       ]
@@ -79,66 +79,66 @@
   },
   {
     "Name": "ALG2",
-    "PLZ-Gebiet": [48149, 48151],
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
       "Lebensmittelpunkt in Deutschland": ["ja"],
       "Tages Arbeitszeit": [3, 1000],
-      "Hilfebedürftigkeit": ["ja"],
+      "Hilfebeduerftigkeit": ["ja"],
       "Alter": [15, 1000],
-      "Berufsstatus": ["Berufstaetig", "Arbeitslos"]
+      "Berufsstatus": ["berufstaetig", "arbeitssuchend"]
     }
   },
   {
     "Name": "Wohngeld",
-    "PLZ-Gebiet": [48149, 48151],
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
       "Sonstiges": [
         [
           {
             "Haushaltsmitglieder": [1,1],
-            "Einkommen": [0, 1129],
+            "Einkommen_Haushalt": [0, 1129],
             "Mietkosten": [540, 100000]
           },
           {
             "Haushaltsmitglieder": [2,2],
-            "Einkommen": [0, 1549],
+            "Einkommen_Haushalt": [0, 1549],
             "Mietkosten": [654, 100000]
           },
           {
             "Haushaltsmitglieder": [3,3],
-            "Einkommen": [0, 1874],
+            "Einkommen_Haushalt": [0, 1874],
             "Mietkosten": [778, 100000]
           },
           {
             "Haushaltsmitglieder": [4,4],
-            "Einkommen": [0, 2425],
+            "Einkommen_Haushalt": [0, 2425],
             "Mietkosten": [909, 100000]
           },
           {
             "Haushaltsmitglieder": [5,5],
-            "Einkommen": [0, 2762],
+            "Einkommen_Haushalt": [0, 2762],
             "Mietkosten": [1038, 100000]
           },
           {
             "Haushaltsmitglieder": [6, 1000],
-            "Einkommen": [0, 3094],
+            "Einkommen_Haushalt": [0, 3094],
             "Mietkosten": [1162, 100000]
           }
         ],
         [
           {
-            "Staatsangehoerigkeit": ["deutsch"]
+            "Staatsangehoerigkeit": ["Deutschland"]
           },
           {
-            "Staatsangehoerigkeit": ["EU_Ausland"],
+            "Staatsangehoerigkeit": ["Belgien", "Bulgarien", "Daenemark", "Estland", "Finnland", "Frankreich", "Griechenland", "Irland", "Italien", "Kroatien", "Lettland", "Litauen", "Luxemburg", "Malta", "Niederlande", "Oesterreich", "Polen", "Portugal", "Rumaenien", "Schweden", "Slowakei", "Slowenien", "Spanien", "Tschechische Republik", "Ungarn", "Zypern"],
             "dauerhafter Aufenthalt": ["ja"]
           },
           {
-            "Staatsangehoerigkeit": ["Ausland"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Island", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Jahre in Deutschland": [5, 1000]
           },
           {
-            "Staatsangehoerigkeit": ["Ausland"],
+            "Staatsangehoerigkeit": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Djibuti", "Dominika", "Dominikanische Republik", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Falkland Inseln", "Fidschi", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Island", "Israel", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kuba", "Kuwait", "Laos", "Lesotho", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Aegypten", "Aequatorial Guinea", "Aethiopien"],
             "Aufenthaltsgenehmigung": ["ja"]
           }
         ]
@@ -147,14 +147,14 @@
   },
   {
     "Name": "BAB",
-    "PLZ-Gebiet": [48149, 48151],
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
       "Alter": [18, 1000],
       "Wohnen_bei_Eltern": ["nein"],
       "Sonstiges": [
         [
           {
-            "Kinder_Anzahl": [1, 1000]
+            "Kind_Anzahl": [1, 1000]
           },
           {
             "Familienstatus": ["verheiratet"]
