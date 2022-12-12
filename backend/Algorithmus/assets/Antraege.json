@@ -149,6 +149,7 @@
     "Name": "BAB",
     "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
     "Attribute": {
+      "Berufsstatus": ["Auszubildender"],
       "Alter": [18, 1000],
       "Wohnen_bei_Eltern": ["nein"],
       "Sonstiges": [
