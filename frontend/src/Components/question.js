@@ -76,7 +76,7 @@ function RenderYesNo() {
 }
 
 
-export const Question = () => {
+function Question() {
   return (
     <Container border={40}>
     
@@ -120,3 +120,4 @@ export const Question = () => {
   )
 };
 
+export default Question;

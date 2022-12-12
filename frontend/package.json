@@ -2,6 +2,7 @@
   "name": "sozialkompass",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -21,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-api": "cd app && venv/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
