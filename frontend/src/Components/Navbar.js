@@ -68,6 +68,7 @@ function Navbar() {
   // AppBar is used to create navigation bar (in combination with Typography)
   // Stack is used to include additional pages or menu settings on the right side of the page
   return (
+
     <AppBar position="sticky" color="default" margin="0px">
       <Container maxWidth="l">
         <Toolbar
@@ -183,6 +184,7 @@ function Navbar() {
           </Stack>
         </Toolbar>
       </Container>
+
     </AppBar>
   );
 }
