@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const applicationSlice = createSlice({
     name: 'application',
     initialState:{
-    BAFög:0,
+    BAföG:0,
     BAB:0,
     ALG2:0,
     Kindergeld:0,

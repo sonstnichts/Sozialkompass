@@ -203,14 +203,15 @@ class SendTree(Resource):
         result["Beschreibung"] = attribut["Beschreibung"]
         result["Kategorie"] = attribut["Kategorie"]
 
-        checkedAnswers = []
-        for ans in result["Antworten"]:
-            if ans["Bezeichnung"] not in checkedAnswers:
-                checkedAnswers.append(ans["Bezeichnung"][0])
-        answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
-        for ans in answers["Antwortmoeglichkeiten"]:
-            if ans not in checkedAnswers:
-                result["Antworten"].append({"Bezeichnung":[ans],"NodeID":result["noneoftheabove"]})
+        if attribut["Kategorie"]=="Auswahl":
+            checkedAnswers = []
+            for ans in result["Antworten"]:
+                if ans["Bezeichnung"] not in checkedAnswers:
+                    checkedAnswers.append(ans["Bezeichnung"][0])
+            answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+            for ans in answers["Antwortmoeglichkeiten"]:
+                if ans not in checkedAnswers:
+                    result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
         # insert all answers
         response = make_response(jsonify(result), 200)
         return response
@@ -230,14 +231,15 @@ class SendTree(Resource):
             attribut = attribute.find_one({"Name":result["Attribut"]})
             result["Frage"] = attribut["Frage"]
             result["Kategorie"] = attribut["Kategorie"]
-            checkedAnswers = []
-            for ans in result["Antworten"]:
-                if ans["Bezeichnung"] not in checkedAnswers:
-                    checkedAnswers.append(ans["Bezeichnung"][0])
-            answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
-            for ans in answers["Antwortmoeglichkeiten"]:
-                if ans not in checkedAnswers:
-                    result["Antworten"].append({"Bezeichnung":[ans],"NodeID":result["noneoftheabove"]})
+            if attribut["Kategorie"]=="Auswahl":
+                checkedAnswers = []
+                for ans in result["Antworten"]:
+                    if ans["Bezeichnung"] not in checkedAnswers:
+                        checkedAnswers.append(ans["Bezeichnung"][0])
+                answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+                for ans in answers["Antwortmoeglichkeiten"]:
+                    if ans not in checkedAnswers:
+                        result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
 
         #result["Beschreibung"] = attribut["Beschreibung"]
         response = jsonify(result)

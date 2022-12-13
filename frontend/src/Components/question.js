@@ -29,11 +29,6 @@ import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutl
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Root } from "react-dom/client";
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useNavigate } from "react-router-dom";
 
@@ -63,17 +58,12 @@ export default function Question() {
   }));
 
 
-   function timeout(delay) {
+  function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
   }
-   const handleListItemClick = async (event, index) => {
-    setFaded(false);
-    await timeout(300);
-    setSelectedIndex(index);
-    setFaded(true);
-  };
 
-  const fetchUrl = "http://127.0.0.1:5000/api/tree";
+
+  const fetchUrl = "/api/tree";
   const handleSubmit = () => {
     fetch(fetchUrl, { method: "GET" })
       .then((res) => res.json())
@@ -86,7 +76,7 @@ export default function Question() {
         }
       );
   };
-  
+
 
   const handleChange = (event) => {
     setMessage(event.target.value);
@@ -94,7 +84,7 @@ export default function Question() {
     console.log("value is:", event.target.value);
   };
 
-   function navigateResult(){
+  function navigateResult() {
     navigate("/results")
 
   }
@@ -111,8 +101,8 @@ export default function Question() {
         (result) => {
           console.log(result);
           setQuestion(result);
-          
-         
+
+
         },
         (error) => {
           console.log(error);
@@ -143,7 +133,7 @@ export default function Question() {
 
 
 
-  const updateResults = () => {
+  const updateResults = () => { // Needs to be completely changed in the Future
 
 
 
@@ -163,10 +153,10 @@ export default function Question() {
       dispatch(one({ Kindergeld: -1 }))
     }
 
-    if (resultArr.includes('BafÃ¶g')) { // TODO: CHANGE ON DATABASE UPDATE 
-      dispatch(one({ BAFög: 1 }))
+    if (resultArr.includes('BAföG')) {  
+      dispatch(one({ BAföG: 1 }))
     } else {
-      dispatch(one({ BAFög: -1 }))
+      dispatch(one({ BAföG: -1 }))
     }
 
     if (resultArr.includes('ALG2')) {
@@ -181,12 +171,14 @@ export default function Question() {
     } else {
       dispatch(one({ Wohngeld: -1 }))
     };
+
+    console.log(applications)
   }
-  //TODO: CHANGE STRINGS ON NEW DATASTRUCTURE
+
   const declinedResults = () => {
 
-    let allResults = [
-      "BafÃ¶g",
+    let allResults = [ // Workaround to get all possible Applications
+      "BAföG",
       "Kindergeld",
       "ALG2",
       "Wohngeld",
@@ -198,8 +190,8 @@ export default function Question() {
     setDeclined(tempResults)
     const allDeclinedResults = (tempResults.filter(x => !acceptedResults.includes(x)))
     setDeclined(allDeclinedResults)
- 
-  
+
+
   }
 
   const getAnswerNode = (value) => {
@@ -275,11 +267,19 @@ export default function Question() {
                       ></Autocomplete>
                     </FormControl>
                     <div>
-                      <ColorButton onClick={() => { getAnswerNode(current); setCount(count + 1); setCurrent('');declinedResults()}}>
+                      <ColorButton onClick={() => { getAnswerNode(current); setCount(count + 1); setCurrent(''); declinedResults() }}>
                         Weiter
                       </ColorButton>
+
+                  
                     </div>
+                    <Button variant="outlined" size="large"  sx={{ marginTop:5, color:"grey", border:"2px grey solid" }} onClick={() => { updatequestion(question.noneoftheabove); setCount(count+1) }}>
+                  Überspringen
+                </Button>
+                  
                   </div>
+
+                  
 
                 )}
                 {question.Kategorie == "Ganzzahl" && (
@@ -300,7 +300,7 @@ export default function Question() {
                       ></TextField>
                     </FormControl>
                     <div>
-                      <ColorButton onClick={() => { compareQuestion(message); setCount(count + 1); setMessage('');declinedResults() }}>
+                      <ColorButton onClick={() => { compareQuestion(message); setCount(count + 1); setMessage(''); declinedResults() }}>
                         Weiter
                       </ColorButton>
                     </div>
@@ -308,12 +308,14 @@ export default function Question() {
                 )}
 
 
-{question.result &&(
- 
- <ColorButton onClick={() =>{navigateResult()}}> Ergebnisse anzeigen </ColorButton>
-)}
+                {question.result && (
 
-                <ColorButton sx={{ marginTop: 20 }} onClick={() => { updatequestion("reset"); setCount(1) }}>
+                  <ColorButton onClick={() => { navigateResult(); updateResults() }}> Ergebnisse anzeigen </ColorButton>
+                )}
+
+                
+
+                <ColorButton sx={{ marginTop: 15 }} onClick={() => { updatequestion("reset"); setCount(1) }}>
                   Neu Starten
                 </ColorButton>
 
@@ -337,65 +339,65 @@ export default function Question() {
 
                 <Typography variant="h4">Vorläufiges Ergebnis</Typography>
                 <List
-      sx={{
-        width: '100%',
-        maxWidth: 360,
-        bgcolor: 'background.paper',
-      }}
-    >
+                  sx={{
+                    width: '100%',
+                    maxWidth: 360,
+                    bgcolor: 'background.paper',
+                  }}
+                >
 
-<ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <CheckCircleOutlineIcon />
-          </Avatar>
-        </ListItemAvatar>
-        {question.Akzeptiert && <div>{question.Akzeptiert?.map((result, index) =>{
-                  return( <h2 key={index}> {result}</h2>);
-        })}</div>}
-
-
-      </ListItem>
-      <Divider variant="inset" component="li" />
-                <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <HelpOutlineIcon />
-          </Avatar>
-        </ListItemAvatar>
-        {question.Ergebnismenge && <div>{question.Ergebnismenge?.map((result, index) => {
-                  return( <h2 key={index}> {result}</h2>);
-        })}</div>}
-
-      </ListItem>
-      <Divider variant="inset" component="li" />
-     
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <HighlightOffIcon />
-          </Avatar>
-        </ListItemAvatar>
-        
-        <div>
-     {declined.map((value, index) => {
-         return (
-             <h2 key={index}>
-                {value}
-             </h2>
-          );
-         })
-      }
-     </div>
-      </ListItem>
-    </List>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <CheckCircleOutlineIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    {question.Akzeptiert && <div>{question.Akzeptiert?.map((result, index) => {
+                      return (<h2 key={index}> {result}</h2>);
+                    })}</div>}
 
 
-                 
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HelpOutlineIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    {question.Ergebnismenge && <div>{question.Ergebnismenge?.map((result, index) => {
+                      return (<h2 key={index}> {result}</h2>);
+                    })}</div>}
 
-                 
-                
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HighlightOffIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+
+                    <div>
+                      {declined.map((value, index) => {
+                        return (
+                          <h2 key={index}>
+                            {value}
+                          </h2>
+                        );
+                      })
+                      }
+                    </div>
+                  </ListItem>
+                </List>
+
+
+
+
+
+
 
                 <ColorButton sx={{ marginTop: 20, width: "200px", }} onClick={() => { updateResults() }}> {/* updateResults() */}
                   Beenden

@@ -18,19 +18,22 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useState, useRef, useEffect } from "react";
 import { textAlign } from "@mui/system";
 import logo from "../../Assets/logo/mainLogo.png";
-
+import { useSelector } from "react-redux";
 export function Results({ applicationstatus }) {
 
+
+  const applications = useSelector((state) => state.application)
   // Settings for size of Logo (Compass picture)
   const Logo = styled("img")(() => ({
   width: "130px",
   minWidth: "2rem",
   }));
 
-  const fetchUrl = "http://127.0.0.1:5000/api/results";
+  const fetchUrl = "/api/results";
 
-  const applications = applicationstatus;
 
+
+console.log(applications)
   //function for fading
   function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
@@ -59,9 +62,17 @@ export function Results({ applicationstatus }) {
 
   // mock applicationDetails for detailed description of the application
 
+  useEffect(() => {
+    console.log(applications)
+    if(applications){
+    loadResults()
+    }
+  }, [applications]);
+
+
   const loadResults = () => {
 
-    fetch(fetchUrl, { method: "POST",body:JSON.stringify(applications),headers:{'Content-Type':'application/JSON'}})
+     fetch(fetchUrl, { method: "POST",body:JSON.stringify(applications),headers:{'Content-Type':'application/JSON'}})
       .then(res => res.json())
       .then(
         (result) => {
@@ -74,9 +85,7 @@ export function Results({ applicationstatus }) {
       );
   };
 
-  useEffect(() => {
-    loadResults()
-  }, []);
+  
 
   // Handles the click of an item in the list
   const handleListItemClick = async (event, index) => {
@@ -230,7 +239,7 @@ export function Results({ applicationstatus }) {
                     </h1>
                   ) : Object.values(applications)[selectedIndex] === 0 ? (
                     <h1>
-                      Du hast ententuell Anspruch auf{" "}
+                      Du hast eventuell Anspruch auf{" "}
                       {Object.keys(applications)[selectedIndex]}.
                     </h1>
                   ) : (
@@ -306,7 +315,7 @@ export function Results({ applicationstatus }) {
           </Box>
         </Stack>
       </Box>
-      <Box>
+      <Box display="none">
         <Box ref={componentRef} height="90vh" margin="5%">
           <Stack
             direction="column"

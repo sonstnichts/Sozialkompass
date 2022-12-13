@@ -21,7 +21,7 @@ function App() {
 
 
   //Addition of a applicationlist, that keeps track of the status of an application. It is passed down into the components.
-  const [applications,setApplications] = useState({
+  const [add,setAdd] = useState({
     Kindergeld:1,
     BAB:0,
     BAfoeG:-1,
@@ -37,7 +37,7 @@ function App() {
 
           <Route path="/" element={<><Navbar/><Home/><Supporter/><Contact/></>}/>
           <Route path="/questions" element={<><Navbar/><Question/></>}/>
-          <Route path="/results" element={<><Navbar/><Results applicationstatus={applications}/></>}/>
+          <Route path="/results" element={<><Navbar/><Results applicationstatus={add}/></>}/>
 
         </Routes>
       </ThemeProvider>
