@@ -182,7 +182,7 @@ class SendTree(Resource):
     def get(self):
         print("success")
         #check if session exists, then send last node
-<<<<<<< HEAD
+
         # first_cookie = request.cookies.get("firstlogin")
         # id_cookie = request.cookies.get("_id")
         # if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
@@ -194,21 +194,7 @@ class SendTree(Resource):
         #     result["Kategorie"] = attribut["Kategorie"]
         #     response = make_response(jsonify(result),200)
         #     return response
-=======
-        first_cookie = request.cookies.get("firstlogin")
-        id_cookie = request.cookies.get("_id")
-        if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
-            result = treenodes.find_one({"_id":id_cookie})
-            #Add attributes to result
-            attribut = attribute.find_one({"Name":result["Attribut"]})
-            result["Frage"] = attribut["Frage"]
-            result["Beschreibung"] = attribut["Beschreibung"]
-            result["Kategorie"] = attribut["Kategorie"]
-            
-            # insert all answers
-            response = make_response(jsonify(result),200)
-            return response
->>>>>>> 8c211475c109147bfc9bebe2e95d5e62d53e4a11
+
 
         #else send first node
         result = treenodes.find_one({"parentId":{"$exists": False}})

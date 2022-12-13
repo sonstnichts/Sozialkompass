@@ -19,7 +19,9 @@ import { useState, useRef, useEffect } from "react";
 import { textAlign } from "@mui/system";
 import logo from "../../Assets/logo/mainLogo.png";
 import { useSelector } from "react-redux";
-export function Results({ applicationstatus }) {
+
+
+export default function Results({ applicationstatus }) {
 
 
   const applications = useSelector((state) => state.application)

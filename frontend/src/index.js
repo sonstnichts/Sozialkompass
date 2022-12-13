@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-<<<<<<< HEAD
-import { Provider } from 'react-redux';
-=======
->>>>>>> 8c211475c109147bfc9bebe2e95d5e62d53e4a11
+
 import store from './redux/store';
 import { BrowserRouter} from "react-router-dom";
 import { Provider } from 'react-redux'
