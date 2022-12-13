@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Images } from "./Components/homepage/logohome"
 import theme from "./Components/theme";
 import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Supporter  from "./Components/homepage/supporter";
 import Contact  from "./Components/homepage/contact";
 
@@ -12,6 +13,11 @@ import Results  from "./Components/results/results"
 import {useState} from 'react'
 import Question  from "./Components/question";
 import NavbarInDialogue from "./Components/NavbarInDialogue";
+
+import store from "./redux/store";
+
+import { Provider } from 'react-redux'
+
 
 
 
@@ -21,10 +27,12 @@ function App() {
 
 
   //Addition of a applicationlist, that keeps track of the status of an application. It is passed down into the components.
-  const [applications,setApplications] = useState({
+  const [add,setAdd] = useState({
     Kindergeld:1,
-    Bab:0,
-    Bafög:-1
+    BAB:0,
+    BAfoeG:-1,
+    Wohngeld:1,
+    ALG2:0
   })
 
   return (
@@ -35,8 +43,9 @@ function App() {
         <Routes>
 
           <Route path="/" element={<><Navbar/><Home/><Supporter/><Contact/></>}/>
-          <Route path="/questions" element={<><NavbarInDialogue/><Question/></>}/>
-          <Route path="/results" element={<><Navbar/><Results applicationstatus={applications}/></>}/>
+          <Route path="/questions" element={<><NavbarInDialogue/><Question/></>}/>          
+          <Route path="/results" element={<><Navbar/><Results applicationstatus={add}/></>}/>
+
 
         </Routes>
       </ThemeProvider>

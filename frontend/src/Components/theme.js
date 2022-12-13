@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import {red} from '@mui/material/colors';
+
 
 
 // Sets up theme for page (blue color)

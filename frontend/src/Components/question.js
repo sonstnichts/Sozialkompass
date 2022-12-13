@@ -7,11 +7,11 @@ import {
   styled,
   Typography,
   TextField,
-  Input,
-  Card,
-  CardContent,
-  CardAct,
-  Buttonions,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
   Autocomplete,
   FormControl,
   IconButton
@@ -26,18 +26,26 @@ import { getApplications } from "../redux/applicationReducer";
 import { one, zero, minus } from "../redux/applicationReducer";
 import store from "../redux/store"
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useNavigate } from "react-router-dom";
 
-export function Question() {
+
+export default function Question() {
   const theme = useTheme();
   const applications = useSelector((state) => state.application)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [message, setMessage] = useState("");
   const [current, setCurrent] = useState(['']);
   const [question, setQuestion] = useState({});
   const [count, setCount] = useState(1);
   const [declined, setDeclined] = useState([]);
-
+  const [faded, setFaded] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "rgba(244, 91, 57, 0.71)",
@@ -49,7 +57,13 @@ export function Question() {
     height: "60px",
   }));
 
-  const fetchUrl = "http://127.0.0.1:5000/api/tree";
+
+  function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+
+
+  const fetchUrl = "/api/tree";
   const handleSubmit = () => {
     fetch(fetchUrl, { method: "GET" })
       .then((res) => res.json())
@@ -62,14 +76,18 @@ export function Question() {
         }
       );
   };
-  const handleDeclined = (event) =>{
-    setDeclined(event.target.value)
-  }
+
+
   const handleChange = (event) => {
     setMessage(event.target.value);
 
     console.log("value is:", event.target.value);
   };
+
+  function navigateResult() {
+    navigate("/results")
+
+  }
 
   const updatequestion = (id) => {
     console.log(id);
@@ -83,8 +101,8 @@ export function Question() {
         (result) => {
           console.log(result);
           setQuestion(result);
-          
-         
+
+
         },
         (error) => {
           console.log(error);
@@ -115,7 +133,7 @@ export function Question() {
 
 
 
-  const updateResults = () => {
+  const updateResults = () => { // Needs to be completely changed in the Future
 
 
 
@@ -135,10 +153,10 @@ export function Question() {
       dispatch(one({ Kindergeld: -1 }))
     }
 
-    if (resultArr.includes('BafÃ¶g')) { // TODO: CHANGE ON DATABASE UPDATE 
-      dispatch(one({ BAFög: 1 }))
+    if (resultArr.includes('BAföG')) {  
+      dispatch(one({ BAföG: 1 }))
     } else {
-      dispatch(one({ BAFög: -1 }))
+      dispatch(one({ BAföG: -1 }))
     }
 
     if (resultArr.includes('ALG2')) {
@@ -153,12 +171,14 @@ export function Question() {
     } else {
       dispatch(one({ Wohngeld: -1 }))
     };
+
+    console.log(applications)
   }
-  //TODO: CHANGE STRINGS ON NEW DATASTRUCTURE
+
   const declinedResults = () => {
 
-    let allResults = [
-      "BafÃ¶g",
+    let allResults = [ // Workaround to get all possible Applications
+      "BAföG",
       "Kindergeld",
       "ALG2",
       "Wohngeld",
@@ -170,8 +190,8 @@ export function Question() {
     setDeclined(tempResults)
     const allDeclinedResults = (tempResults.filter(x => !acceptedResults.includes(x)))
     setDeclined(allDeclinedResults)
- 
-  
+
+
   }
 
   const getAnswerNode = (value) => {
@@ -247,11 +267,19 @@ export function Question() {
                       ></Autocomplete>
                     </FormControl>
                     <div>
-                      <ColorButton onClick={() => { getAnswerNode(current); setCount(count + 1); setCurrent('');declinedResults()}}>
+                      <ColorButton onClick={() => { getAnswerNode(current); setCount(count + 1); setCurrent(''); declinedResults() }}>
                         Weiter
                       </ColorButton>
+
+                  
                     </div>
+                    <Button variant="outlined" size="large"  sx={{ marginTop:5, color:"grey", border:"2px grey solid" }} onClick={() => { updatequestion(question.noneoftheabove); setCount(count+1) }}>
+                  Überspringen
+                </Button>
+                  
                   </div>
+
+                  
 
                 )}
                 {question.Kategorie == "Ganzzahl" && (
@@ -272,7 +300,7 @@ export function Question() {
                       ></TextField>
                     </FormControl>
                     <div>
-                      <ColorButton onClick={() => { compareQuestion(message); setCount(count + 1); setMessage('');declinedResults() }}>
+                      <ColorButton onClick={() => { compareQuestion(message); setCount(count + 1); setMessage(''); declinedResults() }}>
                         Weiter
                       </ColorButton>
                     </div>
@@ -280,12 +308,14 @@ export function Question() {
                 )}
 
 
+                {question.result && (
 
-                {question.result?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}
+                  <ColorButton onClick={() => { navigateResult(); updateResults() }}> Ergebnisse anzeigen </ColorButton>
+                )}
 
-                <ColorButton sx={{ marginTop: 20 }} onClick={() => { updatequestion("reset"); setCount(1) }}>
+                
+
+                <ColorButton sx={{ marginTop: 15 }} onClick={() => { updatequestion("reset"); setCount(1) }}>
                   Neu Starten
                 </ColorButton>
 
@@ -308,19 +338,66 @@ export function Question() {
               >
 
                 <Typography variant="h4">Vorläufiges Ergebnis</Typography>
-                {question.Ergebnismenge && <h1>{question.Ergebnismenge?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}</h1>
+                <List
+                  sx={{
+                    width: '100%',
+                    maxWidth: 360,
+                    bgcolor: 'background.paper',
+                  }}
+                >
 
-                }
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <CheckCircleOutlineIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    {question.Akzeptiert && <div>{question.Akzeptiert?.map((result, index) => {
+                      return (<h2 key={index}> {result}</h2>);
+                    })}</div>}
 
-                {question.Akzeptiert && <h4>{question.Akzeptiert?.map((result, index) => (
-                  <div key={index}>{result}</div>
-                ))}</h4>
 
-                }
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HelpOutlineIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    {question.Ergebnismenge && <div>{question.Ergebnismenge?.map((result, index) => {
+                      return (<h2 key={index}> {result}</h2>);
+                    })}</div>}
 
-                <h2>{declined}</h2>
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HighlightOffIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+
+                    <div>
+                      {declined.map((value, index) => {
+                        return (
+                          <h2 key={index}>
+                            {value}
+                          </h2>
+                        );
+                      })
+                      }
+                    </div>
+                  </ListItem>
+                </List>
+
+
+
+
+
+
 
                 <ColorButton sx={{ marginTop: 20, width: "200px", }} onClick={() => { updateResults() }}> {/* updateResults() */}
                   Beenden

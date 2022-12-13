@@ -66,6 +66,7 @@ db = client.sozialkompass
 treenodes = db.treenodes
 attribute = db.attribute
 aemter = db.aemter
+antraege = db.antraege
 
 app = Flask(__name__)
 api = Api(app)
@@ -157,11 +158,22 @@ class Treenodes(db.Document):
 
 
 class SendResults(Resource):
-    def get(self):
+    def post(self):
         #Exclude object_id, cause it's bad
-        cursor = aemter.find({}, {"_id": False})
-        cur_list = list(cursor)        
-        return jsonify(cur_list)
+        args = request.get_json()
+        result = []
+        for application in args.keys():
+            data = aemter.find_one({"Antraege."+application:{"$exists":True}},{"_id":False})
+            entry = {}
+            entry["Antrag"] = application
+            entry["Name"] = data["Name"]
+            entry["Adresse"] = data["Adresse"]["Straße"]+" "+str(data["Adresse"]["Postleitzahl"])+" "+data["Adresse"]["Stadt"]
+            entry["Link"] = data["Link"]
+            entry["Kontakt"] = data["Kontakt"]
+            entry["Beschreibung"] = antraege.find_one({"Name":application},{"Beschreibung":True})["Beschreibung"]
+            result.append(entry)
+                  
+        return jsonify(result)
 
 
 
@@ -170,6 +182,7 @@ class SendTree(Resource):
     def get(self):
         print("success")
         #check if session exists, then send last node
+<<<<<<< HEAD
         # first_cookie = request.cookies.get("firstlogin")
         # id_cookie = request.cookies.get("_id")
         # if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
@@ -181,6 +194,21 @@ class SendTree(Resource):
         #     result["Kategorie"] = attribut["Kategorie"]
         #     response = make_response(jsonify(result),200)
         #     return response
+=======
+        first_cookie = request.cookies.get("firstlogin")
+        id_cookie = request.cookies.get("_id")
+        if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
+            result = treenodes.find_one({"_id":id_cookie})
+            #Add attributes to result
+            attribut = attribute.find_one({"Name":result["Attribut"]})
+            result["Frage"] = attribut["Frage"]
+            result["Beschreibung"] = attribut["Beschreibung"]
+            result["Kategorie"] = attribut["Kategorie"]
+            
+            # insert all answers
+            response = make_response(jsonify(result),200)
+            return response
+>>>>>>> 8c211475c109147bfc9bebe2e95d5e62d53e4a11
 
         #else send first node
         result = treenodes.find_one({"parentId":{"$exists": False}})
@@ -188,6 +216,17 @@ class SendTree(Resource):
         result["Frage"] = attribut["Frage"]
         result["Beschreibung"] = attribut["Beschreibung"]
         result["Kategorie"] = attribut["Kategorie"]
+
+        if attribut["Kategorie"]=="Auswahl":
+            checkedAnswers = []
+            for ans in result["Antworten"]:
+                if ans["Bezeichnung"] not in checkedAnswers:
+                    checkedAnswers.append(ans["Bezeichnung"][0])
+            answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+            for ans in answers["Antwortmoeglichkeiten"]:
+                if ans not in checkedAnswers:
+                    result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
+        # insert all answers
         response = make_response(jsonify(result), 200)
         return response
 
@@ -206,6 +245,16 @@ class SendTree(Resource):
             attribut = attribute.find_one({"Name":result["Attribut"]})
             result["Frage"] = attribut["Frage"]
             result["Kategorie"] = attribut["Kategorie"]
+            if attribut["Kategorie"]=="Auswahl":
+                checkedAnswers = []
+                for ans in result["Antworten"]:
+                    if ans["Bezeichnung"] not in checkedAnswers:
+                        checkedAnswers.append(ans["Bezeichnung"][0])
+                answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+                for ans in answers["Antwortmoeglichkeiten"]:
+                    if ans not in checkedAnswers:
+                        result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
+
         #result["Beschreibung"] = attribut["Beschreibung"]
         response = jsonify(result)
         #set cookie for first node id to check if old session is valid with new tree (if a new tree is generated)

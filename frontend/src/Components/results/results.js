@@ -9,67 +9,83 @@ import {
   ListItemButton,
   Fade,
   Typography,
+  styled
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { useState, useRef } from "react";
-import logo from "../../Assets/logo/Uni.png";
+import { useState, useRef, useEffect } from "react";
 import { textAlign } from "@mui/system";
-
+import logo from "../../Assets/logo/mainLogo.png";
+import { useSelector } from "react-redux";
 export function Results({ applicationstatus }) {
-  const applications = applicationstatus;
 
+
+  const applications = useSelector((state) => state.application)
+  // Settings for size of Logo (Compass picture)
+  const Logo = styled("img")(() => ({
+  width: "130px",
+  minWidth: "2rem",
+  }));
+
+  const fetchUrl = "/api/results";
+
+
+
+console.log(applications)
   //function for fading
   function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
   }
+  // state for application details
+  const data = [
+    {
+      Beschreibung:
+        "Laden...",
+      Name: "Laden...",
+      Adresse: "Laden...",
+      Link: "Laden...",
+      Kontakt: {
+        Telefon: "Laden...",
+        Fax: "Laden...",
+        Email: "Laden...",
+      },
+    }
+  ];
+  const[applicationDetails,setApplicationDetails] = useState(data)
 
   //State for the selected application in the list
   const [selectedIndex, setSelectedIndex] = useState(0);
   //State for the fade effect
   const [faded, setFaded] = useState(true);
 
-  // mock data for detailed description of the application
-  const data = [
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Wohnungswesen und Quartiersentwicklung",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Kindergeld",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Bafög",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-  ];
+  // mock applicationDetails for detailed description of the application
+
+  useEffect(() => {
+    console.log(applications)
+    if(applications){
+    loadResults()
+    }
+  }, [applications]);
+
+
+  const loadResults = () => {
+
+     fetch(fetchUrl, { method: "POST",body:JSON.stringify(applications),headers:{'Content-Type':'application/JSON'}})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          setApplicationDetails(result)
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  
 
   // Handles the click of an item in the list
   const handleListItemClick = async (event, index) => {
@@ -144,7 +160,7 @@ export function Results({ applicationstatus }) {
                   height: "78%",
                 }}
               >
-                {Object.entries(applications).map((application, index) => (
+                {applicationDetails.map((application, index) => (
                   <ListItemButton
                     selected={selectedIndex === index}
                     onClick={(event) => handleListItemClick(event, index)}
@@ -159,14 +175,14 @@ export function Results({ applicationstatus }) {
                       fontSize: 25,
                     }}
                   >
-                    {application[1] === 0 ? (
+                    {applications[application["Antrag"]] === 0 ? (
                       <HelpOutlineIcon fontSize="large" />
-                    ) : application[1] === 1 ? (
+                    ) : applications[application["Antrag"]] === 1 ? (
                       <CheckCircleOutlineIcon fontSize="large" />
                     ) : (
                       <CancelOutlinedIcon fontSize="large" />
                     )}
-                    {application[0]}
+                    {application["Antrag"]}
                     <ArrowForwardIosIcon fontSize="large" />
                   </ListItemButton>
                 ))}
@@ -223,7 +239,7 @@ export function Results({ applicationstatus }) {
                     </h1>
                   ) : Object.values(applications)[selectedIndex] === 0 ? (
                     <h1>
-                      Du hast ententuell Anspruch auf{" "}
+                      Du hast eventuell Anspruch auf{" "}
                       {Object.keys(applications)[selectedIndex]}.
                     </h1>
                   ) : (
@@ -232,7 +248,7 @@ export function Results({ applicationstatus }) {
                       {Object.keys(applications)[selectedIndex]}.
                     </h1>
                   )}
-                  <p margin="5rem">{data[selectedIndex]["Beschreibung"]}</p>
+                  <p margin="5rem">{applicationDetails[selectedIndex]["Beschreibung"]}</p>
                 </Stack>
                 <Stack
                   direction="column"
@@ -256,14 +272,14 @@ export function Results({ applicationstatus }) {
                       spacing={0}
                       height="100%"
                     >
-                      <p>{data[selectedIndex]["Name"]}</p>
-                      <p>Adresse: {data[selectedIndex]["Adresse"]}</p>
+                      <p>{applicationDetails[selectedIndex]["Name"]}</p>
+                      <p>Adresse: {applicationDetails[selectedIndex]["Adresse"]}</p>
                       <p>
-                        Tel.: {data[selectedIndex]["Kontakt"]["Telefon"]}
+                        Tel.: {applicationDetails[selectedIndex]["Kontakt"]["Nummer"]}
                         <br />
-                        Fax: {data[selectedIndex]["Kontakt"]["Fax"]}
+                        Fax: {applicationDetails[selectedIndex]["Kontakt"]["Fax"]}
                         <br />
-                        Email: {data[selectedIndex]["Kontakt"]["Email"]}
+                        Email: {applicationDetails[selectedIndex]["Kontakt"]["Mail"]}
                       </p>
                     </Stack>
                     <Stack
@@ -276,9 +292,7 @@ export function Results({ applicationstatus }) {
                     >
                       <Box
                         height="100%"
-                        component="image"
                         alt=""
-                        src={logo}
                         sx={{
                           height: 100,
                           width: 200,
@@ -287,7 +301,7 @@ export function Results({ applicationstatus }) {
                       />
                       <Button
                         variant="contained"
-                        href={data[selectedIndex]["Link"]}
+                        href={applicationDetails[selectedIndex]["Link"]}
                         target="_blank"
                         size="large"
                       >
@@ -310,7 +324,8 @@ export function Results({ applicationstatus }) {
             spacing={0}
             height="100%"
           >
-            <Box height="15%" justifyContent="center" alignItems="center">
+            <Box height="15%" justifyContent="center" alignItems="center" display="flex">
+              <Logo src = {logo}/>
               <Typography variant="h3" textAlign="center">
                 Sozialkompass Befragungsergebnis
               </Typography>
@@ -322,11 +337,11 @@ export function Results({ applicationstatus }) {
               spacing={3}
               height="85%"
             >
-              {Object.entries(applications).map((application, index) => (
+              {applicationDetails.map((application, index) => (
                 <Box
                   flexDirection="row"
                   display="flex"
-                  height="10%"
+                  height="15%"
                   alignItems="center"
                   justifyContent="space-between"
                   border={1}
@@ -341,25 +356,25 @@ export function Results({ applicationstatus }) {
                     justifyContent="flex-start"
                     width="20%"
                   >
-                    {application[1] === 0 ? (
+                    {applications[application["Antrag"]] === 0 ? (
                       <HelpOutlineIcon fontSize="large" />
-                    ) : application[1] === 1 ? (
+                    ) : applications[application["Antrag"]] === 1 ? (
                       <CheckCircleOutlineIcon fontSize="large" />
                     ) : (
                       <CancelOutlinedIcon fontSize="large" />
                     )}
-                    <Typography variant="h6">{application[0]}</Typography>
+                    <Typography variant="h6">{application["Antrag"]}</Typography>
                   </Box>
-                  <Typography width="40%">{data[index]["Name"]}</Typography>
+                  <Typography width="40%">{application["Name"]}</Typography>
                   <Box width="30%">
                     <Typography>
-                      Tel.: {data[index]["Kontakt"]["Telefon"]}
+                      Tel.: {application["Kontakt"]["Nummer"]}
                     </Typography>
                     <Typography>
-                      Fax: {data[index]["Kontakt"]["Fax"]}
+                      Fax: {application["Kontakt"]["Fax"]}
                     </Typography>
                     <Typography>
-                      Email: {data[index]["Kontakt"]["Email"]}
+                      Email: {application["Kontakt"]["Mail"]}
                     </Typography>
                   </Box>
                 </Box>
