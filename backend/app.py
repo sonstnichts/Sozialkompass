@@ -66,6 +66,7 @@ db = client.sozialkompass
 treenodes = db.treenodes
 attribute = db.attribute
 aemter = db.aemter
+antraege = db.antraege
 
 app = Flask(__name__)
 api = Api(app)
@@ -157,11 +158,21 @@ class Treenodes(db.Document):
 
 
 class SendResults(Resource):
-    def get(self):
+    def post(self):
         #Exclude object_id, cause it's bad
-        cursor = aemter.find({}, {"_id": False})
-        cur_list = list(cursor)        
-        return jsonify(cur_list)
+        args = request.get_json()
+        result = []
+        for application in args.keys():
+            data = aemter.find_one({"Antraege."+application:{"$exists":True}},{"_id":False})
+            entry = {}
+            entry["Name"] = data["Name"]
+            entry["Adresse"] = data["Adresse"]["Straße"]+" "+str(data["Adresse"]["Postleitzahl"])+" "+data["Adresse"]["Stadt"]
+            entry["Link"] = data["Link"]
+            entry["Kontakt"] = data["Kontakt"]
+            entry["Beschreibung"] = antraege.find_one({"Name":application},{"Beschreibung":True})["Beschreibung"]
+            result.append(entry)
+                  
+        return jsonify(result)
 
 
 

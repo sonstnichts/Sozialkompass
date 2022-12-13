@@ -14,24 +14,20 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { useState, useRef } from "react";
-import logo from "../../Assets/logo/Uni.png";
+import { useState, useRef, useEffect } from "react";
 import { textAlign } from "@mui/system";
 
 export function Results({ applicationstatus }) {
+
+  const fetchUrl = "http://127.0.0.1:5000/api/results";
+
   const applications = applicationstatus;
 
   //function for fading
   function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
   }
-
-  //State for the selected application in the list
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  //State for the fade effect
-  const [faded, setFaded] = useState(true);
-
-  // mock data for detailed description of the application
+  // state for application details
   const data = [
     {
       Beschreibung:
@@ -69,7 +65,58 @@ export function Results({ applicationstatus }) {
         Email: "wohngeld@stadt-muenster.de",
       },
     },
+    {
+      Beschreibung:
+        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
+      Name: "Amt für Bafög",
+      Adresse: "Bahnhofstraße 8-10 48149 Münster",
+      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
+      Kontakt: {
+        Telefon: "195519574",
+        Fax: "321+6121655461",
+        Email: "wohngeld@stadt-muenster.de",
+      },
+    },
+    {
+      Beschreibung:
+        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
+      Name: "Amt für Bafög",
+      Adresse: "Bahnhofstraße 8-10 48149 Münster",
+      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
+      Kontakt: {
+        Telefon: "195519574",
+        Fax: "321+6121655461",
+        Email: "wohngeld@stadt-muenster.de",
+      },
+    }
   ];
+  const[applicationDetails,setApplicationDetails] = useState(data)
+
+  //State for the selected application in the list
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  //State for the fade effect
+  const [faded, setFaded] = useState(true);
+
+  // mock applicationDetails for detailed description of the application
+
+  const loadResults = () => {
+
+    fetch(fetchUrl, { method: "POST",body:JSON.stringify(applications),headers:{'Content-Type':'application/JSON'}})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          setApplicationDetails(result)
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  useEffect(() => {
+    loadResults()
+  }, []);
 
   // Handles the click of an item in the list
   const handleListItemClick = async (event, index) => {
@@ -232,7 +279,7 @@ export function Results({ applicationstatus }) {
                       {Object.keys(applications)[selectedIndex]}.
                     </h1>
                   )}
-                  <p margin="5rem">{data[selectedIndex]["Beschreibung"]}</p>
+                  <p margin="5rem">{applicationDetails[selectedIndex]["Beschreibung"]}</p>
                 </Stack>
                 <Stack
                   direction="column"
@@ -256,14 +303,14 @@ export function Results({ applicationstatus }) {
                       spacing={0}
                       height="100%"
                     >
-                      <p>{data[selectedIndex]["Name"]}</p>
-                      <p>Adresse: {data[selectedIndex]["Adresse"]}</p>
+                      <p>{applicationDetails[selectedIndex]["Name"]}</p>
+                      <p>Adresse: {applicationDetails[selectedIndex]["Adresse"]}</p>
                       <p>
-                        Tel.: {data[selectedIndex]["Kontakt"]["Telefon"]}
+                        Tel.: {applicationDetails[selectedIndex]["Kontakt"]["Telefon"]}
                         <br />
-                        Fax: {data[selectedIndex]["Kontakt"]["Fax"]}
+                        Fax: {applicationDetails[selectedIndex]["Kontakt"]["Fax"]}
                         <br />
-                        Email: {data[selectedIndex]["Kontakt"]["Email"]}
+                        Email: {applicationDetails[selectedIndex]["Kontakt"]["Email"]}
                       </p>
                     </Stack>
                     <Stack
@@ -276,9 +323,7 @@ export function Results({ applicationstatus }) {
                     >
                       <Box
                         height="100%"
-                        component="image"
                         alt=""
-                        src={logo}
                         sx={{
                           height: 100,
                           width: 200,
@@ -287,7 +332,7 @@ export function Results({ applicationstatus }) {
                       />
                       <Button
                         variant="contained"
-                        href={data[selectedIndex]["Link"]}
+                        href={applicationDetails[selectedIndex]["Link"]}
                         target="_blank"
                         size="large"
                       >
@@ -301,7 +346,7 @@ export function Results({ applicationstatus }) {
           </Box>
         </Stack>
       </Box>
-      <Box display="none">
+      <Box>
         <Box ref={componentRef} height="90vh" margin="5%">
           <Stack
             direction="column"

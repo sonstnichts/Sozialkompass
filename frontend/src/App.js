@@ -23,8 +23,8 @@ function App() {
   //Addition of a applicationlist, that keeps track of the status of an application. It is passed down into the components.
   const [applications,setApplications] = useState({
     Kindergeld:1,
-    Bab:0,
-    Bafög:-1
+    BAB:0,
+    BAfoeG:-1
   })
 
   return (
