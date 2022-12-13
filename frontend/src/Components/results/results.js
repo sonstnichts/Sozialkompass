@@ -9,6 +9,7 @@ import {
   ListItemButton,
   Fade,
   Typography,
+  styled
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -16,8 +17,15 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useState, useRef, useEffect } from "react";
 import { textAlign } from "@mui/system";
+import logo from "../../Assets/logo/mainLogo.png";
 
 export function Results({ applicationstatus }) {
+
+  // Settings for size of Logo (Compass picture)
+  const Logo = styled("img")(() => ({
+  width: "130px",
+  minWidth: "2rem",
+  }));
 
   const fetchUrl = "http://127.0.0.1:5000/api/results";
 
@@ -31,62 +39,14 @@ export function Results({ applicationstatus }) {
   const data = [
     {
       Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Wohnungswesen und Quartiersentwicklung",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
+        "Laden...",
+      Name: "Laden...",
+      Adresse: "Laden...",
+      Link: "Laden...",
       Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Kindergeld",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Bafög",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Bafög",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
-      },
-    },
-    {
-      Beschreibung:
-        "Wohngled wird wirtschaftlichen Sicherung angemessen und familiengerechten Wochenenasdölfkajsöd kljasködlfjasdjfasdfjasödlfkjasd öflkjasdöfkjqasdfasdfasdfsadf",
-      Name: "Amt für Bafög",
-      Adresse: "Bahnhofstraße 8-10 48149 Münster",
-      Link: "https://www.stadt-muenster.de/wohnungsamt/startseite",
-      Kontakt: {
-        Telefon: "195519574",
-        Fax: "321+6121655461",
-        Email: "wohngeld@stadt-muenster.de",
+        Telefon: "Laden...",
+        Fax: "Laden...",
+        Email: "Laden...",
       },
     }
   ];
@@ -191,7 +151,7 @@ export function Results({ applicationstatus }) {
                   height: "78%",
                 }}
               >
-                {Object.entries(applications).map((application, index) => (
+                {applicationDetails.map((application, index) => (
                   <ListItemButton
                     selected={selectedIndex === index}
                     onClick={(event) => handleListItemClick(event, index)}
@@ -206,14 +166,14 @@ export function Results({ applicationstatus }) {
                       fontSize: 25,
                     }}
                   >
-                    {application[1] === 0 ? (
+                    {applications[application["Antrag"]] === 0 ? (
                       <HelpOutlineIcon fontSize="large" />
-                    ) : application[1] === 1 ? (
+                    ) : applications[application["Antrag"]] === 1 ? (
                       <CheckCircleOutlineIcon fontSize="large" />
                     ) : (
                       <CancelOutlinedIcon fontSize="large" />
                     )}
-                    {application[0]}
+                    {application["Antrag"]}
                     <ArrowForwardIosIcon fontSize="large" />
                   </ListItemButton>
                 ))}
@@ -306,11 +266,11 @@ export function Results({ applicationstatus }) {
                       <p>{applicationDetails[selectedIndex]["Name"]}</p>
                       <p>Adresse: {applicationDetails[selectedIndex]["Adresse"]}</p>
                       <p>
-                        Tel.: {applicationDetails[selectedIndex]["Kontakt"]["Telefon"]}
+                        Tel.: {applicationDetails[selectedIndex]["Kontakt"]["Nummer"]}
                         <br />
                         Fax: {applicationDetails[selectedIndex]["Kontakt"]["Fax"]}
                         <br />
-                        Email: {applicationDetails[selectedIndex]["Kontakt"]["Email"]}
+                        Email: {applicationDetails[selectedIndex]["Kontakt"]["Mail"]}
                       </p>
                     </Stack>
                     <Stack
@@ -355,7 +315,8 @@ export function Results({ applicationstatus }) {
             spacing={0}
             height="100%"
           >
-            <Box height="15%" justifyContent="center" alignItems="center">
+            <Box height="15%" justifyContent="center" alignItems="center" display="flex">
+              <Logo src = {logo}/>
               <Typography variant="h3" textAlign="center">
                 Sozialkompass Befragungsergebnis
               </Typography>
@@ -367,11 +328,11 @@ export function Results({ applicationstatus }) {
               spacing={3}
               height="85%"
             >
-              {Object.entries(applications).map((application, index) => (
+              {applicationDetails.map((application, index) => (
                 <Box
                   flexDirection="row"
                   display="flex"
-                  height="10%"
+                  height="15%"
                   alignItems="center"
                   justifyContent="space-between"
                   border={1}
@@ -386,25 +347,25 @@ export function Results({ applicationstatus }) {
                     justifyContent="flex-start"
                     width="20%"
                   >
-                    {application[1] === 0 ? (
+                    {applications[application["Antrag"]] === 0 ? (
                       <HelpOutlineIcon fontSize="large" />
-                    ) : application[1] === 1 ? (
+                    ) : applications[application["Antrag"]] === 1 ? (
                       <CheckCircleOutlineIcon fontSize="large" />
                     ) : (
                       <CancelOutlinedIcon fontSize="large" />
                     )}
-                    <Typography variant="h6">{application[0]}</Typography>
+                    <Typography variant="h6">{application["Antrag"]}</Typography>
                   </Box>
-                  <Typography width="40%">{data[index]["Name"]}</Typography>
+                  <Typography width="40%">{application["Name"]}</Typography>
                   <Box width="30%">
                     <Typography>
-                      Tel.: {data[index]["Kontakt"]["Telefon"]}
+                      Tel.: {application["Kontakt"]["Nummer"]}
                     </Typography>
                     <Typography>
-                      Fax: {data[index]["Kontakt"]["Fax"]}
+                      Fax: {application["Kontakt"]["Fax"]}
                     </Typography>
                     <Typography>
-                      Email: {data[index]["Kontakt"]["Email"]}
+                      Email: {application["Kontakt"]["Mail"]}
                     </Typography>
                   </Box>
                 </Box>

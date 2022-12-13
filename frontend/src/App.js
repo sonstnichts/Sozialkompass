@@ -24,7 +24,9 @@ function App() {
   const [applications,setApplications] = useState({
     Kindergeld:1,
     BAB:0,
-    BAfoeG:-1
+    BAfoeG:-1,
+    Wohngeld:1,
+    ALG2:0
   })
 
   return (

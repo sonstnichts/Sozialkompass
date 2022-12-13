@@ -165,6 +165,7 @@ class SendResults(Resource):
         for application in args.keys():
             data = aemter.find_one({"Antraege."+application:{"$exists":True}},{"_id":False})
             entry = {}
+            entry["Antrag"] = application
             entry["Name"] = data["Name"]
             entry["Adresse"] = data["Adresse"]["Straße"]+" "+str(data["Adresse"]["Postleitzahl"])+" "+data["Adresse"]["Stadt"]
             entry["Link"] = data["Link"]
