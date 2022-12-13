@@ -1,16 +1,17 @@
-import { Home } from "./Components/homepage/home";
+import Home  from "./Components/homepage/home";
 import Navbar  from "./Components/Navbar";
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from "@mui/material/styles";
 import { Images } from "./Components/homepage/logohome"
 import theme from "./Components/theme";
 import { BrowserRouter, Router, Routes, Route, Navigate } from "react-router-dom";
-import { Supporter } from "./Components/homepage/supporter";
-import { Contact } from "./Components/homepage/contact";
+import Supporter  from "./Components/homepage/supporter";
+import Contact  from "./Components/homepage/contact";
 
-import { Results } from "./Components/results/results"
+import Results  from "./Components/results/results"
 import {useState} from 'react'
 import Question  from "./Components/question";
+import NavbarInDialogue from "./Components/NavbarInDialogue";
 
 
 
@@ -30,10 +31,11 @@ function App() {
 
     <div className="App">
       <ThemeProvider theme={theme}>
+        
         <Routes>
 
           <Route path="/" element={<><Navbar/><Home/><Supporter/><Contact/></>}/>
-          <Route path="/questions" element={<><Navbar/><Question/></>}/>
+          <Route path="/questions" element={<><NavbarInDialogue/><Question/></>}/>
           <Route path="/results" element={<><Navbar/><Results applicationstatus={applications}/></>}/>
 
         </Routes>

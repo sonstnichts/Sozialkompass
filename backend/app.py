@@ -170,17 +170,17 @@ class SendTree(Resource):
     def get(self):
         print("success")
         #check if session exists, then send last node
-        first_cookie = request.cookies.get("firstlogin")
-        id_cookie = request.cookies.get("_id")
-        if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
-            result = treenodes.find_one({"_id":id_cookie})
-            #Add attributes to result
-            attribut = attribute.find_one({"Name":result["Attribut"]})
-            result["Frage"] = attribut["Frage"]
-            result["Beschreibung"] = attribut["Beschreibung"]
-            result["Kategorie"] = attribut["Kategorie"]
-            response = make_response(jsonify(result),200)
-            return response
+        # first_cookie = request.cookies.get("firstlogin")
+        # id_cookie = request.cookies.get("_id")
+        # if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
+        #     result = treenodes.find_one({"_id":id_cookie})
+        #     #Add attributes to result
+        #     attribut = attribute.find_one({"Name":result["Attribut"]})
+        #     result["Frage"] = attribut["Frage"]
+        #     result["Beschreibung"] = attribut["Beschreibung"]
+        #     result["Kategorie"] = attribut["Kategorie"]
+        #     response = make_response(jsonify(result),200)
+        #     return response
 
         #else send first node
         result = treenodes.find_one({"parentId":{"$exists": False}})
@@ -211,8 +211,8 @@ class SendTree(Resource):
         #set cookie for first node id to check if old session is valid with new tree (if a new tree is generated)
         #set cookie for current node to continue
         first_id = treenodes.find_one({"parentId":{"$exists": False}})["_id"]
-        response.set_cookie("_id", args["_id"])
-        response.set_cookie("firstlogin", first_id)
+        # response.set_cookie("_id", args["_id"])
+        # response.set_cookie("firstlogin", first_id)
         return response
 
 class Register(Resource):

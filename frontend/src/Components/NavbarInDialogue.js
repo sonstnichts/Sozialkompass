@@ -104,7 +104,10 @@ function NavbarInDialogue() {
             </Typography>
           </ButtonBase>
           <Stack direction="row" spacing={2}>
-            <ColorButton>
+            <ColorButton
+            onClick={handleHomeClick}
+            >
+            
               {" "}
               <Typography
                 sx={{

@@ -12,7 +12,7 @@ import wwu from "../../Assets/logo/Uni.png";
 import { Container } from "@mui/system";
 import "./supporter.css";
 
-export function Supporter() {
+export default function Supporter() {
   return (
     <Box
       sx={{

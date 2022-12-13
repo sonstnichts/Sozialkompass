@@ -20,7 +20,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   height: "60px",
 }));
 
-export function Contact() {
+export default function Contact() {
   return (
     <Box
       sx={{
@@ -91,7 +91,7 @@ export function Contact() {
               sx={{
                 backgroundColor: "white",
                 marginTop: "15px",
-                width: "405px",
+                width: "300px",
               }}
             />
             <ColorButton sx={{ margin: "10px" }}>

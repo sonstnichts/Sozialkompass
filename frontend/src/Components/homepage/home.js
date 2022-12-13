@@ -37,7 +37,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 
 // Homepage
-export function Home() {
+export default function Home() {
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -225,7 +225,7 @@ export function Home() {
             
             <ColorButton
             sx={{marginTop: "50px"}}
-            onClick={handleQuestionClick}>
+            onClick={{}}>
               <Typography
                 align="center"
                 
