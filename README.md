@@ -6,12 +6,7 @@ This is done in a questionaire, no unlike the "[Wahl-O-Mat](https://www.wahl-o-m
 
 ## Installation
 The Sozialkompass can be deployed with the included docker-compose file. In the terminal simply navigate to the Sozialkompass root folder and run `docker compose up -d`. This installs our Database MongoDB and the Frontend written in React. 
-To fill the Database you need to create applications, corresponding attributes and the government offices that handle these applications. Examples for all these files and how they should be formatted can be found in `/backend/Algorithmus/assets`. Once this data is stored in the database you need to set up an .env file which contains the credentails to your database in the `/backend` folder. This file should look like this:
-```
-MONGO_DB_ADDRESS=mongodb://localhost:27017
-MONGO_DB_USER=root
-MONGO_DB_PASSWORD=goodPW
-```
+
 Now you can run the algorithm which creates the treenodes. Simply run the main.py file in `backend/Algorithmus`. The treenodes are automatically created and stored in the database. Any old treenodes will be deleted from the database.
 
 ## Future
