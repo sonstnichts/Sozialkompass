@@ -10,7 +10,7 @@ from datetime import datetime
 # Result is output as a dictionary
 def calculate_attributes(application_list):
 
-    attribute = {}
+    attribute = {} #creation of an empty dictionary for out output
 
     for application in application_list: #loops throught the applications
         for requirement in application["Attribute"].items(): #loops through all requirements (attributes) an application has
@@ -38,6 +38,9 @@ def calculate_result_set(application_list):
     
     return result_set 
 
+# ! THIS IS NOT THE FINAL IMPLEMENTATION
+# ! IT DOES NOT WORK
+# ! THESE COMMENTS ARE NOT FINAL
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
     attributes_ranked = [] #list of attributes ranked by relevance
@@ -72,6 +75,9 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     return best_attribute
 
 # we need to create a list of the nodes here and then just use the start attribute which leads to the fewest nodes
+# ! THIS IS NOT THE FINAL IMPLEMENTATION
+# ! IT DOES NOT WORK
+# ! BECAUSE OF THIS IT IS NOT COMMENTED!
 def create_mock_tree(attribute_sequence, index, application_list, all_attributes, node_list): #shortended implementation of algorithm.py, only diffences commented
     accepted_applications = []
     if(index >= len(attribute_sequence)): #checks if the index is out of bounds
@@ -295,38 +301,59 @@ def delete_rows_none_of_the_above (application_list_copy, question):
                     if question in entry:
                         del entry[question]
 
-def split_array(array):
+# an operation that takes an array of arrays and splits it into its subsets
+# Example input: [["a", "b", "c"], ["c"], ["c", "d"], ["e", "f", "g"], ["f", "g"]]
+# Example outupt: [["a", "b"], ["c"], ["d"], ["e"], ["f", "g"]]
+def split_array(input_array):
     result_array = [] #creates an empty array for the results
-    if not array:
-        return result_array
-    result_array.append(array[0]) #adds the first element of the array to the result array
-    array.pop(0) #removes the first element of the array
-    for sub_array in array: #iterates over the remaining elements of the array
-        for result in result_array: #iterates over the elements of the result array
-            if set(sub_array).issubset(set(result)): #check if the sub_array is a subset of the result
-                if sub_array == result: #check if the sub_array is equal to the result
-                    continue #if yes, continue with the next sub_array
-                for element in sub_array: #iterates over the elements of the sub_array
-                    result.remove(element) #removes the any elements from the result that are also in the sub_array
-                if not sub_array in result_array: #if the sub array is not already in the result array
-                    result_array.append(sub_array) #appends the sub_array
-            elif set(result).issubset(set(sub_array)): #check if the result is a subset of the sub_array
-                if sub_array == result: #check if the sub_array is equal to the result
-                    continue #if yes, continue with the next sub_array
-                for element in result: #iterates over the elements of the result
-                    sub_array.remove(element) #removes the any elements from the result that are also in the result
-                if not sub_array in result_array: #if the sub array is not already in the result array
-                    result_array.append(sub_array) #appends the sub_array
+    if not input_array: #checks if the input_array is empty
+        return result_array #needs to stop here, otherwise the next line would throw an error
+    result_array.append(input_array[0]) #adds the first element of the input array to the result array
+    input_array.pop(0) #removes the first element of the array
+    
+    #* checks every array in the imput array against every array in the result array
+    for sub_input in input_array: 
+        for sub_result in result_array: 
+            
+            #* three distinct cases are checked
+            #* 1. if the sub_array is a subset of the result
+            # if this is the case we first check if its exactly the same array, in that case we do nothing as the array is already in the result
+            # if its not the same we remove all elements from the sub result that are also in the sub input and add the sub input as a new array to the result
+            if set(sub_input).issubset(set(sub_result)): 
+                if sub_input == sub_result: 
+                    continue 
+                for element in sub_input: 
+                    sub_result.remove(element) 
+                if not sub_input in result_array: 
+                    result_array.append(sub_input)
+            
+            #* 2. if the sub result is a subset of the sub input
+            # again we first check if the inputs are the same, if they are we do nothing
+            # ? is this even needed? this case would probably be caught by the first if statement
+            # if it's not the same array we remove all elements that are already in the result from the input and add the modified input as a new array to the result
+            elif set(sub_result).issubset(set(sub_input)): 
+                if sub_input == sub_result: 
+                    continue 
+                for element in sub_result: 
+                    sub_input.remove(element) 
+                if not sub_input in result_array: 
+                    result_array.append(sub_input) 
+
+            #* 3. if the sub result and the sub input aren't subsets of each other
+            # in this case we have to check all the elements against eachother
+            # if the element is in both arrays we remove it from the sub input. if the current sub result is not atomar we remove the element from it and append it as a new array to the result
+            # if the sub imput is modiefied so far to be totally unique we add it to the result
             else:
-                for element in sub_array: #iterates over the elements of the sub array
-                    for result_element in result: #iterates over the elements of the result from the erlier iteration
-                        if element == result_element: #if the element is already in the result array
-                            sub_array.remove(element) #remove the element from the sub array
-                            if len(result) > 1: #if the elment isn't already atomar
-                                result.remove(element) #remove the element from the results
-                                result_array.append([element]) #add the element to the result array
-                if not sub_array in result_array: #if the sub array is not already in the result array
-                    result_array.append(sub_array)
+                for input_element in sub_input: 
+                    for result_element in sub_result: 
+                        if input_element == result_element: 
+                            sub_input.remove(input_element) 
+                            if len(sub_result) > 1: 
+                                sub_result.remove(input_element) 
+                                result_array.append([input_element]) 
+                if not sub_input in result_array:
+                    result_array.append(sub_input)
+
     return result_array #return the result array
 
 # not currently used

@@ -21,34 +21,19 @@ treenodes = db.treenodes
 attributes = db.attribute
 applications = db.antraege
 
-file_dir = Path(__file__)
-dir = file_dir.parent
-
 def generate_tree():
-
-    # load apllication list from assets
-
-    # data = open(dir / "algorithmus/assets/Antraege.json")
-    # application_list = json.load(data)
-
     # load applications list from database
-
     application_list = list(applications.find())
 
-    # load attribute list from assets
-
-    # data = open(dir / "algorithmus/assets/Attribute.json")
-    # attribute_list = json.load(data)
-
-    # load applications list from database
-
+    # load attribute list from database
     attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
 
     attribute = {}
     for attribut in attribute_list:
         attribute[attribut["Name"]] = attribut["Kategorie"]
 
-    # create a tree with the data in assets
+    # sets the depth of the brute force 
+    #! This currently isn't used. It might never be.
     brute_force_depth = 0
 
     # list of nodes that will be saved in the Database
@@ -60,11 +45,14 @@ def generate_tree():
     # creates the tree and fills nodelist
     Algorithmus.create_tree(application_list,attribute,[],[], brute_force_depth,nodelist,id,"")
 
+    #! The following two operations directly write (and delete) data in the database. 
+    #! Comment these out if you're only testing the algorithm
     # delete old nodes
     treenodes.drop()
     # insert new nodes
     treenodes.insert_many(nodelist)
-
+    
+    # prints the number of nodes
     print(len(nodelist))
 
 if __name__ == "__main__":
