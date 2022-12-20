@@ -20,11 +20,7 @@ import resultExample from "../../Assets/logo/resultExample.png";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 
-// Setting the size of the logo
-const LogoBig = styled("img")(() => ({
-  width: "60rem",
-  minWidth: "15rem",
-}));
+
 
 const ColorButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgba(244, 91, 57, 0.71)",
@@ -41,7 +37,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 
 // Homepage
-export function Home() {
+export default function Home() {
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -197,7 +193,7 @@ export function Home() {
               <Typography
                 marginTop="1.25rem"
                 align="left"
-                width="600%"
+                width="500%"
                 sx={{
                   fontFamily: "Inter",
                   fontWeight: 400,
@@ -213,7 +209,7 @@ export function Home() {
               <Typography
                 marginTop="1.25rem"
                 align="left"
-                width="600%"
+                width="500%"
                 sx={{
                   fontFamily: "Inter",
                   fontWeight: 400,
@@ -229,7 +225,7 @@ export function Home() {
             
             <ColorButton
             sx={{marginTop: "50px"}}
-            onClick={handleQuestionClick}>
+            onClick={{}}>
               <Typography
                 align="center"
                 
@@ -241,7 +237,7 @@ export function Home() {
                   color: "#0E1C36",
                   textTransform: "none",
                 }}
-              >Start</Typography>
+              >Informationen</Typography>
               
              </ColorButton>
             </Grid>

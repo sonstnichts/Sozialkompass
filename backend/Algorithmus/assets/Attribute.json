@@ -1,12 +1,12 @@
 [
   {
     "Name": "Ausbildungsstaette",
-    "Frage": "Welche Ausbildungsstätte besuchst du?",
+    "Frage": "Welche Ausbildungsstaette besuchst du?",
+    "Beschreibung": "Das ist die Beschreibung zur Ausbildungsstaette",
     "Kategorie": "Auswahl",
-    "Beschreibung": "Das ist die Beschreibung zur Ausbildungsstätte",
-    "Antwortmöglichkeiten": [
+    "Antwortmoeglichkeiten": [
       "Akademie",
-      "Universität",
+      "Universitaet",
       "Schule",
       "Fachhochschule",
       "Hochschule"
@@ -14,14 +14,14 @@
   },
   {
     "Name": "Berufsstatus",
-    "Frage": "Was ist ihr Berufsstatus?",
+    "Frage": "Was ist dein Berufsstatus?",
     "Beschreibung": "Das ist die Beschreibung zum Berufsstatus",
     "Kategorie": "Auswahl",
     "Antwortmoeglichkeiten": [
       "Studierender",
-      "Berufstaetig",
+      "berufstaetig",
       "Auszubildender",
-      "Arbeitslos",
+      "arbeitssuchend",
       "Rentner"
     ],
     "Antwortgruppierungen": {
@@ -30,21 +30,21 @@
   },
   {
     "Name": "Familienstatus",
-    "Frage": "Was ist ihr Familienstatus?",
+    "Frage": "Wie ist dein Familienstatus?",
     "Beschreibung": "Das ist die Beschreibung zum Familienstatus",
     "Kategorie": "Auswahl",
     "Antwortmoeglichkeiten": ["ledig", "verheiratet", "geschieden"]
   },
   {
-    "Name": "Kinder_Anzahl",
-    "Frage": "Wie viele Kinder haben Sie?",
+    "Name": "Kind_Anzahl",
+    "Frage": "Hast du Kinder, wenn ja wie viele?",
     "Bescheibung": "Das ist die Beschreibung zur Anzahl der Kinder",
     "Kategorie": "Ganzzahl"
   },
   {
-    "Name": "Vermögen",
-    "Frage": "Wie viel Vermögen haben Sie?",
-    "Bescheibung": "Das ist die Beschreibung zur Höhe des Vermögens",
+    "Name": "Vermoegen",
+    "Frage": "Wie hoch ist dein Vermoegen?",
+    "Bescheibung": "Das ist die Beschreibung zur Hoehe des Vermoegens",
     "Kategorie": "Ganzzahl"
   },
   {
@@ -62,10 +62,10 @@
   },
   {
     "Name": "Staatsangehoerigkeit",
-    "Frage": "Welchem Staat gehörst du an?",
-    "Beschreibung": "Das ist die Beschreibung zur Staatsangehörigkeit",
+    "Frage": "Welchem Staat gehoerst du an?",
+    "Beschreibung": "Deine Staatsangehoerigkeit findest du auf deinem Ausweisdokument",
     "Kategorie": "Auswahl",
-    "Antwortmoeglichkeiten": ["deutsch", "EU-Ausland", "Ausland"],
+    "Antwortmoeglichkeiten": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belgien", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Bulgarien", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Deutschland", "Djibuti", "Dominika", "Dominikanische Republik", "Daenemark", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Estland", "Falkland Inseln", "Fidschi", "Finnland", "Frankreich", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Griechenland", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Irland", "Island", "Israel", "Italien", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kroatien", "Kuba", "Kuwait", "Laos", "Lesotho", "Lettland", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlande", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Polen", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rumaenien", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweden", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Slowakei", "Slowenien", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Spanien", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tschechische Republik", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Ungarn", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Zypern", "Aegypten", "Aequatorial Guinea", "Aethiopien", "Oesterreich"],
     "Antwortgruppierungen": {
       "EWR": ["LaenderEWR"],
       "EU": ["LaenderEU"]
@@ -73,7 +73,7 @@
   },
   {
     "Name": "dauerhafter Aufenthalt",
-    "Frage": "Welchem Staat gehörst du an?",
+    "Frage": "Haeltst du dich dauerhaft in Deutschland auf?",
     "Beschreibung": "Das ist die Beschreibung zu dem dauerhaften Aufenthalt",
     "Kategorie": "Auswahl",
     "Antwortmoeglichkeiten": ["ja", "nein"]
@@ -87,7 +87,7 @@
   },
   {
     "Name": "Jahre in Deutschland",
-    "Frage": "Wie viele Jahre bist du in Deutschland?",
+    "Frage": "Seit wieviel Jahren lebst du bereits in Deutschland?",
     "Bescheibung": "Das ist die Beschreibung zu Jahren in Deutschland",
     "Kategorie": "Ganzzahl"
   },
@@ -99,7 +99,7 @@
   },
   {
     "Name": "Lebensmittelpunkt in Deutschland",
-    "Frage": "Lebensmittelpunkt in Deutschland?",
+    "Frage": "Befindet sich dein Lebensmittelpunkt in Deutschland?",
     "Bescheibung": "Das ist die Beschreibung zum Lebensmittelpunkt in Deutschland",
     "Kategorie": "Auswahl",
     "Antwortmoeglichkeiten": ["ja", "nein"]
@@ -111,9 +111,9 @@
     "Kategorie": "Ganzzahl"
   },
   {
-    "Name": "Hilfebedürftigkeit",
-    "Frage": "Bist du hilfebedürftig?",
-    "Bescheibung": "TODO: Berechnung hinzufügen",
+    "Name": "Hilfebeduerftigkeit",
+    "Frage": "Bist du hilfebeduerftig?",
+    "Bescheibung": " Hilfebeduerftig ist, wer seinen Lebensunterhalt nicht oder nicht ausreichend aus dem zu beruecksichtigenden Einkommen oder Vermoegen sichern kann und die erforderliche Hilfe nicht von anderen, insbesondere von Angehoerigen oder von Traegern anderer Sozialleistungen erhaelt",
     "Kategorie": "Auswahl",
     "Antwortmoeglichkeiten": ["ja", "nein"]
   },
@@ -125,14 +125,14 @@
   },
   {
     "Name": "Mietkosten",
-    "Frage": "Wie viel Miete zahhlst du?",
-    "Bescheibung": "Das ist die Beschreibung zu Haushaltsmitgliedern",
+    "Frage": "Wie viel Miete (warm) zahlst du monatlich?",
+    "Bescheibung": "Das ist die Beschreibung zu den Mietkosten",
     "Kategorie": "Ganzzahl"
   },
   {
-    "Name": "Einkommen",
-    "Frage": "Wie hoch ist dein monatliches Einkommen?",
-    "Bescheibung": "Das ist die Beschreibung zum monatlichen Gesamteinkommen",
+    "Name": "Einkommen_Haushalt",
+    "Frage": "Wie hoch ist das monatliche Einkommen aller Haushaltsmitglieder?",
+    "Bescheibung": "Hierfuer musst du das monatliche Einkommen aller Haushaltsmitglieder zusammenrechnen",
     "Kategorie": "Ganzzahl"
   },
   {
@@ -143,13 +143,6 @@
     "Antwortmoeglichkeiten": ["ja", "nein"]
   },
   {
-    "Name": "Wohnsituation",
-    "Frage": "Wie wohnst du?",
-    "Bescheibung": "Das ist die Beschreibung zum Lebensmittelpunkt in Deutschland",
-    "Kategorie": "Auswahl",
-    "Antwortmoeglichkeiten": ["alleine", "WG", "bei den Eltern"]
-  },
-  {
     "Name": "Alter_Kind",
     "Frage": "Wie alt ist dein Kind?",
     "Bescheibung": "Das ist die Beschreibung zum Alter des Kindes",
@@ -157,50 +150,59 @@
   },
   {
     "Name": "Kindergeld_Fremdbezug",
-    "Frage": "Wird ihr Kindergeld fremdbezogen",
+    "Frage": "Bezieht das andere Elternteil bereits Kindergeld fuer das betreffende Kind?",
     "Bescheibung": "Das ist die Beschreibung zum Kindergeld",
-    "Kategorie": "Auswahl"
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["ja", "nein"]
   },
   {
-    "Name": "Kinder_Verhältnis",
-    "Frage": "Wie ist das Verhältnis zu dem Kind?",
-    "Bescheibung": "Das ist die Beschreibung zum Verhältnis zum Kind",
-    "Kategorie": "Auswahl"
+    "Name": "Kind_Verhaeltnis",
+    "Frage": "In welchem Verhaeltnis stehst du zu dem Kind?",
+    "Bescheibung": "Das ist die Beschreibung zum Verhaeltnis zum Kind",
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["leibliches Kind", "Adoptivkind", "Stiefkind", "Kind des Lebenspartners", "Enkelkind", "Pflegekind"]
+
   },
   {
     "Name": "Kind_Haushalt",
-    "Frage": "Lebt das Kind bei Ihnen im Haushalt?",
-    "Bescheibung": "Das ist die Beschreibung zum Kinder im Haushalt",
-    "Kategorie": "Auswahl"
+    "Frage": "Lebt das Kind bei dir im Haushalt?",
+    "Bescheibung": "Das ist die Beschreibung zum Kind im Haushalt",
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["ja", "nein"]
   },
   {
     "Name": "Wohnsitz_Kind",
-    "Frage": "Was ist der Wohnsitz des Kindes?",
+    "Frage": "In welchem Land befindet sich der Wohnsitz des Kindes?",
     "Bescheibung": "Das ist die Beschreibung zum Wohnsitz des Kindes",
-    "Kategorie": "Auswahl"
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["Afghanistan", "Albanien", "Algerien", "Andorra", "Angola", "Anguilla", "Antigua und Barbuda", "Argentinien", "Armenien", "Aruba", "Aserbaidschan", "Australien", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belgien", "Belize", "Benin", "Bermudas", "Bhutan", "Birma", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Bouvet Inseln", "Brasilien", "Britisch-Indischer Ozean", "Brunei", "Bulgarien", "Burkina Faso", "Burundi", "Chile", "China", "Christmas Island", "Cook Inseln", "Costa Rica", "Deutschland", "Djibuti", "Dominika", "Dominikanische Republik", "Daenemark", "Ecuador", "El Salvador", "Elfenbeinkueste", "Eritrea", "Estland", "Falkland Inseln", "Fidschi", "Finnland", "Frankreich", "Franzoesisch Guyana", "Franzoesisch Polynesien", "Franzoesisches Sued-Territorium", "Faeroeer Inseln", "Gabun", "Gambia", "Georgien", "Ghana", "Gibraltar", "Grenada", "Griechenland", "Großbritannien", "Groenland", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard und McDonald Islands", "Honduras", "Hong Kong", "Indien", "Indonesien", "Irak", "Iran", "Irland", "Island", "Israel", "Italien", "Jamaika", "Japan", "Jemen", "Jordanien", "Kaiman Inseln", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Kenia", "Kirgisistan", "Kiribati", "Kokosinseln", "Kolumbien", "Komoren", "Kongo", "Kongo, Demokratische Republik", "Kosovo", "Kroatien", "Kuba", "Kuwait", "Laos", "Lesotho", "Lettland", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Macao", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marianen", "Marokko", "Marshall Inseln", "Martinique", "Mauretanien", "Mauritius", "Mayotte", "Mazedonien", "Mexiko", "Mikronesien", "Mocambique", "Moldavien", "Monaco", "Mongolei", "Montenegro", "Montserrat", "Namibia", "Nauru", "Nepal", "Neukaledonien", "Neuseeland", "Nicaragua", "Niederlande", "Niederlaendische Antillen", "Niger", "Nigeria", "Niue", "Nord Korea", "Norfolk Inseln", "Norwegen", "Oman", "Pakistan", "Palau", "Palaestina", "Panama", "Papua Neuguinea", "Paraguay", "Peru", "Philippinen", "Pitcairn", "Polen", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Ruanda", "Rumaenien", "Rußland", "Saint Lucia", "Sambia", "Samoa", "Samoa", "San Marino", "Sao Tome", "Saudi Arabien", "Schweden", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Singapur", "Slowakei", "Slowenien", "Solomon Inseln", "Somalia", "South Georgia, South Sandwich Isl.", "Spanien", "Sri Lanka", "St. Helena", "St. Kitts Nevis Anguilla", "St. Pierre und Miquelon", "St. Vincent", "Sudan", "Surinam", "Svalbard und Jan Mayen Islands", "Swasiland", "Syrien", "Sued Korea", "Suedafrika", "Tadschikistan", "Taiwan", "Tansania", "Thailand", "Timor", "Togo", "Tokelau", "Tonga", "Trinidad Tobago", "Tschad", "Tschechische Republik", "Tunesien", "Turkmenistan", "Turks und Kaikos Inseln", "Tuvalu", "Tuerkei", "Uganda", "Ukraine", "Ungarn", "Uruguay", "Usbekistan", "Vanuatu", "Vatikan", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten von Amerika", "Vietnam", "Virgin Island (Brit.)", "Virgin Island (USA)", "Wallis et Futuna", "Weissrussland", "Westsahara", "Zentralafrikanische Republik", "Zimbabwe", "Zypern", "Aegypten", "Aequatorial Guinea", "Aethiopien", "Oesterreich"]
   },
   {
     "Name": "Status_Kind",
-    "Frage": "Was ist der Status Ihres Kindes?",
+    "Frage": "In welchem Berufsverhaeltnis steht dein Kind?",
     "Bescheibung": "Das ist die Beschreibung Status des Kindes",
-    "Kategorie": "Auswahl"
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["arbeitssuchend", "in Berufsausbildung", "Freiwilligendienst", "ausbildungsplatzsuchend"]
   },
   {
     "Name": "Erwerbstaetigkeit_Dt",
-    "Frage": "Ist die Erwerbstätigkeit in Deutschland?",
-    "Bescheibung": "Das ist die Beschreibung zum Erwerbstätigkeit",
-    "Kategorie": "Auswahl"
+    "Frage": "Bist du in Deutschland erwerbstaetig?",
+    "Bescheibung": "Das ist die Beschreibung zum Erwerbstaetigkeit",
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["ja", "nein"]
   },
   {
     "Name": "Fluechtling_Anerkannt",
-    "Frage": "Ist der Flüchtling anerkannt?",
-    "Bescheibung": "Das ist die Beschreibung zum Flüchtling anerkannt",
-    "Kategorie": "Auswahl"
+    "Frage": "Bist du anerkannter Fluechtling?",
+    "Bescheibung": "Das ist die Beschreibung zum Fluechtling anerkannt",
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["ja", "nein"]
   },
   {
     "Name": "Asylberechtigung",
-    "Frage": "Sind Sie asylberechtigt?",
+    "Frage": "Bist du asylberechtigt?",
     "Bescheibung": "Das ist die Beschreibung zum Asyl.",
-    "Kategorie": "Auswahl"
+    "Kategorie": "Auswahl",
+    "Antwortmoeglichkeiten": ["ja", "nein"]
   }
 ]

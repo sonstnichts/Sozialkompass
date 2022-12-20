@@ -1,0 +1,172 @@
+[
+  {
+    "Name": "BAföG",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
+    "Beschreibung": ["Bafög steht für Bundesausbildungsförderungsgesetz und ist ein staatliches Förderprogramm in Deutschland, das jungen Menschen dabei hilft, ihr Studium zu finanzieren. Bafög wird in Form von Zuschüssen und zinsgünstigen Darlehen gewährt und kann für verschiedene Ausgaben im Zusammenhang mit dem Studium verwendet werden, wie beispielsweise für Unterkunft, Verpflegung, Lernmaterialien oder Fahrtkosten. Die Höhe der Förderung hängt von verschiedenen Faktoren ab und wird im Einzelfall geprüft."],
+    "Attribute": {
+      "Berufsstatus": ["Studierender"],
+      "Ausbildungsstaette": [
+        "Universität",
+        "Akademie",
+        "Fachhochschule",
+        "Hochschule"
+      ],
+      "Studienpensum": ["Vollzeit"],
+      "Alter bei Beginn der Ausbildung": [0, 45],
+      "Vermoegen": [0, 15000],
+      "Sonstiges": [
+        [
+          {
+            "Staatsangehoerigkeit": ["Deutschland"]
+          },
+          {
+            "Staatsangehoerigkeit": ["EU-Ausland"],
+            "dauerhafter Aufenthalt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Jahre in Deutschland": [5, 1000]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Aufenthaltsgenehmigung": ["ja"]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "Name": "Kindergeld",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
+    "Beschreibung": ["Kindergeld ist eine finanzielle Unterstützung für Eltern/Sorgeberechtigte, die für ihre Kinder sorgen. Es wird vom Staat gezahlt und ist dazu gedacht, die Kosten zu decken, die mit der Erziehung und Betreuung von Kindern verbunden sind. Kindergeld wird in der Regel monatlich ausgezahlt und ist an keine bestimmten Ausgaben gebunden. Es kann also für alles verwendet werden, was im Zusammenhang mit der Erziehung und Betreuung der Kinder anfällt, wie beispielsweise für Kleidung, Nahrung, Unterricht oder Freizeitaktivitäten."],
+    "Attribute": {
+      "Kind_Anzahl": [1, 50],
+      "Kindergeld_Fremdbezug": ["nein"],
+      "Kind_Verhaeltnis": ["leibliches Kind", "Adoptivkind", "Stiefkind", "Kind des Lebenspartners", "Enkelkind", "Pflegekind"],
+      "Kind_Haushalt": ["ja"],
+      "Wohnsitz_Kind": ["EU-Ausland"],
+      "Sonstiges": [
+        [
+          {
+            "Staatsangehoerigkeit": ["Deutschland","EU-Ausland"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Fluechtling_Anerkannt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Asylberechtigung": ["ja"]
+          }
+        ],
+        [
+          {
+            "Alter_Kind": [0, 17]
+          },
+          {
+            "Alter_Kind": [18, 21],
+            "Status_Kind": ["arbeitssuchend", "in Berufsausbildung", "Freiwilligendienst", "ausbildungsplatzsuchend"]
+          },
+          {
+            "Alter_Kind": [22, 25],
+            "Status_Kind": ["in Berufsausbildung", "Freiwilligendienst", "ausbildungsplatzsuchend"]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "Name": "ALG2",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
+    "Beschreibung": ["ALG2 ist die Abkürzung für Arbeitslosengeld II. In Deutschland ist Arbeitslosengeld II eine staatliche Leistung, die Menschen zur Verfügung steht, die ihren Lebensunterhalt nicht aus eigenen Mitteln bestreiten können. Es ist auch als Hartz IV bekannt und wird von der Bundesagentur für Arbeit ausgezahlt. ALG2 dient dazu, die Grundbedürfnisse von arbeitslosen und bedürftigen Menschen zu decken, wie beispielsweise für Unterkunft, Verpflegung und Kleidung. Die Höhe des ALG2 wird anhand des individuellen Bedarfs berechnet und kann für die Dauer des Bedarfs beantragt werden."],
+    "Attribute": {
+      "Lebensmittelpunkt in Deutschland": ["ja"],
+      "Tages Arbeitszeit": [3, 1000],
+      "Hilfebeduerftigkeit": ["ja"],
+      "Alter": [15, 1000],
+      "Berufsstatus": ["berufstätig", "arbeitssuchend"]
+    }
+  },
+  {
+    "Name": "Wohngeld",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
+    "Beschreibung": ["Wohngeld ist eine finanzielle Unterstützung für Menschen in Deutschland, die ihre Wohnkosten nicht vollständig selbst tragen können. Es wird vom Staat gezahlt und ist dazu gedacht, die Belastung durch die Miet- oder Nebenkosten zu verringern. Die Höhe des Wohngeldes hängt von verschiedenen Faktoren ab, wie beispielsweise dem Einkommen, der Familiengröße, der Art der Wohnung und den anfallenden Kosten. Wohngeld wird in der Regel monatlich ausgezahlt und kann für die Dauer des Bedarfs beantragt werden."],
+    "Attribute": {
+      "Sonstiges": [
+        [
+          {
+            "Haushaltsmitglieder": [1,1],
+            "Einkommen_Haushalt": [0, 1129],
+            "Mietkosten": [540, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [2,2],
+            "Einkommen_Haushalt": [0, 1549],
+            "Mietkosten": [654, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [3,3],
+            "Einkommen_Haushalt": [0, 1874],
+            "Mietkosten": [778, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [4,4],
+            "Einkommen_Haushalt": [0, 2425],
+            "Mietkosten": [909, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [5,5],
+            "Einkommen_Haushalt": [0, 2762],
+            "Mietkosten": [1038, 100000]
+          },
+          {
+            "Haushaltsmitglieder": [6, 1000],
+            "Einkommen_Haushalt": [0, 3094],
+            "Mietkosten": [1162, 100000]
+          }
+        ],
+        [
+          {
+            "Staatsangehoerigkeit": ["Deutschland"]
+          },
+          {
+            "Staatsangehoerigkeit": ["EU-Ausland"],
+            "dauerhafter Aufenthalt": ["ja"]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Jahre in Deutschland": [5, 1000]
+          },
+          {
+            "Staatsangehoerigkeit": ["Ausland"],
+            "Aufenthaltsgenehmigung": ["ja"]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "Name": "BAB",
+    "PLZ-Gebiet": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
+    "Beschreibung": ["Die Berufsausbildungsbeihilfe ist eine finanzielle Unterstützung für junge Menschen in Deutschland, die eine Berufsausbildung absolvieren. Sie wird vom Staat gezahlt und ist dazu gedacht, die Kosten zu decken, die im Zusammenhang mit der Ausbildung anfallen, wie beispielsweise für Unterkunft, Verpflegung oder Lernmaterialien. Die Berufsausbildungsbeihilfe wird in der Regel monatlich ausgezahlt und ist an bestimmte Bedingungen geknüpft, wie beispielsweise das Vorliegen bestimmter Einkommens- und Vermögensgrenzen."],
+    "Attribute": {
+      "Berufsstatus": ["Auszubildender"],
+      "Wohnen_bei_Eltern": ["nein"],
+      "Sonstiges": [
+        [
+          {
+            "Alter": [18, 1000]
+          },
+          {
+            "Alter": [15, 17],
+            "Kind_Anzahl": [1, 1000]
+          },
+          {
+            "Alter": [15, 17],
+            "Familienstatus": ["verheiratet"]
+          }
+        ]
+      ]
+    }
+  }
+]

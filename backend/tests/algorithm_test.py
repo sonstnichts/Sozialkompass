@@ -8,12 +8,12 @@ from pathlib import Path
 file_dir = Path(__file__)
 dir = file_dir.parent.parent
 
-data = open(dir / "algorithmus/assets/test_antraege.json")
+data = open(dir / "tests/test_assets/test_antraege.json")
 application_list = json.load(data)
 
 # load attribute list from assets
 
-data = open(dir / "algorithmus/assets/test_attributes.json")
+data = open(dir / "tests/test_assets/test_attributes.json")
 attributes = json.load(data)
 
 # set variable for test_asset path:

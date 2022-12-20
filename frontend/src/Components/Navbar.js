@@ -61,6 +61,10 @@ function Navbar() {
   function handleHomeClick() {
     navigate("/");
   }
+
+  function handleQuestionsClick(){
+    navigate("/questions");
+  }
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -68,6 +72,7 @@ function Navbar() {
   // AppBar is used to create navigation bar (in combination with Typography)
   // Stack is used to include additional pages or menu settings on the right side of the page
   return (
+
     <AppBar position="sticky" color="default" margin="0px">
       <Container maxWidth="l">
         <Toolbar
@@ -104,7 +109,9 @@ function Navbar() {
             </Typography>
           </ButtonBase>
           <Stack direction="row" spacing={2}>
-            <ColorButton>
+            <ColorButton
+            onClick={handleHomeClick}
+            >
               {" "}
               <Typography
                 sx={{
@@ -148,7 +155,9 @@ function Navbar() {
             </ColorButton>
           </Stack>
           <Stack direction="row" spacing={2}>
-            <ColorOrangeButton>
+            <ColorOrangeButton
+            onClick={handleQuestionsClick}
+            >
               <Typography
                 sx={{
                   fontWeight: 700,
@@ -183,6 +192,7 @@ function Navbar() {
           </Stack>
         </Toolbar>
       </Container>
+
     </AppBar>
   );
 }

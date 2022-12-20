@@ -1,3 +1,6 @@
+# Docker-Compose file for perfect setup
+# Builds frontend(client) and backend(api) and pulls Mongo 4.4.6
+# Also it exposes Port 80 for frontend
 services:
   api:
     build:
@@ -10,4 +13,15 @@ services:
       dockerfile: Dockerfile.client
     image: tuckingmodular/react-flask-app-client
     ports:
-      - "443:443"
+      - "80:3000"
+  database:
+    image: mongo:4.4.6
+    container_name: mongodb
+    command: [--auth]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=goodPW
+    volumes:
+      - mongoData:/mongoData/db
+volumes:
+  mongoData:

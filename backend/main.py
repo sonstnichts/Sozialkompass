@@ -6,6 +6,10 @@ from bson.objectid import ObjectId
 from dotenv import load_dotenv
 import os
 
+# In the face of errors
+# Perseverance prevails
+# Code eventually runs
+# ~ ChatGPT, 2022
 
 # load logindata from envfile
 load_dotenv()

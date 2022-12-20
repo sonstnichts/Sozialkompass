@@ -16,6 +16,7 @@ from flask_wtf import CSRFProtect
 import bcrypt
 from pymongo import MongoClient
 from flask_cors import CORS
+import bson
 
 
 
@@ -64,6 +65,8 @@ client = MongoClient(MONGO_DB_ADDRESS, username= MONGO_DB_USER, password=MONGO_D
 db = client.sozialkompass
 treenodes = db.treenodes
 attribute = db.attribute
+aemter = db.aemter
+antraege = db.antraege
 
 app = Flask(__name__)
 api = Api(app)
@@ -152,22 +155,46 @@ class Treenodes(db.Document):
     NoneoftheAboveID = db.StringField()
     SkipID = db.StringField()
 
+
+
+class SendResults(Resource):
+    def post(self):
+        #Exclude object_id, cause it's bad
+        args = request.get_json()
+        result = []
+        for application in args.keys():
+            data = aemter.find_one({"Antraege."+application:{"$exists":True}},{"_id":False})
+            entry = {}
+            entry["Antrag"] = application
+            entry["Name"] = data["Name"]
+            entry["Adresse"] = data["Adresse"]["Straße"]+" "+str(data["Adresse"]["Postleitzahl"])+" "+data["Adresse"]["Stadt"]
+            entry["Link"] = data["Link"]
+            entry["Kontakt"] = data["Kontakt"]
+            entry["Beschreibung"] = antraege.find_one({"Name":application},{"Beschreibung":True})["Beschreibung"]
+            result.append(entry)
+                  
+        return jsonify(result)
+
+
+
 class SendTree(Resource):
     #GET request for the first node
     def get(self):
         print("success")
         #check if session exists, then send last node
-        first_cookie = request.cookies.get("firstlogin")
-        id_cookie = request.cookies.get("_id")
-        if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
-            result = treenodes.find_one({"_id":id_cookie})
-            #Add attributes to result
-            attribut = attribute.find_one({"Name":result["Attribut"]})
-            result["Frage"] = attribut["Frage"]
-            result["Beschreibung"] = attribut["Beschreibung"]
-            result["Kategorie"] = attribut["Kategorie"]
-            response = make_response(jsonify(result),200)
-            return response
+
+        # first_cookie = request.cookies.get("firstlogin")
+        # id_cookie = request.cookies.get("_id")
+        # if first_cookie == treenodes.find_one({"parentId":{"$exists": False}})["_id"]:
+        #     result = treenodes.find_one({"_id":id_cookie})
+        #     #Add attributes to result
+        #     attribut = attribute.find_one({"Name":result["Attribut"]})
+        #     result["Frage"] = attribut["Frage"]
+        #     result["Beschreibung"] = attribut["Beschreibung"]
+        #     result["Kategorie"] = attribut["Kategorie"]
+        #     response = make_response(jsonify(result),200)
+        #     return response
+
 
         #else send first node
         result = treenodes.find_one({"parentId":{"$exists": False}})
@@ -175,6 +202,17 @@ class SendTree(Resource):
         result["Frage"] = attribut["Frage"]
         result["Beschreibung"] = attribut["Beschreibung"]
         result["Kategorie"] = attribut["Kategorie"]
+
+        if attribut["Kategorie"]=="Auswahl":
+            checkedAnswers = []
+            for ans in result["Antworten"]:
+                if ans["Bezeichnung"] not in checkedAnswers:
+                    checkedAnswers.append(ans["Bezeichnung"][0])
+            answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+            for ans in answers["Antwortmoeglichkeiten"]:
+                if ans not in checkedAnswers:
+                    result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
+        # insert all answers
         response = make_response(jsonify(result), 200)
         return response
 
@@ -193,13 +231,23 @@ class SendTree(Resource):
             attribut = attribute.find_one({"Name":result["Attribut"]})
             result["Frage"] = attribut["Frage"]
             result["Kategorie"] = attribut["Kategorie"]
+            if attribut["Kategorie"]=="Auswahl":
+                checkedAnswers = []
+                for ans in result["Antworten"]:
+                    if ans["Bezeichnung"] not in checkedAnswers:
+                        checkedAnswers.append(ans["Bezeichnung"][0])
+                answers = attribute.find_one({"Name":result["Attribut"]},{"Antwortmoeglichkeiten":1})
+                for ans in answers["Antwortmoeglichkeiten"]:
+                    if ans not in checkedAnswers:
+                        result["Antworten"].append({"Bezeichnung":[ans],"NodeId":result["noneoftheabove"]})
+
         #result["Beschreibung"] = attribut["Beschreibung"]
         response = jsonify(result)
         #set cookie for first node id to check if old session is valid with new tree (if a new tree is generated)
         #set cookie for current node to continue
         first_id = treenodes.find_one({"parentId":{"$exists": False}})["_id"]
-        response.set_cookie("_id", args["_id"])
-        response.set_cookie("firstlogin", first_id)
+        # response.set_cookie("_id", args["_id"])
+        # response.set_cookie("firstlogin", first_id)
         return response
 
 class Register(Resource):
@@ -336,6 +384,7 @@ api.add_resource(AdminCreator, "/api/admin")
 api.add_resource(Logout, "/api/logout")
 api.add_resource(Refresh, "/api/refresh")
 api.add_resource(ChangePassword, "/api/resetPassword")
+api.add_resource(SendResults, "/api/results")
 
 
 if __name__ == "__main__":  

@@ -20,7 +20,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   height: "60px",
 }));
 
-export function Contact() {
+export default function Contact() {
   return (
     <Box
       sx={{
@@ -82,19 +82,23 @@ export function Contact() {
             />
             <br />
             <TextField
-              id="standard-multiline-static"
+              id="filled-multiline-static"
               required
               label="Deine Nachricht"
               multiline
               rows={4}
-              variant="standard"
+              variant="filled"
               sx={{
                 backgroundColor: "white",
                 marginTop: "15px",
-                width: "405px",
+                width: "300px",
               }}
             />
-            <ColorButton sx={{ margin: "10px" }}>Senden</ColorButton>
+            <ColorButton sx={{ margin: "10px" }}>
+              <Typography
+              sx={{fontFamily: "Inter", fontWeight: 400, fontSize: "24px", color: "#0E1C36", textTransform: "none"}}
+              >Senden</Typography>
+              </ColorButton>
           </Grid>
           <Grid xs={4}>
             <Typography

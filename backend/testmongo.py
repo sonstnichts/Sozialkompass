@@ -27,7 +27,6 @@ dir = file_dir.parent
 
 
 if __name__ == "__main__":
-    attributeslist = attributes.find({},{"Name":1,"_id":0,"Kategorie":1})
+    hallo = applications.find_one({"Name":"BAfoeG"},{"Beschreibung":True})["Beschreibung"]
 
-    for i in attributeslist:
-        print(i)
+    print(hallo)

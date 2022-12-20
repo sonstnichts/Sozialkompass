@@ -4,7 +4,6 @@ import { createTheme } from "@mui/material";
 import { Paper, Button, Box, styled, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { theme } from "../theme";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -12,7 +11,7 @@ import wwu from "../../Assets/logo/Uni.png";
 import { Container } from "@mui/system";
 import "./supporter.css";
 
-export function Supporter() {
+export default function Supporter() {
   return (
     <Box
       sx={{
