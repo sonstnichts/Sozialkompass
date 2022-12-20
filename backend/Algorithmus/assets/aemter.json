@@ -16,22 +16,22 @@
         "Stadt": "Bochum"
       },
       "Kontakt": {
-        "Nummer": "+49 800 4555530 (gebuehrenfrei)",
+        "Nummer": "+49 800 4555530 (gebührenfrei)",
         "Fax": "+49 2382 959 778",
         "Mail": "Familienkasse-Nordrhein-Westfalen-Nord@arbeitsagentur.de",
         "Kontaktformular": "https://web.arbeitsagentur.de/portal/kontakt/de/familie-und-kinder/kindergeld"
       }
     },
     {
-      "Name": "Studentenwerk Muenster",
-      "Subname": "Amt fuer Ausbildungsfoerderung",
+      "Name": "Studentenwerk Münster",
+      "Subname": "Amt für Ausbildungsförderung",
       "Postleitzahlen": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
-      "Antraege": { "BAfoeG": {"Name": "Online-Antrag"}, "Link": "https://www.bafoeg.de/bafoeg/de/antrag-stellen/antrag-stellen_node.html"},
-      "Link":"https://www.bafoeg.de/",
+      "Antraege": { "BAföG": {"Name": "Online-Antrag", "Link": "https://www.bafög.de/bafoeg/de/antrag-stellen/antrag-stellen_node.html"}},
+      "Link":"https://www.bafög.de/",
       "Adresse": {
         "Straße": "Bismarckallee 5",
         "Postleitzahl": 48151,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Postfach": null,
       "Kontakt": {
@@ -42,30 +42,30 @@
       }
     },
     {
-      "Name": "Agentur fuer Arbeit Ahlen-Muenster",
+      "Name": "Agentur für Arbeit Ahlen-Münster",
       "Subname": null,
       "Postleitzahlen": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
-      "Antraege": { "BAB": {"Name": "Online-Antrag"}, "Link": "https://www.arbeitsagentur.de/bildung/ausbildung/berufsausbildungsbeihilfe-bab"},
+      "Antraege": { "BAB": {"Name": "Online-Antrag", "Link": "https://www.arbeitsagentur.de/bildung/ausbildung/berufsausbildungsbeihilfe-bab"}},
       "Link":"https://www.arbeitsagentur.de/bildung/ausbildung/berufsausbildungsbeihilfe-bab",
       "Adresse": {
         "Straße": "Martin-Luther-King-Weg 22",
         "Postleitzahl": 48155,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Postfach": {
-        "Name": "Agentur fuer Arbeit Ahlen-Muenster",
+        "Name": "Agentur für Arbeit Ahlen-Münster",
         "Postleitzahl": 48138,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Kontakt": {
-        "Nummer": "+49 800 4 555500 (gebuehrenfrei)",
+        "Nummer": "+49 800 4 555500 (gebührenfrei)",
         "Fax": "+49 251 698 300",
         "Mail": "Ahlen-Muenster@arbeitsagentur.de",
         "Kontaktformular": "https://web.arbeitsagentur.de/portal/kontakt/de/terminvereinbarung/berufsberatung?scope=form"
       }
     },
     {
-      "Name": "Jobcenter Muenster",
+      "Name": "Jobcenter Münster",
       "Subname": null,
       "Postleitzahlen": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
       "Antraege": { "ALG2": null},
@@ -73,7 +73,7 @@
       "Adresse": {
         "Straße": "Ludgeriplatz 4",
         "Postleitzahl": 48151,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Postfach": null,
       "Kontakt": {
@@ -84,20 +84,20 @@
       }
     },
     {
-      "Name": "Amt fuer Wohnungswesen und Quartiersentwicklung",
+      "Name": "Amt für Wohnungswesen und Quartiersentwicklung",
       "Subname": null,
       "Postleitzahlen": [48143, 48145, 48147, 48149, 48151, 48153, 48155, 48157, 48159, 48161, 48163, 48165, 48167],
-      "Antraege": { "Wohngeld": {"Name": "Online-Antrag"}, "Link": "https://formulare.stadt-muenster.de/administrationCenter/Form-Solutions/05512000-0002/consent?redirectId=241c2d1a-eeb3-47d7-95c4-4d2d7089c150&releaseCacheId=7bbb9ae8-c020-4171-ba60-40e91f3d271c"},
+      "Antraege": { "Wohngeld": {"Name": "Online-Antrag", "Link": "https://formulare.stadt-muenster.de/administrationCenter/Form-Solutions/05512000-0002/consent?redirectId=241c2d1a-eeb3-47d7-95c4-4d2d7089c150&releaseCacheId=7bbb9ae8-c020-4171-ba60-40e91f3d271c"}},
       "Link":"https://www.stadt-muenster.de/wohnungsamt/wohngeld.html",
       "Adresse": {
         "Straße": "Bahnhofstraße 8-10",
         "Postleitzahl": 48143,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Postfach": {
-        "Name": "Amt fuer Wohnungswesen und Quartiersentwicklung",
+        "Name": "Amt für Wohnungswesen und Quartiersentwicklung",
         "Postleitzahl": 48127,
-        "Stadt": "Muenster"
+        "Stadt": "Münster"
       },
       "Kontakt": {
         "Nummer": "+49 251 4926418",
