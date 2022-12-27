@@ -120,6 +120,12 @@ class test_calculate_attributes(TestCase):
         result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1} #result list for the test
         self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
 
+    def test_empty(self):
+        input = {}
+        result = {}
+        self.assertDictEqual(input, result)
+
+    #maybe a test for only nested attributes?
 class test_calculate_result_set(TestCase):
     #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
     def test_normal(self):

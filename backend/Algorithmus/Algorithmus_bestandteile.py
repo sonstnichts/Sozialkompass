@@ -12,26 +12,34 @@ def calculate_attributes(application_list):
 
     attribute = {} #creation of an empty dictionary for out output
 
-    for application in application_list: #loops throught the applications
-        for requirement in application["Attribute"].items(): #loops through all requirements (attributes) an application has
-            if (requirement[0] != "Sonstiges"): #checks if the requirement  not nested
-                if requirement[0] in attribute: #checks if the requirement is already in the attribute list
-                    attribute[requirement[0]] += 1 #if it is it increases the counter
+    #the function loops through all applications in the application list and then through all requirements (attributes) for each application
+    for application in application_list: 
+        for requirement in application["Attribute"].items(): 
+            
+            #a requirement can be nested. if thats the case we need a more complicated counter
+            #if its not nested we just check whether the attribute was already counted before 
+            if (requirement[0] != "Sonstiges"): 
+                if requirement[0] in attribute: 
+                    attribute[requirement[0]] += 1 
                 else:
-                    attribute[requirement[0]] = 1 #if it isn't it creates a new entry in the attribute list
-            else: #if the requirement is nested
-                for nested_requirements in requirement[1]: #loops through the information after the "sonstige" keyword
-                    added_key = [] #creates a list to check if the key has already been added
-                    for nested_requirement in nested_requirements: #loops through the nested requirements themselves
-                        for key in nested_requirement: #loops through the keys of each nested requirement (should only be one)
-                            if key in attribute: #same check for adding an attribute as above
-                                if key not in added_key: #if the key hasn't been added yet (in the nested requirements)
-                                    added_key.append(key) #append the key
+                    attribute[requirement[0]] = 1 
+            
+            #if it is nested we only want to count each attribute once per nested requirement
+            #thus we have to create a new second list to check against and append any nested requirements there
+            else: 
+                for nested_requirements in requirement[1]: 
+                    added_key = [] 
+                    for nested_requirement in nested_requirements: 
+                        for key in nested_requirement: 
+                            if key in attribute: 
+                                if key not in added_key: 
+                                    added_key.append(key) 
                                     attribute[key] += 1
                             else:
                                 attribute[key] = 1
     return attribute #returns the attribute list
 
+#a function which gets all applications that are not ruled out yet
 def calculate_result_set(application_list):
 
     result_set = [] #creates a list for the result set
@@ -43,7 +51,7 @@ def calculate_result_set(application_list):
 
 # ! THIS IS NOT THE FINAL IMPLEMENTATION
 # ! IT DOES NOT WORK
-# ! THESE COMMENTS ARE NOT FINAL
+# ! THESE COMMENTS ARE NOT FINAL BECAUSE I PROBABLY NEED TO DO A MAJOR REWORK HERE
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list):
     #* adds alle relevant attributes to allAttributes
     attributes_ranked = [] #list of attributes ranked by relevance
@@ -115,11 +123,13 @@ def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepte
     tree["Antworten"] = [] #creates an empty space for the answers
     if accepted_applications:
         tree["Akzeptiert"] = accepted_applications
-    if skipped_attributes: #if any attributes were skipped
+    if skipped_attributes: #if any attributes were skipped:_
         tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
     return tree #returns the tree
 
+#a function which just returns the most often used attribute as calculated by calculate_attributes
+#* the plan is to replace this function once determine_attribute works
 def return_max(allAttributesOriginal):
     return max(allAttributesOriginal, key = allAttributesOriginal.get)
 
@@ -359,7 +369,7 @@ def split_array(input_array):
 
     return result_array #return the result array
 
-# not currently used
+#! not currently used
 # used for generating the skip attribute
 def handleskip(application_list,question):
     for application in application_list:
