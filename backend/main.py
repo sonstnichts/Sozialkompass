@@ -34,13 +34,13 @@ def generate_tree():
     # asks for the method of input
     insertionmode = input("Should the input data for the algorithm come from the database? [Y/n]")
 
-    if insertionmode == "Y":
+    if insertionmode == "Y" or insertionmode == "y":
         # load applications list from database
         application_list = list(applications.find())
         # load applications list from database
         attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
 
-    elif insertionmode == "n":
+    elif insertionmode == "N" or insertionmode == "n":
         # load application list from assets
         data = open(dir / "Algorithmus/assets/Antraege_countryGroup.json", encoding = 'utf-8')
         application_list = json.load(data)
@@ -77,7 +77,7 @@ def generate_tree():
 
     # asks if the output should be saved in the database
     savingmode = input("Do you want to save the nodes in the database? [Y/n]")
-    if savingmode == "Y":
+    if savingmode == "Y" or savingmode == "y":
         # delete old nodes
         treenodes.drop()
         # insert new nodes
