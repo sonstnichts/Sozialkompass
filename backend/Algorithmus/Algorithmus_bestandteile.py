@@ -37,9 +37,8 @@ def calculate_attributes(application_list):
                                     added_key.append(key) 
                                     attribute[key] += 1
                             else:
-                                if key not in added_key: 
-                                    added_key.append(key)
-                                    attribute[key] = 1
+                                added_key.append(key)
+                                attribute[key] = 1
     return attribute #returns the attribute list
 
 #a function which gets all applications that are not ruled out yet
