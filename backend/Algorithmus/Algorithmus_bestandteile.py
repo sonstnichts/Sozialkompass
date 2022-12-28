@@ -26,6 +26,7 @@ def calculate_attributes(application_list):
             
             #if it is nested we only want to count each attribute once per nested requirement
             #thus we have to create a new second list to check against and append any nested requirements there
+            #this is a bit longer but basically works in the same way
             else: 
                 for nested_requirements in requirement[1]: 
                     added_key = [] 
@@ -36,7 +37,9 @@ def calculate_attributes(application_list):
                                     added_key.append(key) 
                                     attribute[key] += 1
                             else:
-                                attribute[key] = 1
+                                if key not in added_key: 
+                                    added_key.append(key)
+                                    attribute[key] = 1
     return attribute #returns the attribute list
 
 #a function which gets all applications that are not ruled out yet

@@ -117,13 +117,19 @@ class test_delete_rows(TestCase):
 class test_calculate_attributes(TestCase):
     #{'a': 1, 'b': 2, 'c': 4} -> how the attributes are formated
     def test_normal(self):
-        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 3, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1} #result list for the test
+        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Staatsangehoerigkeit" : 2, "Jahre in Deutschland" : 1, "Kinder Anzahl" : 1} #result list for the test
         self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
 
     def test_empty(self):
         input = {}
         result = {}
-        self.assertDictEqual(input, result)
+        self.assertDictEqual(calculate_attributes(input), result)
+
+    def test_only_nested(self):
+        data = open(dir / test_asset_path / "test_only_nested.json")
+        input = json.load(data)
+        result = {"Staatsangehoerigkeit" : 2, "Jahre in Deutschland" : 1, "Alter bei Beginn der Ausbildung" : 1} #result list for the test
+        self.assertDictEqual(calculate_attributes(input), result)
 
     #maybe a test for only nested attributes?
 class test_calculate_result_set(TestCase):
