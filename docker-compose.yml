@@ -6,12 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.api
-    image: tuckingmodular/react-flask-app-api
+    image: react-flask-app-api
   client:
     build:
       context: .
       dockerfile: Dockerfile.client
-    image: tuckingmodular/react-flask-app-client
+    image: react-flask-app-client
     ports:
       - "80:3000"
   database:
@@ -21,6 +21,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=goodPW
+    ports:
+      - "27017:27017"
     volumes:
       - mongoData:/mongoData/db
 volumes:
