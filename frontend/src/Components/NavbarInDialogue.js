@@ -26,13 +26,9 @@ const Logo = styled("img")(() => ({
   minWidth: "2rem",
 }));
 
-// Settings for size of image "Easy Language"
-const EL = styled("img")(() => ({
-  width: "1rem",
-  minWidth: "1.5rem",
-  color: "black",
-}));
-
+/**
+ * Define our own style for the buttons
+ */
 const ColorButton = styled(Button)(({ theme }) => ({
   backgroundColor: "#0E1C36",
 
@@ -41,7 +37,9 @@ const ColorButton = styled(Button)(({ theme }) => ({
   width: "140px",
   height: "60px",
 }));
-
+/**
+ * We also want an orange button so here it is
+ */
 const ColorOrangeButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgba(244, 91, 57, 0.71)",
 
@@ -51,6 +49,12 @@ const ColorOrangeButton = styled(Button)(({ theme }) => ({
   height: "60px",
 }));
 
+
+/**
+ * React element for the standard navbar
+ * We need a navbar on every page.
+ * This is the navbar inside of the dialogue
+ */
 function NavbarInDialogue() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 

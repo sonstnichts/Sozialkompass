@@ -1,15 +1,18 @@
 import React from "react";
 import "./contact.css";
-import { createTheme, Link, List, ListItem } from "@mui/material";
-import { Paper, Button, Box, styled, Typography } from "@mui/material";
-import { theme } from "../theme";
-import { Container, padding, width } from "@mui/system";
+import { Link, List, ListItem } from "@mui/material";
+import { Button, Box, styled, Typography } from "@mui/material";
+
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
 import logoHome from "../../Assets/logo/mainLogo.png";
 import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
 import EmailIcon from "@mui/icons-material/Email";
 
+
+/**
+ * We define ourselves a button style
+ */
 const ColorButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgba(244, 91, 57, 0.71)",
 
@@ -20,6 +23,9 @@ const ColorButton = styled(Button)(({ theme }) => ({
   height: "60px",
 }));
 
+/**
+ * This react element is for contact on the homepage
+ */
 export default function Contact() {
   return (
     <Box
@@ -96,9 +102,17 @@ export default function Contact() {
             />
             <ColorButton sx={{ margin: "10px" }}>
               <Typography
-              sx={{fontFamily: "Inter", fontWeight: 400, fontSize: "24px", color: "#0E1C36", textTransform: "none"}}
-              >Senden</Typography>
-              </ColorButton>
+                sx={{
+                  fontFamily: "Inter",
+                  fontWeight: 400,
+                  fontSize: "24px",
+                  color: "#0E1C36",
+                  textTransform: "none",
+                }}
+              >
+                Senden
+              </Typography>
+            </ColorButton>
           </Grid>
           <Grid xs={4}>
             <Typography

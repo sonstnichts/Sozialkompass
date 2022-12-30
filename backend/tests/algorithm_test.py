@@ -98,7 +98,7 @@ class test_calculate_attributes(TestCase):
         self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
 
     def test_empty(self):
-        input = {}
+        input = []
         result = {}
         self.assertDictEqual(calculate_attributes(input), result)
 
@@ -107,13 +107,30 @@ class test_calculate_attributes(TestCase):
         input = json.load(data)
         result = {"Staatsangehoerigkeit" : 2, "Jahre in Deutschland" : 1, "Alter bei Beginn der Ausbildung" : 1} #result list for the test
         self.assertDictEqual(calculate_attributes(input), result)
+    
+    def test_no_nested(self):
+        data = open(dir / test_asset_path / "test_no_nested.json")
+        input = json.load(data)
+        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Kinder Anzahl" : 1}
+        self.assertDictEqual(calculate_attributes(input), result)
 
-    #maybe a test for only nested attributes?
+
 class test_calculate_result_set(TestCase):
     #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
     def test_normal(self):
         result = ["Bafoeg", "Kindergeld"] #result list for the test
         self.assertListEqual(calculate_result_set(application_list), result) #checks the wanted results against the actual results
+
+    def test_empty(self):
+        input = []
+        result = []
+        self.assertListEqual(calculate_result_set(input), result)
+    
+    def test_duplicates(self):
+        data = open(dir / test_asset_path / "test_duplicates.json")
+        input = json.load(data)
+        result = ["Bafoeg", "Kindergeld"]
+        self.assertListEqual(calculate_result_set(input), result)
 
 # class test_create_subtree(TestCase):
 #     # {'Frage': 'Kinder_Anzahl', 'Ergebnismenge': ['Wohngeld', 'Elterngeld', 'Kindergeld'], 'Antworten': {}} -> how the tree is formated
