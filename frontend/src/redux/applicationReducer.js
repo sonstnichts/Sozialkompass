@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+//this slice contains the applications and can be used globally
 export const applicationSlice = createSlice({
     name: 'application',
     initialState:{
@@ -8,12 +10,14 @@ export const applicationSlice = createSlice({
     ALG2:0,
     Kindergeld:0,
     Wohngeld:0
-},
+}, 
+// The slice contains all applications with the standard value 0
+// 0 signals application in progress
 
 	reducers: {
 
         
-        one: (state,action) => {
+        applicationUpdate: (state,action) => {
             return {
                     // spreads the current state obj
                     ...state,
@@ -26,24 +30,7 @@ export const applicationSlice = createSlice({
     }
     })
 
-export const { one, minus, zero } = applicationSlice.actions
+export const { applicationUpdate } = applicationSlice.actions
 
 export default applicationSlice.reducer
-
-
-/* const  initialState= { res:{
-    BAföG:0,
-    BAB:0,
-    ALG2:0,
-    Kindergeld:0,
-    Wohngeld:0
-}};
-
- export default function applicationReducer(state = initialState, action) {
-    return { ...state, res: action.payload };}
-
-
-
-    export const getApplications = (state) => state.res;
- */
 
