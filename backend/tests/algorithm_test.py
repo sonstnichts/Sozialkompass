@@ -53,27 +53,6 @@ class test_remove_applications(TestCase):
 
 class test_delete_rows(TestCase):
 
-    # # case where the attributes to be deleted are in the "Sonstiges"-section
-    # def test_delete_rows(self):
-
-    #     # load input data
-
-    #     data = open(dir / "algorithmus/assets/test_antraege.json")
-    #     application_list = json.load(data)
-
-
-    #     # load result data
-        
-    #     data = open(dir / test_asset_path / "test_delete_rows_result.json")
-    #     result = json.load(data)
-
-    #     question = "Staatsangehoerigkeit"
-    #     answer_possibilities = ["deutsch"]
-    #     questiontype = "Auswahl"
-
-    #     delete_rows(application_list,question,answer_possibilities,questiontype)
-    #     self.assertListEqual(application_list,result)
-
     # case where the attributes to be deleted are in the main section
     def test_delete_rows_2(self):
 
@@ -94,24 +73,22 @@ class test_delete_rows(TestCase):
         self.assertListEqual(application_list,result)
 
 
-# class test_generate_answers(TestCase):
+class test_generate_answers(TestCase):
 
-#     def test_generate_answers(self):
+    def test_generate_answers(self):
 
-#         question = "Staatsangehoerigkeit"
+        question = "Staatsangehoerigkeit"
+        attribute_category = "Auswahl"
 
-#         # load input data
-#         data = open(dir / "algorithmus/assets/test_antraege.json")
-#         application_list = json.load(data)
-
-#         data = open(dir / "algorithmus/assets/test_attributes.json")
-#         attributes = json.load(data)
+        # load input data
+        data = open(dir / test_asset_path /"test_antraege.json")
+        application_list = json.load(data)
         
-#         #load result data
-#         data = open(dir / test_asset_path / "test_generate_answers_result.json")
-#         result = json.load(data)
+        #load result data
+        data = open(dir / test_asset_path / "test_generate_answers_result.json")
+        result = json.load(data)
 
-#         self.assertListEqual(generate_answers(application_list,question,attributes),result)
+        self.assertListEqual(generate_answers(application_list,question,attribute_category),result)
 
 
 class test_calculate_attributes(TestCase):
