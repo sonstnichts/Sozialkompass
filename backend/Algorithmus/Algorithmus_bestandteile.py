@@ -47,10 +47,14 @@ def calculate_result_set(application_list):
     result_set = [] #creates a list for the result set
 
     for application in application_list: #loops through the applications
-        result_set.append(application["Name"]) #gets the name of the application and adds it to the result set
+        if application["Name"] not in result_set: #checks if the application is already in the result set
+            result_set.append(application["Name"]) #gets the name of the application and adds it to the result set
     
     return result_set 
 
+# ! The following code is not finished and currently not used in the algorithm
+# ! It is supposed to be used to determine the best attribute to ask next
+'''
 # ! THIS IS NOT THE FINAL IMPLEMENTATION
 # ! IT DOES NOT WORK
 # ! THESE COMMENTS ARE NOT FINAL BECAUSE I PROBABLY NEED TO DO A MAJOR REWORK HERE
@@ -110,7 +114,7 @@ def create_mock_tree(attribute_sequence, index, application_list, all_attributes
         index += 1
         node_list.append(create_mock_tree(attribute_sequence,index,application_list,all_attributes, []))
     return [attribute_sequence[0][0], len(node_list)]
-
+'''
 
 def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepted_applications):
 
