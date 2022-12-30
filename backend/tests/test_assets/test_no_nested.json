@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Bafoeg",
+    "Attribute": {
+      "Berufsstatus": ["Studierender"],
+      "Ausbildungsstaette": [
+        "Universität",
+        "Akademie",
+        "Fachhochschule",
+        "Hochschule"
+      ],
+      "Alter bei Beginn der Ausbildung": [0, 45]
+    }
+  },
+  {
+    "Name": "Kindergeld",
+    "Attribute": {
+      "Kinder Anzahl": [1, 50],
+      "Alter bei Beginn der Ausbildung": [0, 45]
+    }
+  }
+]

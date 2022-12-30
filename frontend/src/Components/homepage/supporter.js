@@ -1,16 +1,13 @@
 import React from "react";
 import "./home.css";
-import { createTheme } from "@mui/material";
-import { Paper, Button, Box, styled, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import { theme } from "../theme";
-import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea } from "@mui/material";
-import Card from "@mui/material/Card";
-import wwu from "../../Assets/logo/Uni.png";
+import { Paper, Box, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import "./supporter.css";
 
+/**
+ * 
+ * This react element represents the supporters of the project
+ */
 export default function Supporter() {
   return (
     <Box

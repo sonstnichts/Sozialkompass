@@ -53,27 +53,6 @@ class test_remove_applications(TestCase):
 
 class test_delete_rows(TestCase):
 
-    # # case where the attributes to be deleted are in the "Sonstiges"-section
-    # def test_delete_rows(self):
-
-    #     # load input data
-
-    #     data = open(dir / "algorithmus/assets/test_antraege.json")
-    #     application_list = json.load(data)
-
-
-    #     # load result data
-        
-    #     data = open(dir / test_asset_path / "test_delete_rows_result.json")
-    #     result = json.load(data)
-
-    #     question = "Staatsangehoerigkeit"
-    #     answer_possibilities = ["deutsch"]
-    #     questiontype = "Auswahl"
-
-    #     delete_rows(application_list,question,answer_possibilities,questiontype)
-    #     self.assertListEqual(application_list,result)
-
     # case where the attributes to be deleted are in the main section
     def test_delete_rows_2(self):
 
@@ -94,24 +73,22 @@ class test_delete_rows(TestCase):
         self.assertListEqual(application_list,result)
 
 
-# class test_generate_answers(TestCase):
+class test_generate_answers(TestCase):
 
-#     def test_generate_answers(self):
+    def test_generate_answers(self):
 
-#         question = "Staatsangehoerigkeit"
+        question = "Staatsangehoerigkeit"
+        attribute_category = "Auswahl"
 
-#         # load input data
-#         data = open(dir / "algorithmus/assets/test_antraege.json")
-#         application_list = json.load(data)
-
-#         data = open(dir / "algorithmus/assets/test_attributes.json")
-#         attributes = json.load(data)
+        # load input data
+        data = open(dir / test_asset_path /"test_antraege.json")
+        application_list = json.load(data)
         
-#         #load result data
-#         data = open(dir / test_asset_path / "test_generate_answers_result.json")
-#         result = json.load(data)
+        #load result data
+        data = open(dir / test_asset_path / "test_generate_answers_result.json")
+        result = json.load(data)
 
-#         self.assertListEqual(generate_answers(application_list,question,attributes),result)
+        self.assertListEqual(generate_answers(application_list,question,attribute_category),result)
 
 
 class test_calculate_attributes(TestCase):
@@ -121,7 +98,7 @@ class test_calculate_attributes(TestCase):
         self.assertDictEqual(calculate_attributes(application_list), result) #checks the wanted results against the actual results
 
     def test_empty(self):
-        input = {}
+        input = []
         result = {}
         self.assertDictEqual(calculate_attributes(input), result)
 
@@ -130,13 +107,30 @@ class test_calculate_attributes(TestCase):
         input = json.load(data)
         result = {"Staatsangehoerigkeit" : 2, "Jahre in Deutschland" : 1, "Alter bei Beginn der Ausbildung" : 1} #result list for the test
         self.assertDictEqual(calculate_attributes(input), result)
+    
+    def test_no_nested(self):
+        data = open(dir / test_asset_path / "test_no_nested.json")
+        input = json.load(data)
+        result = {"Berufsstatus": 1, "Ausbildungsstaette": 1, "Alter bei Beginn der Ausbildung" : 2, "Kinder Anzahl" : 1}
+        self.assertDictEqual(calculate_attributes(input), result)
 
-    #maybe a test for only nested attributes?
+
 class test_calculate_result_set(TestCase):
     #['Wohngeld', 'Elterngeld', 'Kindergeld'] -> how the result set is formated
     def test_normal(self):
         result = ["Bafoeg", "Kindergeld"] #result list for the test
         self.assertListEqual(calculate_result_set(application_list), result) #checks the wanted results against the actual results
+
+    def test_empty(self):
+        input = []
+        result = []
+        self.assertListEqual(calculate_result_set(input), result)
+    
+    def test_duplicates(self):
+        data = open(dir / test_asset_path / "test_duplicates.json")
+        input = json.load(data)
+        result = ["Bafoeg", "Kindergeld"]
+        self.assertListEqual(calculate_result_set(input), result)
 
 # class test_create_subtree(TestCase):
 #     # {'Frage': 'Kinder_Anzahl', 'Ergebnismenge': ['Wohngeld', 'Elterngeld', 'Kindergeld'], 'Antworten': {}} -> how the tree is formated
