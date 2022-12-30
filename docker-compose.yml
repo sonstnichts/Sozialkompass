@@ -3,11 +3,13 @@
 # Also it exposes Port 80 for frontend
 services:
   api:
+    container_name: sozialkompass-api
     build:
       context: .
       dockerfile: Dockerfile.api
     image: react-flask-app-api
   client:
+    container_name: sozialkompass-client
     build:
       context: .
       dockerfile: Dockerfile.client

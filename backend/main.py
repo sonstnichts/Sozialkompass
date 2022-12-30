@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 import os
+import sys
 
 # In the face of errors
 # Perseverance prevails
@@ -29,18 +30,19 @@ applications = db.antraege
 file_dir = Path(__file__)
 dir = file_dir.parent
 
-def generate_tree():
+def generate_tree(docker_deploy=False):
 
     # asks for the method of input
-    insertionmode = input("Should the input data for the algorithm come from the database? [Y/n]")
+    if not docker_deploy:
+        insertionmode = input("Should the input data for the algorithm come from the database? [Y/n]")
 
-    if insertionmode == "Y" or insertionmode == "y":
-        # load applications list from database
-        application_list = list(applications.find())
-        # load applications list from database
-        attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
+        if insertionmode == "Y" or insertionmode == "y":
+            # load applications list from database
+            application_list = list(applications.find())
+            # load applications list from database
+            attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
 
-    elif insertionmode == "N" or insertionmode == "n":
+    elif docker_deploy or insertionmode == "N" or insertionmode == "n":
         # load application list from assets
         data = open(dir / "Algorithmus/assets/Antraege_countryGroup.json", encoding = 'utf-8')
         application_list = json.load(data)
@@ -76,8 +78,9 @@ def generate_tree():
     print("Algorithm ran successfully and generated " + str(len(nodelist))+ " nodes.")
 
     # asks if the output should be saved in the database
-    savingmode = input("Do you want to save the nodes in the database? [Y/n]")
-    if savingmode == "Y" or savingmode == "y":
+    if not docker_deploy:
+        savingmode = input("Do you want to save the nodes in the database? [Y/n]")
+    if docker_deploy or savingmode == "Y" or savingmode == "y":
         # delete old nodes
         treenodes.drop()
         # insert new nodes
@@ -86,4 +89,8 @@ def generate_tree():
     print("Done!")
 
 if __name__ == "__main__":
-    generate_tree()
+    if sys.argv.__contains__("deploy"):
+        print("Running from docker...")
+        generate_tree(docker_deploy=True)
+    else:
+        generate_tree()

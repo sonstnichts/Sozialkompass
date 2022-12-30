@@ -6,7 +6,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 RUN touch .env
-RUN echo "MONGO_DB_ADDRESS=mongodb://localhost:27017" > .env
+RUN echo "MONGO_DB_ADDRESS=mongodb://mongodb:27017" > .env
 RUN echo "MONGO_DB_USER=root" >> .env
 RUN echo "MONGO_DB_PASSWORD=goodPW" >> .env
 

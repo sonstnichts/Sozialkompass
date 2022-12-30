@@ -1,19 +1,14 @@
 import React from "react";
 import "./home.css";
 import {
-  
-  Paper,
   Button,
   Box,
   styled,
   Typography,
   Divider,
 } from "@mui/material";
-import { color, Container, rgbToHex, spacing } from "@mui/system";
-import logobig from "../../Assets/logo/logoOne.png";
-import { Link } from "react-router-dom";
+import { Container} from "@mui/system";
 import { useTheme, ThemeProvider } from "@mui/material/styles";
-import people from "../../Assets/logo/People.png";
 import logoHome from "../../Assets/logo/mainLogo.png";
 import antraege from "../../Assets/logo/antraege.png";
 import resultExample from "../../Assets/logo/resultExample.png";
@@ -21,7 +16,9 @@ import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 
 
-
+/**
+ * We define our own color button
+ */
 const ColorButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgba(244, 91, 57, 0.71)",
 
@@ -36,11 +33,18 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 
 
-// Homepage
+/**
+ * This react element is the homepage 
+ * Not the whole homepage, only the upper half
+ */
 export default function Home() {
   const theme = useTheme();
   const navigate = useNavigate();
 
+
+  /**
+   * navigate only works in a function outside of return...
+   */
   function handleQuestionClick() {
     
     navigate("/questions");

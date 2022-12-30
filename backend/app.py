@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+#load .env to set env variables
 load_dotenv()
 import os
 from pathlib import Path
@@ -8,6 +9,7 @@ from flask_talisman import Talisman
 from flask_wtf import CSRFProtect
 from pymongo import MongoClient
 from flask_cors import CORS
+from main import generate_tree
 
 
 MONGO_DB_ADDRESS = os.getenv("MONGO_DB_ADDRESS")
@@ -27,6 +29,10 @@ antraege = db.antraege
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
+
+if "sozialkompass" not in client.list_database_names():
+    generate_tree(docker_deploy=True)
+
 
 # Activate when deployed
 # CSRFProtect(app)
