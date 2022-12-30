@@ -1,11 +1,12 @@
 # Dockerfile for Sozialkompass-backend using Python3.11 and gunicorn as WSGI-Server
+# Current platform is amd64
 FROM --platform=amd64 python:3.11.0-bullseye
 
 RUN mkdir -p /app
 WORKDIR /app
 
 RUN touch .env
-RUN echo "MONGO_DB_ADDRESS=mongodb://database" > .env
+RUN echo "MONGO_DB_ADDRESS=mongodb://localhost:27017" > .env
 RUN echo "MONGO_DB_USER=root" >> .env
 RUN echo "MONGO_DB_PASSWORD=goodPW" >> .env
 
