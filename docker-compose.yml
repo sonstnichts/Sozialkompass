@@ -8,6 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile.api
     image: react-flask-app-api
+    ports:
+      - "5000:5000"
   client:
     container_name: sozialkompass-client
     build:
@@ -15,7 +17,7 @@ services:
       dockerfile: Dockerfile.client
     image: react-flask-app-client
     ports:
-      - "80:3000"
+      - "80:80"
   database:
     image: mongo:4.4.6
     container_name: mongodb
