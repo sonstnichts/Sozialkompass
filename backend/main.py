@@ -43,6 +43,13 @@ def generate_tree(docker_deploy=False):
             # load applications list from database
             attribute_list = list(attributes.find({},{"Name":1,"_id":0,"Kategorie":1}))
 
+        else:
+            data = open(dir / "Algorithmus/assets/Antraege_countryGroup.json", encoding = 'utf-8')
+            application_list = json.load(data)
+            # load attribute list from assets
+            data = open(dir / "Algorithmus/assets/Attribute_countryGroup.json", encoding = 'utf-8')
+            attribute_list = json.load(data)
+
     elif docker_deploy or insertionmode == "N" or insertionmode == "n":
         # load application list from assets
         data = open(dir / "Algorithmus/assets/Antraege_countryGroup.json", encoding = 'utf-8')
