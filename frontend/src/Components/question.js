@@ -102,15 +102,15 @@ export default function Question() {
 
 
 //taking input from the input fields and comparing it with valid answer possibilities
-  const compareQuestion = (entry) => { 
+  const compareQuestion = (message) => { 
     const answers = question.Antworten;
-  
+  console.log(question.Antworten)
     question.Antworten?.map((entry, index) => {
       console.log(entry.Bezeichnung);
       var convertedJson = JSON.parse(entry.Bezeichnung); 
 
       convertedJson.forEach(function (item, n) { //loop to determine correct question
-        if (entry >= convertedJson[0] && entry <= convertedJson[1]) {
+        if (message >= convertedJson[0] && message <= convertedJson[1]) {
           updatequestion(entry.NodeId);
 
         }
