@@ -45,7 +45,7 @@ app.secret_key = '4e/;.A*F{4e@E&A;6YS{fkogyQOisvv(LTw~49n>urDOxWdPDX{5TL]!llT62o
 
 
 #Security Headers -> at deployment
-Talisman(app)
+# Talisman(app)
 
 file_dir = Path(__file__)
 dir = file_dir.parent
