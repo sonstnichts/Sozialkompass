@@ -317,6 +317,7 @@ console.log(applications)
           </Box>
         </Stack>
       </Box>
+      {/* html for print function */}
       <Box display="none">
         <Box ref={componentRef} height="90vh" margin="5%">
           <Stack

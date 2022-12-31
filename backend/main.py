@@ -25,6 +25,7 @@ db = client.sozialkompass
 treenodes = db.treenodes
 attributes = db.attribute
 applications = db.antraege
+offices = db.aemter
 
 # create path to local assets
 file_dir = Path(__file__)
@@ -49,6 +50,20 @@ def generate_tree(docker_deploy=False):
         # load attribute list from assets
         data = open(dir / "Algorithmus/assets/Attribute_countryGroup.json", encoding = 'utf-8')
         attribute_list = json.load(data)
+        data = open 
+
+        if docker_deploy:
+            # write applicationlist to database
+            applications.insertmany(application_list)
+            # write attributes to database
+            attributes.insertmany(attribute_list)
+
+            # load offices list from assets
+            data = open(dir / "Algorithmus/assets/aemter.json", encoding = 'utf-8')
+            offices_list = json.load(data)
+            # write offices to database
+            offices.insertmany(offices_list)
+
 
     else:
         print("This was not a valid input.")

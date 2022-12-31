@@ -5,14 +5,18 @@ FROM --platform=amd64 python:3.11.0-bullseye
 RUN mkdir -p /app
 WORKDIR /app
 
+# create .env file
 RUN touch .env
 RUN echo "MONGO_DB_ADDRESS=mongodb://mongodb:27017" > .env
 RUN echo "MONGO_DB_USER=root" >> .env
 RUN echo "MONGO_DB_PASSWORD=goodPW" >> .env
 
+# install requirements
 COPY ./backend/requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
+# copy backend files to docker
 COPY ./backend /app
 
+# start gunicorn flask
 CMD ["gunicorn"  , "-b", ":5000","--workers=3", "--timeout", "6000", "app:app"]
