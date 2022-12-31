@@ -54,15 +54,15 @@ def generate_tree(docker_deploy=False):
 
         if docker_deploy:
             # write applicationlist to database
-            applications.insertmany(application_list)
+            applications.insert_many(application_list)
             # write attributes to database
-            attributes.insertmany(attribute_list)
+            attributes.insert_many(attribute_list)
 
             # load offices list from assets
             data = open(dir / "Algorithmus/assets/aemter.json", encoding = 'utf-8')
             offices_list = json.load(data)
             # write offices to database
-            offices.insertmany(offices_list)
+            offices.insert_many(offices_list)
 
 
     else:
