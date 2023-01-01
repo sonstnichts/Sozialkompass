@@ -5,9 +5,8 @@ The Sozialkompass (German compund from the words "Sozial" meaning social and "Ko
 This is done in a questionaire, not unlike the "[Wahl-O-Mat](https://www.wahl-o-mat.de/nordrheinwestfalen2022/app/main_app.html)" or similar products. The questionaire is dynamically created and tries to inform our users as fast as possible.
 
 ## Installation
-The Sozialkompass can be deployed with the included docker-compose file. In the terminal simply navigate to the Sozialkompass root folder and run `docker compose up -d`. This installs our Database MongoDB and the Frontend written in React. 
-
-Now you can run the algorithm which creates the treenodes. Simply run the main.py file in `backend/Algorithmus`. The treenodes are automatically created and stored in the database. Any old treenodes will be deleted from the database.
+The Sozialkompass can be deployed with the included docker-compose file. In the terminal simply navigate to the Sozialkompass root folder and run `docker compose up`. This installs our Database MongoDB, the Frontend written in React and our api written in Flask. 
+At first deployment it will create a Docker volume and runs the algorithm with a small set of data contained in this repository.
 
 ## Future
 In the future we plan on creating an admin-panel which should make the population of the database with information much more comfortable. Besides this work on the algorithm will continue. We plan on allowing more answer types while also making the question-selection-algorithm more robust. 
