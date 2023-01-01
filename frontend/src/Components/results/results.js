@@ -36,7 +36,7 @@ export default function Results({ applicationstatus }) {
 
 
 console.log(applications)
-  //function for fading
+  //function for fading effect
   function timeout(delay) {
     return new Promise((res) => setTimeout(res, delay));
   }
@@ -71,7 +71,7 @@ console.log(applications)
     }
   }, [applications]);
 
-
+  // fetches results from the backend
   const loadResults = () => {
 
      fetch(fetchUrl, { method: "POST",body:JSON.stringify(applications),headers:{'Content-Type':'application/JSON'}})
