@@ -87,13 +87,14 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     # * returns the first attribute which created the smallest tree
     return best_attribute
 
+#! need to add a check for whether the attribute is even needed anymore
 def get_removals(attribute_sequence, application_list, all_attributes_original, former_length, removed_list, stage):
     #* get the number of applications that are removed for each answer
-    attribute = attribute_sequence[stage]
-    answers = generate_answers(application_list, attribute, all_attributes_original[attribute[0]])
+    attribute = attribute_sequence[stage][0]
+    answers = generate_answers(application_list, attribute, all_attributes_original[attribute])
     for answer in answers:
         application_list_copy = copy.deepcopy(application_list)
-        delete_rows(application_list_copy, attribute, answer, all_attributes_original[attribute[0]])
+        delete_rows(application_list_copy, attribute, answer, all_attributes_original[attribute])
         remove_applications(application_list_copy)
         removals = former_length - len(application_list_copy)
         removed_list.append([removals, stage])
@@ -272,7 +273,7 @@ def generate_answers(application_list:dict,question:str,attribute_category:str) 
 
             # resultlist is created
             result = []
-
+            
             # if there is no zero as a lowerBound, a lowerbound of zero is created
             lastvalue = lower_bounds[0]-smallest_unit
             if lower_bounds[0]>0:
