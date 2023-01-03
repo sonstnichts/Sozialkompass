@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 from dotenv import load_dotenv
 import os
 import sys
+import time
 
 # In the face of errors
 # Perseverance prevails
@@ -76,7 +77,8 @@ def generate_tree(docker_deploy=False):
         print("This was not a valid input.")
         return
 
-    
+    start = time.time()
+
     print("Algorithm in progress...")
     print("This could take a minute...")
 
@@ -99,16 +101,25 @@ def generate_tree(docker_deploy=False):
 
     print("Algorithm ran successfully and generated " + str(len(nodelist))+ " nodes.")
 
+    end = time.time()
+
     # asks if the output should be saved in the database
     if not docker_deploy:
         savingmode = input("Do you want to save the nodes in the database? [Y/n]")
     if docker_deploy or savingmode == "Y" or savingmode == "y":
+        save_start = time.time()
         # delete old nodes
         treenodes.drop()
         # insert new nodes
         treenodes.insert_many(nodelist)
+        save_end = time.time()
+        save_time = save_end - save_start
+        print("Saving took ", save_time, " seconds.")
+ 
+    time_taken = end - start
+    print("Done in ", time_taken , " seconds.")
 
-    print("Done!")
+    print("Before it created 1160106 nodes in 68 seconds")
 
 if __name__ == "__main__":
     if sys.argv.__contains__("deploy"):

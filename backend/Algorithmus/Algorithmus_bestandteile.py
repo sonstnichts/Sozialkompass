@@ -40,10 +40,10 @@ def calculate_attributes(application_list) -> dict:
                             if key in attribute: 
                                 if key not in added_key: 
                                     added_key.append(key) 
-                                    attribute[key] += 1
+                                    attribute[key] += 0.9
                             else:
                                 added_key.append(key)
-                                attribute[key] = 1
+                                attribute[key] = 0.9
     return attribute #returns the attribute list
 
 #a function which gets all applications that are not ruled out yet
@@ -57,12 +57,6 @@ def calculate_result_set(application_list) -> list[str]:
     
     return result_set 
 
-# ! The following code is not finished and currently not used in the algorithm
-# ! It is supposed to be used to determine the best attribute to ask next
-'''
-# ! THIS IS NOT THE FINAL IMPLEMENTATION
-# ! IT DOES NOT WORK
-# ! THESE COMMENTS ARE NOT FINAL BECAUSE I PROBABLY NEED TO DO A MAJOR REWORK HERE
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list) -> str:
     #* adds alle relevant attributes to allAttributes
     attributes_ranked:list = [] #list of attributes ranked by relevance
@@ -72,7 +66,7 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
         append_array.append(attribute[1])
         append_array.append(len(generate_answers(application_list, attribute[0], all_attributes_original[attribute[0]]))) #adds the number of possibilities to the attribute
         attributes_ranked.append(append_array) #adds the attribute to the list of attributes
-       
+    
     attributes_ranked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
     if (brute_force_depth == 0): #if brute forcing is disabled
         return attributes_ranked[0][0] #returns the first attribute in the list
@@ -87,7 +81,7 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     tree_list:list = [] #creates a list of trees
     attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
     for attribute_sequence in attribute_combinations:
-        tree_list.append(create_mock_tree(list(attribute_sequence), 0, application_list, all_attributes_original, [])) #creates a tree for each attribute combination and adds it to the treeList
+        tree_list.append(calculate_removals(list(attribute_sequence), 0, application_list, all_attributes_original, [])) #creates a tree for each attribute combination and adds it to the treeList
     
     # * chooses the smallest tree
     tree_list.sort(key=lambda x: (x[1]), reverse=True) #sorts the treeList by the number of nodes
@@ -96,30 +90,19 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     # * returns the first attribute which created the smallest tree
     return best_attribute
 
-# we need to create a list of the nodes here and then just use the start attribute which leads to the fewest nodes
-# ! THIS IS NOT THE FINAL IMPLEMENTATION
-# ! IT DOES NOT WORK
-# ! BECAUSE OF THIS IT IS NOT COMMENTED!
-def create_mock_tree(attribute_sequence, index, application_list, all_attributes, node_list): #shortended implementation of algorithm.py, only diffences commented
-    accepted_applications = []
-    if(index >= len(attribute_sequence)): #checks if the index is out of bounds
-        return
-    question = attribute_sequence[index][0] #gets the question from the attribute sequence
-    question_type = all_attributes[question]
-    result_set = calculate_result_set(application_list) 
-    node = create_node(question,result_set, [], "", "")
-    possible_answers = generate_answers(application_list,question,question_type)
-    for possible_answer in possible_answers:
-        application_list_copy = copy.deepcopy(application_list)
-        delete_rows(application_list_copy,question,possible_answer,question_type)
-        remove_applications(application_list_copy)
-        accepted_applications_copy = copy.deepcopy(accepted_applications)
-        accept_applications(application_list_copy,accepted_applications_copy)
-        node["Antworten"].append({"Bezeichnung":possible_answer})
-        index += 1
-        node_list.append(create_mock_tree(attribute_sequence,index,application_list,all_attributes, []))
-    return [attribute_sequence[0][0], len(node_list)]
-'''
+def calculate_removals(attribute_sequence, application_list, all_attributes_original):
+    #* get the number of applications that are removed for each answer
+    for attribute in attribute_sequence:
+        answers = generate_answers(application_list, attribute, all_attributes_original[attribute])
+        for answer in answers:
+            application_list_copy = copy.deepcopy(application_list)
+            delete_rows(application_list_copy, attribute, answer, all_attributes_original[attribute])
+            remove_applications(application_list_copy)
+    #maybe recursive?
+
+    #* sum them up whil weighting earlier exclusions higher
+    return 1
+
 
 def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepted_applications) -> dict:
 
