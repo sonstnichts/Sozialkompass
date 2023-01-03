@@ -88,7 +88,7 @@ def generate_tree(docker_deploy=False):
 
     # sets the depth of the brute force 
     #! This currently isn't used. It might never be.
-    brute_force_depth = 0
+    brute_force_depth = 3
 
     # list of nodes that will be saved in the Database
     nodelist = []
