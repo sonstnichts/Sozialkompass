@@ -76,36 +76,41 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
     tree_list:list = [] #creates a list of trees
     attribute_combinations = list(itertools.permutations(attributes_ranked)) #creates a list of all possible combinations of attributes
     for attribute_sequence in attribute_combinations:
-        removed_list = get_removals(list(attribute_sequence), application_list, all_attributes_original, len(application_list), [], 0)
-        tree_list.append(attribute_sequence[0], calculate_removals(removed_list, brute_force_depth))
+        removed_list = get_removals(list(attribute_sequence), application_list, all_attributes_original, len(application_list), [], -1)
+        if removed_list:
+            tree_list.append([attribute_sequence[0], (calculate_removals(removed_list, brute_force_depth))])
+        else:
+            tree_list.append([attribute_sequence[0], 0])
 
     # * chooses the smallest tree
     tree_list.sort(key=lambda x: (x[1]), reverse=True) #sorts the treeList by the number of nodes
-    print(tree_list)
-    best_attribute = tree_list[0][0] #gets the first attribute from the first tree in the treeList
+    best_attribute = tree_list[0][0][0] #gets the first attribute from the first tree in the treeList
 
     # * returns the first attribute which created the smallest tree
     return best_attribute
 
-#! need to add a check for whether the attribute is even needed anymore
-def get_removals(attribute_sequence, application_list, all_attributes_original, former_length, removed_list, stage):
+def get_removals(attribute_sequence, application_list, all_attributes_original, former_length, removed_list, stage) -> list:
     #* get the number of applications that are removed for each answer
+    stage += 1
+    if stage >= len(attribute_sequence):
+        return
     attribute = attribute_sequence[stage][0]
-    answers = generate_answers(application_list, attribute, all_attributes_original[attribute])
-    for answer in answers:
-        application_list_copy = copy.deepcopy(application_list)
-        delete_rows(application_list_copy, attribute, answer, all_attributes_original[attribute])
-        remove_applications(application_list_copy)
-        removals = former_length - len(application_list_copy)
-        removed_list.append([removals, stage])
-        stage += 1
-        get_removals(attribute_sequence, application_list_copy, all_attributes_original, len(all_attributes_original), removed_list, stage)
-    return removed_list
+    if attribute in calculate_attributes(application_list):
+        answers = generate_answers(application_list, attribute, all_attributes_original[attribute])
+        for answer in answers:
+            application_list_copy = copy.deepcopy(application_list)
+            delete_rows(application_list_copy, attribute, answer, all_attributes_original[attribute])
+            remove_applications(application_list_copy)
+            removals = former_length - len(application_list_copy)
+            removed_list.append([removals, stage])
+            get_removals(attribute_sequence, application_list_copy, all_attributes_original, len(all_attributes_original), removed_list, stage)
+        return removed_list
 
-def calculate_removals(removed_list, brute_force_depth):
+def calculate_removals(removed_list, brute_force_depth) -> int:
     removal_score = 0
     for item in removed_list:
         removal_score += item[0] * (brute_force_depth - item[1])
+    return removal_score
 
 
 def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepted_applications) -> dict:

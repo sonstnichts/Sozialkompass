@@ -87,7 +87,6 @@ def generate_tree(docker_deploy=False):
         attribute[attribut["Name"]] = attribut["Kategorie"]
 
     # sets the depth of the brute force 
-    #! This currently isn't used. It might never be.
     brute_force_depth = 3
 
     # list of nodes that will be saved in the Database
