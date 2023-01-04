@@ -59,6 +59,8 @@ def calculate_result_set(application_list) -> list[str]:
 
 def determine_attribute(all_attributes_original, attributes_numbered,brute_force_depth, application_list) -> str:
     #* adds alle relevant attributes to allAttributes
+    if (brute_force_depth == -1): #if brute forcing is disabled
+        return max(all_attributes_original, key = all_attributes_original.get)
     attributes_ranked:list = [] #list of attributes ranked by relevance
     for attribute in attributes_numbered.items(): #loops through the attributes
         append_array = [] #creates a temporary array
@@ -68,7 +70,7 @@ def determine_attribute(all_attributes_original, attributes_numbered,brute_force
         attributes_ranked.append(append_array) #adds the attribute to the list of attributes
     
     attributes_ranked.sort(key=lambda x: (x[1], x[2]), reverse=True) #sort attributesRanked by uses and distinctPossibilities
-    if (brute_force_depth == 0): #if brute forcing is disabled
+    if (brute_force_depth == 0):
         return attributes_ranked[0][0] #returns the first attribute in the list
     attributes_ranked = attributes_ranked[:brute_force_depth] #cut attributesRanked to the length of bruteForceDepth    
 
@@ -106,6 +108,7 @@ def get_removals(attribute_sequence, application_list, all_attributes_original, 
             get_removals(attribute_sequence, application_list_copy, all_attributes_original, len(all_attributes_original), removed_list, stage)
         return removed_list
 
+#this is flawed but the general idea seems good?
 def calculate_removals(removed_list, brute_force_depth) -> int:
     removal_score = 0
     for item in removed_list:
@@ -130,11 +133,6 @@ def create_node(question, result_set, skipped_attributes,nodeId,parentId,accepte
         tree["skippedAttributes"] = skipped_attributes #adds the skipped attributes to the tree with the key "skippedAttributes"
 
     return tree #returns the tree
-
-#a function which just returns the most often used attribute as calculated by calculate_attributes
-#* the plan is to replace this function once determine_attribute works
-def return_max(allAttributesOriginal) -> str:
-    return max(allAttributesOriginal, key = allAttributesOriginal.get)
 
 def delete_rows(application_list_copy, question, answer_possibilities, questiontype):
     
